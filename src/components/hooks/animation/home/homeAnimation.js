@@ -33,7 +33,7 @@ export const initializeCircleAnimation = (sectionRef) => {
       x: window.innerWidth + 300,
       y: window.innerHeight + 600,
       opacity: 0.3,
-      duration: 4,
+      duration: 5,
       ease: "power1.inOut",
     })
     .to(

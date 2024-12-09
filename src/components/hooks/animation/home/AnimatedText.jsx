@@ -20,7 +20,7 @@ const AnimatedText = ({ text }) => {
         {
           y: 0,
           opacity: 1,
-          duration: 1,
+          duration: 2.5,
           ease: "power3.out",
           stagger: 0.05,
           scrollTrigger: {

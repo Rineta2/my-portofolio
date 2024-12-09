@@ -4,7 +4,7 @@
     position: relative;
     min-height: 100vh;
     overflow: hidden;
-    margin-top: 1rem;
+    margin-top: 3rem;
 
     &__container {
         padding: 1rem 2%;
@@ -96,7 +96,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: -3rem;
 
             .left {
                 display: flex;

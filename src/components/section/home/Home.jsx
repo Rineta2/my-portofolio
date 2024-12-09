@@ -18,8 +18,12 @@ import { initializeCircleAnimation } from "@/components/hooks/animation/home/hom
 
 import AnimatedText from "@/components/hooks/animation/home/AnimatedText";
 
+import { initializeImageAnimation } from "@/components/hooks/animation/home/useHoverImage";
+
 export default function Home() {
   const sectionRef = useRef(null);
+
+  const imageRefs = useRef([]);
 
   useEffect(() => {
     const scrollButton = document.querySelector(`a[href="#skills"]`);
@@ -27,6 +31,9 @@ export default function Home() {
 
     // Initialize circle animation
     const { circle, timeline } = initializeCircleAnimation(sectionRef);
+
+    // Initialize image animation
+    initializeImageAnimation(imageRefs);
 
     return () => {
       cleanup();
@@ -55,9 +62,16 @@ export default function Home() {
             );
           })}
 
-          {homeImg.map((image) => {
+          {homeImg.map((image, index) => {
             return (
-              <div className={styles.img} key={image.id}>
+              <div
+                className={styles.img}
+                key={image.id}
+                ref={(el) => (imageRefs.current[index] = el)}
+                style={{
+                  cursor: "pointer",
+                }}
+              >
                 <Image src={image.img} alt="home" quality={100} />
               </div>
             );

@@ -41,30 +41,44 @@ export function AuthContextProvider({ children }) {
 
             localStorage.setItem("userRole", role);
 
-            const welcomeMessage =
-              role === process.env.NEXT_PUBLIC_ROLE_ADMIN
-                ? `Selamat Datang Kembali, Admin ${userData.firstName}!`
-                : `Selamat Datang Kembali, ${userData.firstName}!`;
+            if (!Cookies.get("authToken")) {
+              const welcomeMessage =
+                role === process.env.NEXT_PUBLIC_ROLE_ADMIN
+                  ? `Selamat Datang Kembali, Admin ${userData.firstName}!`
+                  : `Selamat Datang Kembali, ${userData.firstName}!`;
 
-            toast.success(welcomeMessage, {
-              duration: 3000,
-              position: "top-center",
+              toast.success(welcomeMessage, {
+                duration: 3000,
+                position: "top-center",
+              });
+            }
+
+            Cookies.set("authToken", user.accessToken, {
+              expires: 7,
+              secure: true,
+              sameSite: "Strict",
             });
+
+            const refreshToken = await user.getIdToken();
+            if (refreshToken) {
+              Cookies.set("refreshToken", refreshToken, {
+                expires: 30,
+                secure: true,
+                sameSite: "Strict",
+              });
+            }
           }
         } else {
           setUser(null);
+          Cookies.remove("authToken");
+          Cookies.remove("refreshToken");
         }
       } else {
         setUser(null);
+        Cookies.remove("authToken");
+        Cookies.remove("refreshToken");
       }
       setLoading(false);
-      if (user) {
-        Cookies.set("authToken", user.accessToken, {
-          expires: 7,
-          secure: true,
-          sameSite: "Strict",
-        });
-      }
     });
 
     return () => unsubscribe();
@@ -83,9 +97,14 @@ export function AuthContextProvider({ children }) {
       await signOut(auth);
       setUser(null);
       Cookies.remove("authToken");
+      Cookies.remove("refreshToken");
       router.push("/");
+      toast.success("Berhasil Logout!", {
+        duration: 3000,
+        position: "top-center",
+      });
     } catch (error) {
-      console.error("Logout error:", error);
+      toast.error("Gagal Logout. Silakan coba lagi.");
     }
   };
 
