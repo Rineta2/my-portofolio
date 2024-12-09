@@ -1,0 +1,34 @@
+@import "./variable.scss";
+
+body {
+  color: $text-c;
+  background: rgb(33, 33, 33);
+  background: radial-gradient(circle, rgba(33, 33, 33, 1) 0%, rgba(17, 30, 46, 1) 100%);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-decoration: none;
+}
+
+html {
+  font-size: 85%;
+  scroll-behavior: smooth;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+section {
+  padding: 6rem 1rem;
+}
+
+.container {
+  max-width: 100vw;
+  margin: 0 auto;
+}

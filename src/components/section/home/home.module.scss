@@ -1,0 +1,144 @@
+@import "@/components/styling/variable.scss";
+
+.home {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    margin-top: 1rem;
+
+    &__container {
+        padding: 1rem 2%;
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            place-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+
+            .box {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+
+                .text {
+                    font-size: 1.4rem;
+                    color: $primary-c;
+                    letter-spacing: 2px;
+                    position: relative;
+
+                    &::before {
+                        position: absolute;
+                        top: 10px;
+                        left: -60px;
+                        content: "";
+                        width: 50px;
+                        height: 3px;
+                        background-color: $text-c;
+                    }
+                }
+
+                p {
+                    font-size: 1.2rem;
+                    color: $text-c;
+                }
+
+                .link {
+                    width: 150px;
+                    height: 50px;
+                    background-color: $primary-c;
+                    color: $text-c;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-top: 2rem;
+                    border-radius: 12px;
+                    transition: all 0.3s ease-in-out;
+                    font-size: 1.4rem;
+                    position: relative;
+
+                    &::before {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        content: "";
+                        width: 100%;
+                        height: 100%;
+                        background-color: $text-c;
+                        z-index: -1;
+                        border-radius: 12px;
+                        transition: all 0.3s ease-in-out;
+                    }
+
+                    &:hover {
+                        &::before {
+                            top: 20px;
+                            left: 20px;
+                            z-index: -1;
+                        }
+                    }
+                }
+            }
+
+            .img {
+                width: 100%;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+
+        .bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: -3rem;
+
+            .left {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+                transform-style: preserve-3d;
+                perspective: 500px;
+                cursor: pointer;
+
+                span {
+                    writing-mode: vertical-lr;
+                    font-size: 1.2rem;
+                    letter-spacing: 2px;
+                    transform: rotate(180deg);
+                    backface-visibility: hidden;
+                }
+
+                svg {
+                    backface-visibility: hidden;
+                }
+            }
+
+            .right {
+                display: flex;
+                gap: 1.5rem;
+
+                a {
+                    width: 60px;
+                    height: 60px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 50%;
+                    transition: all 0.3s ease-in-out;
+
+                    &:hover {
+                        background-color: $primary-c;
+                        color: $text-c;
+                    }
+                }
+            }
+        }
+    }
+}
