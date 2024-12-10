@@ -1,4 +1,4 @@
-@import "../../styling/variable.scss";
+@use "../../styling/variable.scss" as *;
 
 .header {
     position: fixed;
@@ -48,6 +48,8 @@
         width: 4%;
         height: auto;
         border-radius: 24px;
+        overflow: hidden;
+        transition: all 1s ease-in-out;
 
         .nav {
             display: flex;

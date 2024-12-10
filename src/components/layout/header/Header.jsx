@@ -131,9 +131,7 @@ export default function Header() {
       </div>
 
       <Link
-        href={`/${
-          user.role === "admin" ? "admin" : `users/${user.uid}`
-        }/dashboard`}
+        href={user.isAdmin ? "/admins/dashboard" : "/users/dashboard"}
         className="dashboard-link"
         onClick={() => setShowProfileMenu(false)}
       >

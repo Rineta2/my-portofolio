@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { notFound } from "next/navigation";
 
 export async function middleware(request) {
   const { pathname } = request.nextUrl;
@@ -14,15 +13,15 @@ export async function middleware(request) {
   try {
     // Admin routes protection
     if (pathname.startsWith("/admin")) {
-      if (userRole !== process.env.NEXT_PUBLIC_ROLE_ADMIN) {
+      if (userRole !== process.env.NEXT_PUBLIC_ROLE_ADMINS) {
         return NextResponse.redirect(new URL("/users/dashboard", request.url));
       }
     }
 
     // User routes protection
     if (pathname.startsWith("/users")) {
-      if (userRole === process.env.NEXT_PUBLIC_ROLE_ADMIN) {
-        return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+      if (userRole !== process.env.NEXT_PUBLIC_ROLE_USERS) {
+        return NextResponse.redirect(new URL("/admins/dashboard", request.url));
       }
     }
 
@@ -34,5 +33,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/users/:path*"],
+  matcher: ["/admins/:path*", "/users/:path*"],
 };

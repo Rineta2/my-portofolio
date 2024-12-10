@@ -35,50 +35,36 @@ export function AuthContextProvider({ children }) {
 
             setUser({
               ...user,
-              isAdmin: role === process.env.NEXT_PUBLIC_ROLE_ADMIN,
+              isAdmin: role === process.env.NEXT_PUBLIC_ROLE_ADMINS,
               role: role,
             });
 
             localStorage.setItem("userRole", role);
 
-            if (!Cookies.get("authToken")) {
-              const welcomeMessage =
-                role === process.env.NEXT_PUBLIC_ROLE_ADMIN
-                  ? `Selamat Datang Kembali, Admin ${userData.firstName}!`
-                  : `Selamat Datang Kembali, ${userData.firstName}!`;
+            const welcomeMessage =
+              role === process.env.NEXT_PUBLIC_ROLE_ADMINS
+                ? `Selamat Datang Kembali, Admin ${userData.firstName}!`
+                : `Selamat Datang Kembali, ${userData.firstName}!`;
 
-              toast.success(welcomeMessage, {
-                duration: 3000,
-                position: "top-center",
-              });
-            }
-
-            Cookies.set("authToken", user.accessToken, {
-              expires: 7,
-              secure: true,
-              sameSite: "Strict",
+            toast.success(welcomeMessage, {
+              duration: 3000,
+              position: "top-center",
             });
-
-            const refreshToken = await user.getIdToken();
-            if (refreshToken) {
-              Cookies.set("refreshToken", refreshToken, {
-                expires: 30,
-                secure: true,
-                sameSite: "Strict",
-              });
-            }
           }
         } else {
           setUser(null);
-          Cookies.remove("authToken");
-          Cookies.remove("refreshToken");
         }
       } else {
         setUser(null);
-        Cookies.remove("authToken");
-        Cookies.remove("refreshToken");
       }
       setLoading(false);
+      if (user) {
+        Cookies.set("authToken", user.accessToken, {
+          expires: 7,
+          secure: true,
+          sameSite: "Strict",
+        });
+      }
     });
 
     return () => unsubscribe();
@@ -97,14 +83,9 @@ export function AuthContextProvider({ children }) {
       await signOut(auth);
       setUser(null);
       Cookies.remove("authToken");
-      Cookies.remove("refreshToken");
       router.push("/");
-      toast.success("Berhasil Logout!", {
-        duration: 3000,
-        position: "top-center",
-      });
     } catch (error) {
-      toast.error("Gagal Logout. Silakan coba lagi.");
+      console.error("Logout error:", error);
     }
   };
 
