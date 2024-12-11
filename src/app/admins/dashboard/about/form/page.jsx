@@ -4,8 +4,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import styles from "@/app/admins/layout.module.scss";
 import { Toaster } from "react-hot-toast";
 import { useAboutForm } from "@/components/hooks/admin/about/utils/useAboutForm";
-import { FormField } from "@/components/hooks/admin/about/FormField";
-import { ImagePreview } from "@/components/hooks/admin/about/ImagePriview";
+import { FormField } from "@/components/hooks/admin/about/form/FormField";
+import { ImagePreview } from "@/components/hooks/admin/about/form/ImagePriview";
 
 export default function FormAbout() {
   const router = useRouter();
@@ -77,8 +77,8 @@ export default function FormAbout() {
                 ? "Updating..."
                 : "Submitting..."
               : id
-              ? "Update"
-              : "Submit"}
+                ? "Update"
+                : "Submit"}
           </button>
         </form>
       </div>

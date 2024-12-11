@@ -407,5 +407,420 @@
             width: 100%;
             overflow-x: hidden;
         }
+
+        .about {
+            &__container {
+                padding: 1rem 2%;
+
+                .toolbar {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 5rem;
+
+                    h1 {
+                        font-size: 2rem;
+                        letter-spacing: 2px;
+                    }
+
+                    a {
+                        padding: 1rem 1rem;
+                        border-radius: 0.5rem;
+                        background: $primary-c;
+                        color: $background-c;
+                        text-decoration: none;
+                        font-size: 1.2rem;
+                        transition: all 0.3s ease;
+                        display: flex;
+                        align-items: center;
+                        color: $text-c;
+                        gap: 0.5rem;
+                    }
+                }
+
+                .listItem {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 2rem;
+
+                    .listItem__image {
+                        border-radius: 12px;
+                        overflow: hidden;
+                    }
+
+                    .listItem__content {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 2rem;
+                        h1 {
+                            font-size: 2rem;
+                        }
+
+                        p {
+                            font-size: 1.2rem;
+                            line-height: 1.5;
+                        }
+
+                        .listItem__actions {
+                            display: flex;
+                            gap: 1rem;
+                            margin-top: 2rem;
+
+                            .btn__edit,
+                            .btn__delete {
+                                padding: 8px 16px;
+                                border-radius: 6px;
+                                font-size: 14px;
+                                transition: all 0.2s;
+                                white-space: nowrap;
+                                cursor: pointer;
+                            }
+
+                            .btn__edit {
+                                background-color: #3b82f6;
+                                color: white;
+                                text-decoration: none;
+                                border: none;
+                            }
+
+                            .btn__edit:hover {
+                                background-color: #2563eb;
+                            }
+
+                            .btn__delete {
+                                background-color: #ef4444;
+                                color: white;
+                                border: none;
+                            }
+
+                            .btn__delete:hover {
+                                background-color: #dc2626;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        //============== SKills ==============//
+
+        .skills {
+            &__container {
+                padding: 1rem 2%;
+
+                .toolbar {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 5rem;
+
+                    .heading {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 1rem;
+
+                        h1 {
+                            font-size: 2rem;
+                            letter-spacing: 2px;
+                        }
+
+                        input {
+                            padding: 1rem 1rem;
+                            border-radius: 0.5rem;
+                            border: 1px solid #e2e8f0;
+                            font-size: 1.2rem;
+                        }
+                    }
+
+                    a {
+                        padding: 1rem 1rem;
+                        border-radius: 0.5rem;
+                        background: $primary-c;
+                        color: $background-c;
+                        text-decoration: none;
+                        font-size: 1.2rem;
+                        transition: all 0.3s ease;
+                        display: flex;
+                        align-items: center;
+                        color: $text-c;
+                        gap: 0.5rem;
+                    }
+                }
+
+                .tableContainer {
+                    width: 100%;
+                    overflow-x: auto;
+                    margin: 1rem 0;
+                    border-radius: 8px;
+
+                    .table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        border-radius: 8px;
+                        overflow: hidden;
+                        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+                        thead {
+                            background-color: $text-c;
+
+                            th {
+                                padding: 1rem;
+                                text-align: center;
+                                font-weight: 600;
+                                color: #2d3748;
+                                text-transform: uppercase;
+                                font-size: 0.875rem;
+                                font-size: 1.3rem;
+                                border-bottom: 2px solid #edf2f7;
+                            }
+                        }
+
+                        tbody {
+                            tr {
+                                &:not(:last-child) {
+                                    border-bottom: 1px solid #edf2f7;
+                                }
+                            }
+
+                            td {
+                                padding: 1rem;
+                                color: $text-c;
+                                vertical-align: middle;
+                                text-align: center;
+                                font-size: 1.2rem;
+                                .editIcon,
+                                .deleteIcon {
+                                    cursor: pointer;
+                                    transition: color 0.2s ease;
+                                }
+
+                                .editIcon {
+                                    color: #4299e1;
+                                    margin-right: 1rem;
+                                    &:hover {
+                                        color: #2b6cb0;
+                                    }
+                                }
+
+                                .deleteIcon {
+                                    color: #f56565;
+
+                                    &:hover {
+                                        color: #c53030;
+                                    }
+                                }
+
+                                button {
+                                    background: none;
+                                    border: none;
+                                    padding: 0;
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+
+                        @media screen and (max-width: 768px) {
+                            display: block;
+                            overflow-x: auto;
+                            white-space: nowrap;
+                            -webkit-overflow-scrolling: touch;
+
+                            thead {
+                                th {
+                                    padding: 0.75rem;
+                                }
+                            }
+
+                            tbody {
+                                td {
+                                    padding: 0.75rem;
+                                }
+                            }
+                        }
+
+                        // Untuk layar sangat kecil
+                        @media screen and (max-width: 480px) {
+                            thead {
+                                th {
+                                    padding: 0.5rem;
+                                    font-size: 0.75rem;
+                                }
+                            }
+
+                            tbody {
+                                td {
+                                    padding: 0.5rem;
+                                    font-size: 0.875rem;
+                                }
+                            }
+
+                            .editIcon,
+                            .deleteIcon {
+                                font-size: 1.125rem;
+                            }
+                        }
+                    }
+
+                    @media screen and (max-width: 768px) {
+                        -webkit-overflow-scrolling: touch;
+                        &::-webkit-scrollbar {
+                            height: 4px;
+                        }
+
+                        &::-webkit-scrollbar-track {
+                            background: #f1f1f1;
+                        }
+
+                        &::-webkit-scrollbar-thumb {
+                            background: #888;
+                            border-radius: 4px;
+                        }
+                    }
+                }
+
+                .pagination {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-top: 3rem;
+
+                    span {
+                        font-size: 1.2rem;
+                        font-weight: 500;
+                    }
+
+                    .pagination__controls {
+                        display: flex;
+                        gap: 1rem;
+
+                        button {
+                            padding: 0.5rem 1rem;
+                            border-radius: 0.5rem;
+                            background: $primary-c;
+                            color: $text-c;
+                            text-decoration: none;
+                            font-size: 1.2rem;
+                            border: none;
+                            cursor: pointer;
+
+                            &:disabled {
+                                background: #e2e8f0;
+                                color: #a0aec0;
+                                cursor: not-allowed;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .skillsForm {
+            &__container {
+                padding: 1rem 2%;
+                .toolbar {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    h1 {
+                        font-size: 1.8rem;
+                        color: $text-c;
+                        margin-bottom: 2rem;
+                        font-weight: 600;
+                    }
+
+                    a {
+                        padding: 1rem 1rem;
+                        border-radius: 0.5rem;
+                        background: $primary-c;
+                        color: $text-c;
+                        text-decoration: none;
+                        font-size: 1.2rem;
+                    }
+                }
+            }
+
+            form {
+                max-width: 1000px;
+                margin: 0 auto;
+                background: white;
+                padding: 2rem;
+                border-radius: 16px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+                .formGroup {
+                    margin-bottom: 1.5rem;
+
+                    label {
+                        display: block;
+                        margin-bottom: 0.5rem;
+                        font-weight: 500;
+                        color: #4a5568;
+                    }
+
+                    input {
+                        width: 100%;
+                        padding: 0.75rem 1rem;
+                        border: 2px solid #e2e8f0;
+                        border-radius: 8px;
+                        font-size: 1rem;
+                        transition: all 0.3s ease;
+
+                        &:focus {
+                            outline: none;
+                            border-color: #4299e1;
+                            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+                        }
+
+                        &::placeholder {
+                            color: #a0aec0;
+                        }
+                    }
+                }
+
+                .iconPreview {
+                    margin-top: 2rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #4a5568;
+                }
+
+                .formActions {
+                    display: flex;
+                    gap: 1rem;
+                    margin-top: 2rem;
+
+                    button {
+                        flex: 1;
+                        padding: 0.75rem 1.5rem;
+                        border-radius: 8px;
+                        font-weight: 500;
+                        transition: all 0.3s ease;
+
+                        &[type="button"] {
+                            background: #e2e8f0;
+                            color: #4a5568;
+                            border: none;
+
+                            &:hover {
+                                background: #cbd5e0;
+                            }
+                        }
+
+                        &[type="submit"] {
+                            background: #4299e1;
+                            color: white;
+                            border: none;
+
+                            &:hover {
+                                background: #3182ce;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

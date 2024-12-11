@@ -1,15 +1,19 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
+
 import { auth, db } from "@/utils/firebase";
+
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+
 import { doc, getDoc } from "firebase/firestore";
+
 import { useRouter } from "next/navigation";
-import { toast } from "react-hot-toast";
+
 import Cookies from "js-cookie";
 
 const AuthContext = createContext({});
@@ -23,40 +27,24 @@ export function AuthContextProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        if (user.emailVerified) {
-          const userDoc = await getDoc(
-            doc(db, process.env.NEXT_PUBLIC_API_USER, user.uid)
-          );
+      if (user && user.emailVerified) {
+        const userDoc = await getDoc(
+          doc(db, process.env.NEXT_PUBLIC_API_USER, user.uid)
+        );
 
-          if (userDoc.exists()) {
-            const userData = userDoc.data();
-            const role = userData.role;
-
-            setUser({
-              ...user,
-              isAdmin: role === process.env.NEXT_PUBLIC_ROLE_ADMINS,
-              role: role,
-            });
-
-            localStorage.setItem("userRole", role);
-
-            const welcomeMessage =
-              role === process.env.NEXT_PUBLIC_ROLE_ADMINS
-                ? `Selamat Datang Kembali, Admin ${userData.firstName}!`
-                : `Selamat Datang Kembali, ${userData.firstName}!`;
-
-            toast.success(welcomeMessage, {
-              duration: 3000,
-              position: "top-center",
-            });
-          }
-        } else {
-          setUser(null);
+        if (userDoc.exists()) {
+          const { role } = userDoc.data();
+          setUser({
+            ...user,
+            isAdmin: role === process.env.NEXT_PUBLIC_ROLE_ADMINS,
+            role,
+          });
+          localStorage.setItem("userRole", role);
         }
       } else {
         setUser(null);
       }
+
       setLoading(false);
       if (user) {
         Cookies.set("authToken", user.accessToken, {
@@ -74,7 +62,8 @@ export function AuthContextProvider({ children }) {
     try {
       return await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
-      toast.error("Login failed. Please check your credentials.");
+      console.error("Login error:", error);
+      throw error; // Let the component handle the error
     }
   };
 
