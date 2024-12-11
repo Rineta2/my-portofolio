@@ -5,6 +5,8 @@ import { gsap } from "gsap";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import styles from "@/components/section/home/home.module.scss";
+
 gsap.registerPlugin(ScrollTrigger);
 
 const AnimatedText = ({ text }) => {
@@ -41,7 +43,7 @@ const AnimatedText = ({ text }) => {
   return (
     <div
       ref={textRef}
-      className="text-item"
+      className={styles.textItem}
       style={{
         display: "flex",
         gap: "1rem",
@@ -51,12 +53,7 @@ const AnimatedText = ({ text }) => {
       {text.split("").map((char, index) => (
         <h1
           key={index}
-          className="char"
-          style={{
-            display: "inline-block",
-            fontWeight: "800",
-            fontSize: "4rem",
-          }}
+          className={styles.char}
         >
           {char}
         </h1>
