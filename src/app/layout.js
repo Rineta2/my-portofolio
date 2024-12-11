@@ -1,5 +1,7 @@
 import { metadata } from "@/components/hooks/meta/metadata";
 
+metadata.manifest = "/manifest.json";
+
 export { metadata };
 
 import { Noto_Sans } from "next/font/google";

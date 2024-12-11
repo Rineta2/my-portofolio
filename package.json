@@ -16,6 +16,7 @@
     "libphonenumber-js": "^1.11.16",
     "lucide-react": "^0.468.0",
     "next": "15.0.4",
+    "next-pwa": "^5.6.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
