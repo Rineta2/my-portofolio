@@ -1,3 +1,5 @@
+import styles from "@/app/admins/layout.module.scss";
+
 export const FormField = ({
   label,
   name,
@@ -10,14 +12,14 @@ export const FormField = ({
   const Component = isTextArea ? "textarea" : "input";
 
   return (
-    <div className="mb-4">
-      <label className="block mb-2">{label}:</label>
+    <div className={styles.formField}>
+      <label>{label}:</label>
       <Component
         type={type}
         name={name}
         value={value}
         onChange={onChange}
-        className="border p-2 w-full"
+        className={styles.formField__input}
         {...props}
       />
     </div>

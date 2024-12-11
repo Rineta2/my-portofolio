@@ -2,14 +2,14 @@ import { metadata } from "@/components/hooks/meta/metadata";
 
 export { metadata };
 
-import "@/components/styling/globals.scss";
-
 import { Noto_Sans } from "next/font/google";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
   weight: ["400", "700"],
 });
+
+import "@/components/styling/globals.scss";
 
 import Providers from "@/utils/auth/Provider";
 

@@ -1,6 +1,8 @@
 import { gsap } from "gsap";
 
 export const initializeImageAnimation = (imageRefs) => {
+  const cleanupFunctions = [];
+
   imageRefs.current?.forEach((el) => {
     if (!el) return;
 
@@ -20,9 +22,12 @@ export const initializeImageAnimation = (imageRefs) => {
     };
 
     el.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
+    cleanupFunctions.push(() => {
       el.removeEventListener("mousemove", handleMouseMove);
-    };
+    });
   });
+
+  return () => {
+    cleanupFunctions.forEach((cleanup) => cleanup());
+  };
 };

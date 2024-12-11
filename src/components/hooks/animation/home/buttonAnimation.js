@@ -9,10 +9,10 @@ export const initializeButtonAnimation = (scrollButton) => {
     const y = e.clientY - rect.top - rect.height / 2;
 
     gsap.to(scrollButton, {
-      duration: 0.8,
-      x: x * 0.15,
-      y: y * 0.15,
-      rotation: x * 0.02,
+      duration: 1.2,
+      x: x * 0.25,
+      y: y * 0.25,
+      rotation: x * 0.035,
       ease: "power3.out",
       overwrite: "auto",
     });
@@ -20,11 +20,11 @@ export const initializeButtonAnimation = (scrollButton) => {
 
   const handleMouseLeave = () => {
     gsap.to(scrollButton, {
-      duration: 1.2,
+      duration: 1.5,
       x: 0,
       y: 0,
       rotation: 0,
-      ease: "elastic.out(1, 0.2)",
+      ease: "elastic.out(1, 0.15)",
       overwrite: true,
     });
   };

@@ -1,10 +1,16 @@
 "use client";
 import React from "react";
+
 import { useRouter, useSearchParams } from "next/navigation";
+
 import styles from "@/app/admins/layout.module.scss";
+
 import { Toaster } from "react-hot-toast";
+
 import { useAboutForm } from "@/components/hooks/admin/about/utils/useAboutForm";
+
 import { FormField } from "@/components/hooks/admin/about/form/FormField";
+
 import { ImagePreview } from "@/components/hooks/admin/about/form/ImagePriview";
 
 export default function FormAbout() {
@@ -23,12 +29,17 @@ export default function FormAbout() {
   } = useAboutForm(id, router);
 
   return (
-    <section className={styles.about}>
+    <section className={styles.about__form}>
       <Toaster position="top-center" />
-      <div className={`${styles.about__container} ${styles.container}`}>
-        <h1>{id ? "Edit" : "Add"} About</h1>
 
-        <form onSubmit={handleSubmit} className="mb-8">
+      <div className={`${styles.about__container} ${styles.container}`}>
+        <div className={styles.toolbar}>
+          <h1>{id ? "Edit" : "Add"} About</h1>
+
+          <button onClick={() => router.back()}>Back</button>
+        </div>
+
+        <form onSubmit={handleSubmit} className={styles.form}>
           <FormField
             label="Title"
             name="title"
@@ -37,39 +48,43 @@ export default function FormAbout() {
             required
           />
 
-          <FormField
-            label="Description"
-            name="description"
-            value={formData.description}
-            onChange={handleInputChange}
-            isTextArea
-            required
-          />
+          <div className={styles.form__group}>
+            <FormField
+              label="Description"
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+              isTextArea
+              required
+            />
 
-          <FormField
-            label="Description 2"
-            name="description2"
-            value={formData.description2}
-            onChange={handleInputChange}
-            isTextArea
-            required
-          />
+            <FormField
+              label="Description 2"
+              name="description2"
+              value={formData.description2}
+              onChange={handleInputChange}
+              isTextArea
+              required
+            />
+          </div>
 
-          <FormField
-            label="Image"
-            type="file"
-            onChange={handleImageChange}
-            accept="image/*"
-          />
+          <div className={styles.form__group}>
+            <FormField
+              label="Image"
+              type="file"
+              onChange={handleImageChange}
+              accept="image/*"
+            />
 
-          <ImagePreview
-            currentImageUrl={currentImageUrl}
-            previewUrl={previewUrl}
-          />
+            <ImagePreview
+              currentImageUrl={currentImageUrl}
+              previewUrl={previewUrl}
+            />
+          </div>
 
           <button
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+            className={styles.form__submit}
             disabled={isLoading}
           >
             {isLoading
