@@ -1,24 +1,35 @@
 {
-  "name": "My Portfolio - Rizki Ramadhani",
-  "short_name": "Portfolio",
-  "description": "Seputar pengalaman dan proyek yang sudah saya kerjakan",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#00B6AB",
-  "orientation": "portrait",
+  "short_name": "Rizki Ramadhan",
+  "name": "My Portfolio App",
   "icons": [
     {
-      "src": "/favicon.ico",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
     },
     {
-      "src": "/favicon.ico",
-      "sizes": "512x512",
+      "src": "logo192.png",
       "type": "image/png",
-      "purpose": "any maskable"
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
-  ]
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "prefer_related_applications": false,
+  "categories": ["productivity"],
+  "screenshots": [
+    {
+      "src": "https://rzki-r-my-porto.vercel.app/favicon.ico",
+      "sizes": "1920x1080",
+      "type": "image/png"
+    }
+  ],
+  "description": "My Portfolio"
 }
