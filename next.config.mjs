@@ -2,7 +2,16 @@ import withPWA from "next-pwa";
 
 const nextConfig = {
   images: {
-    domains: ["ik.imagekit.io"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ik.imagekit.io",
+      },
+    ],
+  },
+
+  sassOptions: {
+    silenceDeprecations: ["legacy-js-api"],
   },
 };
 

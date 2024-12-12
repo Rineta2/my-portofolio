@@ -14,7 +14,7 @@ const AnimatedText = ({ text }) => {
 
   useEffect(() => {
     if (textRef.current && typeof text === "string") {
-      const chars = textRef.current.querySelectorAll(".char");
+      const chars = textRef.current.querySelectorAll("h1");
 
       gsap.fromTo(
         chars,

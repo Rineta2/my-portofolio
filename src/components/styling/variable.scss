@@ -1,3 +1,20 @@
 $primary-c: #ad947d;
 $background-c: #212121;
 $text-c: #e8e8e8;
+
+@mixin glass-effect {
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+}
+
+@mixin justify-flex-center {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
