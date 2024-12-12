@@ -19,6 +19,8 @@ import styles from "@/components/layout/header/header.module.scss";
 
 import { toast } from "react-hot-toast";
 
+import Cookies from "js-cookie";
+
 export default function Register({ onTabChange }) {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -108,12 +110,19 @@ export default function Register({ onTabChange }) {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         uid: userCredential.user.uid,
+        isNewUser: true,
       };
 
       await setDoc(
         doc(db, process.env.NEXT_PUBLIC_API_USER, userCredential.user.uid),
         userData
       );
+
+      Cookies.set('isNewRegistration', 'true', {
+        expires: 1 / 24,
+        secure: true,
+        sameSite: "Strict"
+      });
 
       toast.success("Silakan cek email Anda untuk verifikasi akun");
       onTabChange("login");

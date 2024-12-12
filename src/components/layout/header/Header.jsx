@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+
 import { usePathname } from "next/navigation";
+
 import { useAuth } from "@/utils/auth/AuthContext";
 
 import styles from "@/components/layout/header/header.module.scss";

@@ -1,14 +1,16 @@
 import {
-  FolderKanban,
   Users,
-  ArrowRightLeft,
-  Library,
+  Briefcase,
+  Award,
   LayoutDashboard,
   Newspaper,
   Mail,
   Home,
+  CircleUserRound,
   Settings,
 } from "lucide-react";
+
+import { SiSkillshare } from "react-icons/si";
 
 export const navbar = [
   {
@@ -21,28 +23,28 @@ export const navbar = [
   {
     id: 2,
     name: "About",
-    icon: <FolderKanban size={32} />,
+    icon: <CircleUserRound size={32} />,
     path: "/admins/dashboard/about",
   },
 
   {
     id: 3,
-    name: "Archive",
-    icon: <Users size={32} />,
-    path: "/admins/dashboard/archive",
+    name: "Achievement",
+    icon: <Award size={32} />,
+    path: "/admins/dashboard/achievement",
   },
 
   {
     id: 4,
     name: "Skills",
-    icon: <ArrowRightLeft size={32} />,
+    icon: <SiSkillshare size={32} />,
     path: "/admins/dashboard/skills",
   },
 
   {
     id: 5,
     name: "Project",
-    icon: <Newspaper size={32} />,
+    icon: <Briefcase size={32} />,
     submenu: [
       {
         id: 1,
@@ -61,7 +63,7 @@ export const navbar = [
   {
     id: 6,
     name: "Article",
-    icon: <Mail size={32} />,
+    icon: <Newspaper size={32} />,
     submenu: [
       {
         id: 1,
@@ -86,7 +88,7 @@ export const navbar = [
   {
     id: 7,
     name: "Users",
-    icon: <Settings size={32} />,
+    icon: <Users size={32} />,
     submenu: [
       {
         id: 1,
@@ -105,7 +107,7 @@ export const navbar = [
   {
     id: 8,
     name: "Contact",
-    icon: <Home size={32} />,
+    icon: <Mail size={32} />,
     path: "/admins/dashboard/contact",
   },
 

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
 
 import { useAuth } from "@/utils/auth/AuthContext";
 
@@ -10,6 +9,8 @@ import AuthModalContent from "@/components/hooks/layout/auth/AuthModalContent";
 import styles from "@/components/layout/header/header.module.scss";
 
 import useModalEffects from "@/components/tools/useModalEffect";
+
+import { openModalAnimation, closeModalAnimation } from "@/components/hooks/animation/header/authModalAnimation";
 
 export default function AuthModal({ isOpen, onClose, activeTab, onTabChange }) {
   const { user } = useAuth();
@@ -26,36 +27,9 @@ export default function AuthModal({ isOpen, onClose, activeTab, onTabChange }) {
 
   useEffect(() => {
     if (isOpen) {
-      gsap.to(modalRef.current, {
-        duration: 0.3,
-        opacity: 1,
-        display: "grid",
-        scale: 1,
-        ease: "power2.out"
-      });
-      gsap.from(contentRef.current, {
-        duration: 0.4,
-        y: -50,
-        opacity: 0,
-        ease: "power2.out"
-      });
+      openModalAnimation(modalRef.current, contentRef.current);
     } else if (modalRef.current) {
-      gsap.to(modalRef.current, {
-        duration: 0.3,
-        opacity: 0,
-        scale: 0.8,
-        ease: "power2.in",
-        onComplete: () => {
-          gsap.set(modalRef.current, { display: "none" });
-        }
-      });
-
-      gsap.to(contentRef.current, {
-        duration: 0.3,
-        y: 20,
-        opacity: 0,
-        ease: "power2.in"
-      });
+      closeModalAnimation(modalRef.current, contentRef.current);
     }
   }, [isOpen]);
 

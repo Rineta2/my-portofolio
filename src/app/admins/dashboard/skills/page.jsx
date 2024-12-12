@@ -1,4 +1,5 @@
 import React from "react";
+
 import SkillContent from "@/components/hooks/admin/skills/SkillContent";
 
 export async function generateMetadata() {
