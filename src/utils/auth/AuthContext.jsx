@@ -69,9 +69,34 @@ export function AuthContextProvider({ children }) {
   const login = async (email, password) => {
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
+
+      if (!result.user.emailVerified) {
+        toast.error('Silakan verifikasi email Anda terlebih dahulu');
+        await signOut(auth);
+        return null;
+      }
+
       return result;
     } catch (error) {
       console.error("Login error:", error);
+
+      switch (error.code) {
+        case 'auth/invalid-credential':
+          toast.error('Email atau password salah');
+          break;
+        case 'auth/user-not-found':
+          toast.error('Akun tidak ditemukan');
+          break;
+        case 'auth/wrong-password':
+          toast.error('Password salah');
+          break;
+        case 'auth/too-many-requests':
+          toast.error('Terlalu banyak percobaan login. Silakan coba lagi nanti');
+          break;
+        default:
+          toast.error('Terjadi kesalahan. Silakan coba lagi');
+      }
+
       throw error;
     }
   };
