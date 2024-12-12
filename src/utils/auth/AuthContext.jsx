@@ -20,51 +20,67 @@ export function AuthContextProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user && user.emailVerified) {
-        const userDoc = await getDoc(doc(db, process.env.NEXT_PUBLIC_API_USER, user.uid));
+      try {
+        if (user?.emailVerified) {
+          const userDoc = await getDoc(doc(db, process.env.NEXT_PUBLIC_API_USER, user.uid));
 
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          const isNewRegistration = Cookies.get('isNewRegistration');
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
+            const isNewRegistration = Cookies.get('isNewRegistration');
 
-          setUser({
-            ...user,
-            ...userData,
-            displayName: userData.firstName + ' ' + userData.lastName,
-            isAdmin: userData.role === process.env.NEXT_PUBLIC_ROLE_ADMINS,
-            role: userData.role,
-          });
+            const updatedUser = {
+              ...user,
+              ...userData,
+              displayName: `${userData.firstName} ${userData.lastName}`,
+              isAdmin: userData.role === process.env.NEXT_PUBLIC_ROLE_ADMINS,
+              role: userData.role,
+            };
 
-          if (isNewRegistration) {
-            toast.success('Selamat datang di aplikasi kami!');
-            Cookies.remove('isNewRegistration');
-          } else if (!isInitialMount.current) {
-            toast.success(`Selamat datang kembali, ${userData.firstName}!`);
+            setUser(updatedUser);
+            Cookies.set('authToken', user.accessToken, {
+              expires: 7,
+              secure: true,
+              sameSite: 'Strict',
+            });
+
+            if (isNewRegistration) {
+              toast.success('Selamat datang di aplikasi kami!');
+              Cookies.remove('isNewRegistration');
+            } else if (!isInitialMount.current) {
+              toast.success(`Selamat datang kembali, ${userData.firstName}!`);
+            }
+
+            Cookies.set('lastLoginTime', new Date().toISOString(), {
+              expires: 7,
+              secure: true,
+              sameSite: 'Strict',
+            });
           }
-
-          Cookies.set('lastLoginTime', new Date().toISOString(), {
-            expires: 7,
-            secure: true,
-            sameSite: "Strict"
-          });
+        } else {
+          setUser(null);
         }
-      } else {
-        setUser(null);
-      }
-
-      setLoading(false);
-      if (user) {
-        Cookies.set("authToken", user.accessToken, {
-          expires: 7,
-          secure: true,
-          sameSite: "Strict",
-        });
+      } catch (error) {
+        console.error('Auth state change error:', error);
+        toast.error('Terjadi kesalahan saat memuat data pengguna');
+      } finally {
+        setLoading(false);
       }
     });
 
     isInitialMount.current = false;
     return () => unsubscribe();
   }, []);
+
+  const handleAuthError = (error) => {
+    const errorMessages = {
+      'auth/invalid-credential': 'Email atau password salah',
+      'auth/user-not-found': 'Akun tidak ditemukan',
+      'auth/wrong-password': 'Password salah',
+      'auth/too-many-requests': 'Terlalu banyak percobaan login. Silakan coba lagi nanti',
+    };
+
+    toast.error(errorMessages[error.code] || 'Terjadi kesalahan. Silakan coba lagi');
+  };
 
   const login = async (email, password) => {
     try {
@@ -78,25 +94,7 @@ export function AuthContextProvider({ children }) {
 
       return result;
     } catch (error) {
-      console.error("Login error:", error);
-
-      switch (error.code) {
-        case 'auth/invalid-credential':
-          toast.error('Email atau password salah');
-          break;
-        case 'auth/user-not-found':
-          toast.error('Akun tidak ditemukan');
-          break;
-        case 'auth/wrong-password':
-          toast.error('Password salah');
-          break;
-        case 'auth/too-many-requests':
-          toast.error('Terlalu banyak percobaan login. Silakan coba lagi nanti');
-          break;
-        default:
-          toast.error('Terjadi kesalahan. Silakan coba lagi');
-      }
-
+      handleAuthError(error);
       throw error;
     }
   };

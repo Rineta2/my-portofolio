@@ -1,3 +1,5 @@
+const BASE_URL = "https://rzki-r-my-porto.vercel.app";
+
 export const metadata = {
   title: "My Portfolio - Rizki Ramadhan",
   description: "Seputar pengalaman dan proyek yang sudah saya kerjakan",
@@ -8,63 +10,33 @@ export const metadata = {
     "Aplikasi Mobile",
     "Portfolio",
   ],
-  link: [
-    {
-      rel: "icon",
-      href: "/favicon.ico",
-      sizes: "64x64 32x32 24x24 16x16",
-      type: "image/x-icon",
-    },
-  ],
-  link: [
-    {
-      rel: "manifest",
-      href: "/manifest.json",
-    },
-  ],
-  link: [
-    {
-      rel: "apple-touch-icon",
-      href: "/favicon.ico",
-      type: "image/x-icon",
-      sizes: "64x64 32x32 24x24 16x16",
-    },
-  ],
-  meta: [
-    {
-      name: "theme-color",
-      content: "#ffffff",
-    },
-  ],
-  meta: [
-    {
-      name: "mobile-web-app-capable",
-      content: "yes",
-    },
-  ],
-  meta: [
-    {
-      name: "apple-mobile-web-app-capable",
-      content: "yes",
-    },
-  ],
-  meta: [
-    {
-      name: "manifest",
-      content: "/manifest.json",
-    },
-  ],
+
   icons: {
-    icon: "/favicon.ico",
-    apple: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    appleTouchIcon: "/favicon.ico",
-    other: {
-      rel: "manifest",
-      url: "/manifest.json",
-    },
+    icon: [
+      {
+        url: "/icon.png",
+        sizes: "64x64 32x32 24x24 16x16",
+        type: "image/x-icon",
+      },
+    ],
+    apple: "/icon.png",
+    shortcut: "/icon.png",
+    appleTouchIcon: "/icon.png",
   },
+
+  // Manifest configuration
   manifest: "/manifest.json",
+
+  // Base URL for metadata
+  metadataBase: new URL(BASE_URL),
+
+  // Consolidated meta tags
+  other: {
+    "theme-color": "#ffffff",
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+  },
+
   openGraph: {
     type: "website",
     title: "My Portfolio - Rizki Ramadhan",
@@ -73,7 +45,7 @@ export const metadata = {
     siteName: "My Portfolio - Rizki Ramadhan",
     images: [
       {
-        url: "https://rzki-r-my-porto.vercel.app/favicon.ico",
+        url: "https://rzki-r-my-porto.vercel.app/icon.png",
         width: 1920,
         height: 1080,
       },
@@ -84,7 +56,7 @@ export const metadata = {
     title: "My Portfolio - Rizki Ramadhan",
     description: "Seputar pengalaman dan proyek yang sudah saya kerjakan",
     creator: "@rizki_ramadhan",
-    images: ["https://rzki-r-my-porto.vercel.app/favicon.ico"],
+    images: ["https://rzki-r-my-porto.vercel.app/icon.png"],
   },
   verification: {
     google: process.env.NEXT_PUBLIC_VERTIFICATION_API_KEY,
