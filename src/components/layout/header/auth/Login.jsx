@@ -2,16 +2,14 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@/utils/auth/AuthContext";
 import {
-  sendEmailVerification,
-  signOut,
   sendPasswordResetEmail,
   setPersistence,
   browserLocalPersistence,
   browserSessionPersistence,
 } from "firebase/auth";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
 import styles from "@/components/layout/header/header.module.scss";
 import { toast } from "react-hot-toast";
+import { auth } from "@/utils/firebase";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -25,13 +23,8 @@ export default function Login({ onClose }) {
   const [isLoading, setIsLoading] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
-  const [resetMessage, setResetMessage] = useState("");
 
   useEffect(() => {
-    loadSavedCredentials();
-  }, []);
-
-  const loadSavedCredentials = () => {
     const savedEmail = localStorage.getItem("savedEmail");
     const savedPassword = localStorage.getItem("savedPassword");
     if (savedEmail && savedPassword) {
@@ -41,7 +34,7 @@ export default function Login({ onClose }) {
         rememberMe: true,
       });
     }
-  };
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -51,15 +44,13 @@ export default function Login({ onClose }) {
     }));
   };
 
-  const handleCredentialsPersistence = async () => {
-    if (formData.rememberMe) {
+  const handleCredentials = (remember) => {
+    if (remember) {
       localStorage.setItem("savedEmail", formData.email);
       localStorage.setItem("savedPassword", formData.password);
-      await setPersistence(auth, browserLocalPersistence);
     } else {
       localStorage.removeItem("savedEmail");
       localStorage.removeItem("savedPassword");
-      await setPersistence(auth, browserSessionPersistence);
     }
   };
 
@@ -75,13 +66,11 @@ export default function Login({ onClose }) {
       );
 
       if (result) {
-        if (formData.rememberMe) {
-          localStorage.setItem("savedEmail", formData.email);
-          localStorage.setItem("savedPassword", formData.password);
-        } else {
-          localStorage.removeItem("savedEmail");
-          localStorage.removeItem("savedPassword");
-        }
+        handleCredentials(formData.rememberMe);
+        await setPersistence(
+          auth,
+          formData.rememberMe ? browserLocalPersistence : browserSessionPersistence
+        );
         onClose();
       }
     } finally {
@@ -91,7 +80,6 @@ export default function Login({ onClose }) {
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
-    setResetMessage("");
 
     if (!EMAIL_REGEX.test(resetEmail)) {
       toast.error("Silahkan masukkan email yang valid");
@@ -101,16 +89,18 @@ export default function Login({ onClose }) {
     setIsLoading(true);
     try {
       await sendPasswordResetEmail(auth, resetEmail);
-      setResetMessage(
-        "Email reset password telah dikirim. Silakan periksa inbox Anda."
-      );
+      toast.success("Email reset password telah dikirim. Silakan periksa inbox Anda.");
       setResetEmail("");
+      setShowForgotPassword(false);
     } catch (error) {
-      toast.error(
-        error.code === "auth/user-not-found"
-          ? "Email tidak terdaftar"
-          : "Terjadi kesalahan. Silakan coba lagi nanti."
-      );
+      const errorMessages = {
+        'auth/user-not-found': "Email tidak terdaftar",
+        'auth/invalid-email': "Format email tidak valid",
+        'auth/too-many-requests': "Terlalu banyak permintaan. Silakan coba beberapa saat lagi",
+        'auth/network-request-failed': "Gagal terhubung ke server. Periksa koneksi internet Anda"
+      };
+
+      toast.error(errorMessages[error.code] || "Terjadi kesalahan. Silakan coba lagi nanti");
     } finally {
       setIsLoading(false);
     }
@@ -120,7 +110,6 @@ export default function Login({ onClose }) {
     return (
       <div className={styles.login}>
         <h2 className={styles.title}>Reset Password</h2>
-        {resetMessage && <p className={styles.resetMessage}>{resetMessage}</p>}
         <form onSubmit={handleForgotPassword}>
           <div className={styles.box}>
             <label htmlFor="resetEmail">Email</label>
@@ -139,7 +128,6 @@ export default function Login({ onClose }) {
             type="button"
             onClick={() => {
               setShowForgotPassword(false);
-              setResetMessage("");
             }}
             className={styles.backButton}
           >
