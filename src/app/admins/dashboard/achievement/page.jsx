@@ -1,5 +1,7 @@
 import React from 'react'
 
+import AchievementContent from '@/components/hooks/admin/achievement/AchievementContent'
+
 export async function generateMetadata() {
   return {
     title: `Achievement Management`,
@@ -9,6 +11,6 @@ export async function generateMetadata() {
 
 export default function Achievement() {
   return (
-    <div>Achievement</div>
+    <AchievementContent />
   )
 }

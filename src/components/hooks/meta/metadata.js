@@ -9,6 +9,7 @@ export const metadata = {
     "Pengembangan Website",
     "Aplikasi Mobile",
     "Portfolio",
+    "Rizki Ramadhan",
   ],
 
   icons: {
@@ -24,13 +25,10 @@ export const metadata = {
     appleTouchIcon: "/icon.png",
   },
 
-  // Manifest configuration
   manifest: "/manifest.json",
 
-  // Base URL for metadata
   metadataBase: new URL(BASE_URL),
 
-  // Consolidated meta tags
   other: {
     "theme-color": "#ffffff",
     "mobile-web-app-capable": "yes",
