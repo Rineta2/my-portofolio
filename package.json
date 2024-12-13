@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "set NODE_NO_WARNINGS=1 && next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -31,6 +31,7 @@
     "tesseract.js": "^5.1.1"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.1.0",
     "eslint": "^8",
     "eslint-config-next": "15.0.4"
   }

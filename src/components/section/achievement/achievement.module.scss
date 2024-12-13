@@ -1,0 +1,85 @@
+@use "../../styling/variable.scss" as *;
+
+.achievement {
+    .container {
+        max-width: 100vw;
+    }
+
+    &__container {
+        padding: 1rem 2%;
+
+        .heading {
+            margin-bottom: 3rem;
+            text-align: center;
+
+            h1 {
+                font-size: 3rem;
+                letter-spacing: 2px;
+            }
+        }
+
+        .achievement__content {
+            columns: 3 300px;
+            column-gap: 1.5rem;
+
+            .achievement__item {
+                break-inside: avoid;
+                margin-bottom: 2rem;
+                position: relative;
+                overflow: hidden;
+                border-radius: 1rem;
+
+                &:hover {
+                    .img .text {
+                        opacity: 1;
+
+                        h2 {
+                            opacity: 1;
+                            transform: translateY(0);
+                        }
+                    }
+                }
+
+                .img {
+                    width: 100%;
+                    display: block;
+                    position: relative;
+
+                    img {
+                        width: 100%;
+                        height: auto;
+                        display: block;
+                        border-radius: 1rem;
+                        object-fit: cover;
+                    }
+
+                    .text {
+                        position: absolute;
+                        inset: 0;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background-color: rgba(0, 0, 0, 0.5);
+                        backdrop-filter: blur(3px);
+                        -webkit-backdrop-filter: blur(3px);
+                        border-radius: 1rem;
+                        opacity: 0;
+                        transition: opacity 0.3s ease;
+
+                        h2 {
+                            color: $text-c;
+                            font-size: 2rem;
+                            text-align: center;
+                            line-height: 1.5;
+                            font-weight: 600;
+                            opacity: 0;
+                            max-width: 80%;
+                            transform: translateY(20px);
+                            transition: all 0.3s ease;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

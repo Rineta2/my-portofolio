@@ -1,5 +1,7 @@
 import withPWA from "next-pwa";
 
+import withBundleAnalyzer from "@next/bundle-analyzer";
+
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -9,15 +11,21 @@ const nextConfig = {
       },
     ],
   },
-
   sassOptions: {
     silenceDeprecations: ["legacy-js-api"],
   },
 };
 
-export default withPWA({
-  dest: "public",
-  register: true,
-  skipWaiting: true,
-  disable: process.env.NODE_ENV === "development",
-})(nextConfig);
+const analyzeBundleConfig = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
+export default analyzeBundleConfig(
+  withPWA({
+    dest: "public",
+    register: true,
+    skipWaiting: true,
+    disable: process.env.NODE_ENV === "development",
+    maximumFileSizeToCacheInBytes: 5000000,
+  })(nextConfig)
+);

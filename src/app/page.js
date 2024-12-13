@@ -4,6 +4,8 @@ import Home from "@/components/section/home/Home";
 
 import About from "@/components/section/about/About";
 
+import Achievement from "@/components/section/achievement/Achievement";
+
 import RegisterSW from "@/components/hooks/meta/RegisterSW";
 
 import "@/components/styling/globals.scss";
@@ -33,6 +35,7 @@ export default function page() {
       <RegisterSW />
       <Home />
       <About />
+      <Achievement />
     </Fragment>
   );
 }
