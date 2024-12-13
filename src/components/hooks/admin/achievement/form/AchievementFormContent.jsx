@@ -8,6 +8,8 @@ import styles from "@/app/admins/layout.module.scss"
 
 import Image from 'next/image'
 
+import Link from 'next/link'
+
 export default function AchievementFormContent({ id }) {
     const {
         formData,
@@ -27,8 +29,17 @@ export default function AchievementFormContent({ id }) {
     }, [id, fetchAchievement])
 
     return (
-        <section className={styles.achievement}>
+        <section className={styles.achievement__form}>
             <div className={`${styles.container} ${styles.achievement__container}`}>
+
+                <div className={styles.toolbar}>
+                    <h1>{id ? "Edit Achievement" : "Add Achievement"}</h1>
+
+                    <Link href="/admins/dashboard/achievement">
+                        Kembali
+                    </Link>
+                </div>
+
                 <form onSubmit={handleSubmit}>
                     <div className={styles.form__group}>
                         <label htmlFor="title">Title</label>
