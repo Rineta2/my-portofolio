@@ -1,15 +1,18 @@
 import Link from "next/link";
+
 import { X } from "lucide-react";
+
 import { navLink } from "@/components/data/Header";
+
 import styles from "@/components/layout/header/header.module.scss";
 
-export default function NavList({ pathname, toggleMenu }) {
+export default function NavList({ pathname, toggleMenu, showHamburgerMenu }) {
     return (
-        <ul className={styles.nav__list}>
+        <ul className={`${styles.nav__list} ${showHamburgerMenu ? styles.menuOpen : ''}`}>
             {navLink.map((item, index) => (
                 <li
                     key={index}
-                    className={`${styles.nav__item} ${pathname === item.path ? styles.active : ''}`}
+                    className={`${styles.nav__item} ${pathname === item.path ? styles.active : ''} ${showHamburgerMenu ? styles.menuOpen : ''}`}
                 >
                     <Link
                         href={item.path}
@@ -24,9 +27,7 @@ export default function NavList({ pathname, toggleMenu }) {
                     </Link>
                 </li>
             ))}
-            <div className={styles.close} onClick={toggleMenu}>
-                <X size={24} />
-            </div>
+            <X className={styles.close} size={24} onClick={toggleMenu} />
         </ul>
     );
 }

@@ -1,7 +1,10 @@
 "use client";
 import React from "react";
+
 import styles from "@/components/section/about/about.module.scss";
+
 import AboutContent from "@/components/hooks/section/about/AboutContent";
+
 import SkillsSection from "@/components/hooks/section/about/SkillsSection";
 
 export default function AboutClient({ about, skills }) {

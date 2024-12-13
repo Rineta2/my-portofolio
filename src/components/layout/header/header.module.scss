@@ -331,7 +331,7 @@
     top: 20px;
     border-radius: 24px;
     transition: all 1s ease-in-out;
-    z-index: 9999;
+    z-index: 999;
 
     @media (max-width: 1280px) {
         max-width: 1200px;
@@ -440,34 +440,74 @@
             }
 
             @media (max-width: 480px) {
-                background: rgb(33, 33, 33);
-                background: radial-gradient(circle, rgba(33, 33, 33, 1) 0%, rgba(17, 30, 46, 1) 100%);
+                background: rgb(17, 20, 24);
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
+                height: 100vh;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                gap: 5rem;
+                gap: 3rem;
                 padding: 2rem;
                 z-index: 9999;
+                transition: all 0.5s ease-in-out;
                 opacity: 0;
-                pointer-events: none;
-                height: 100vh;
+                visibility: hidden;
                 transform: translateY(-100%);
 
+                &.menuOpen {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: translateY(0);
+
+                    .close {
+                        display: block;
+                    }
+
+                    ~ .nav__actions .hamburger {
+                        display: none;
+                    }
+
+                    .nav__item {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+
                 .close {
+                    display: none;
                     position: absolute;
-                    top: 1rem;
-                    right: 1rem;
+                    top: 2rem;
+                    right: 2rem;
                     cursor: pointer;
-                    display: block;
+                    color: $text-c;
+                    z-index: 10001;
                 }
 
                 .nav__item {
                     opacity: 0;
-                    transform: translateY(50px);
+                    transform: translateY(20px);
+                    transition: all 0.5s ease-in-out;
+
+                    @for $i from 1 through 4 {
+                        &:nth-child(#{$i}) {
+                            transition-delay: #{$i * 0.1}s;
+                        }
+                    }
+
+                    .nav__link {
+                        color: $text-c;
+                        font-size: 1.2rem;
+                        text-transform: capitalize;
+                        letter-spacing: 1px;
+                        transition: color 0.5s ease-in-out;
+
+                        &:hover {
+                            color: $primary-c;
+                        }
+                    }
                 }
             }
 
@@ -528,6 +568,7 @@
 
                 @media (max-width: 480px) {
                     display: block;
+                    z-index: 10000;
                 }
             }
         }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { usePathname } from "next/navigation";
 
@@ -40,9 +40,15 @@ export default function Header() {
     document.body.style.overflow = !showHamburgerMenu ? 'hidden' : 'unset';
   };
 
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
   return (
     <>
-      <header className={styles.header}>
+      <header className={`${styles.header} ${showHamburgerMenu ? styles.menuOpen : ''}`}>
         <nav className={`${styles.nav} ${styles.container}`}>
           <NavLogo />
           <NavList
@@ -56,6 +62,7 @@ export default function Header() {
             setShowProfileMenu={setShowProfileMenu}
             showProfileMenu={showProfileMenu}
             toggleMenu={toggleMenu}
+            showHamburgerMenu={showHamburgerMenu}
           />
         </nav>
 
