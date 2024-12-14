@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Editor from '@/components/hooks/admin/project/form/EditorProject';
 import useProject from '@/components/hooks/admin/project/utils/useProject';
 import styles from "@/app/admins/layout.module.scss";
@@ -13,16 +13,44 @@ import { useIcons } from '@/components/hooks/admin/project/techstack/utils/useIc
 import { DynamicIcon } from '@/components/hooks/admin/project/techstack/DynamicIcons';
 
 export default function ProjectForm() {
+    const searchParams = useSearchParams();
+    const id = searchParams.get("id");
     const router = useRouter();
-    const { handleCreate, loading } = useProject();
+    const { handleCreate, handleUpdate, loading, projectList } = useProject();
     const [formData, setFormData] = useState({
-        title: '', description: '', category: '',
-        slug: '', content: '', icons: []
+        title: '',
+        description: '',
+        category: '',
+        slug: '',
+        content: '',
+        icons: [],
+        previewLink: ''
     });
     const [thumbnail, setThumbnail] = useState(null);
+    const [thumbnailPreview, setThumbnailPreview] = useState(null);
     const [images, setImages] = useState([]);
+    const [imagesPreview, setImagesPreview] = useState([]);
     const [categories, setCategories] = useState([]);
     const { icons } = useIcons();
+
+    useEffect(() => {
+        if (id) {
+            const projectToEdit = projectList.find(project => project.id === id);
+            if (projectToEdit) {
+                setFormData({
+                    title: projectToEdit.title,
+                    description: projectToEdit.description,
+                    category: projectToEdit.category,
+                    slug: projectToEdit.slug,
+                    content: projectToEdit.content,
+                    icons: projectToEdit.icons || [],
+                    previewLink: projectToEdit.previewLink || ''
+                });
+                setThumbnailPreview(projectToEdit.thumbnail);
+                setImagesPreview(projectToEdit.projectImages || []);
+            }
+        }
+    }, [id, projectList]);
 
     useEffect(() => {
         getCategories().then(result => {
@@ -50,16 +78,37 @@ export default function ProjectForm() {
 
     const handleImageReorder = (result) => {
         if (!result.destination) return;
-        const items = Array.from(images);
-        const [reorderedItem] = items.splice(result.source.index, 1);
-        items.splice(result.destination.index, 0, reorderedItem);
-        setImages(items);
+
+        const reorder = (list, startIndex, endIndex) => {
+            const result = Array.from(list);
+            const [removed] = result.splice(startIndex, 1);
+            result.splice(endIndex, 0, removed);
+            return result;
+        };
+
+        if (images.length > 0) {
+            setImages(reorder(
+                images,
+                result.source.index,
+                result.destination.index
+            ));
+        } else {
+            setImagesPreview(reorder(
+                imagesPreview,
+                result.source.index,
+                result.destination.index
+            ));
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await handleCreate(formData, thumbnail, images);
+            if (id) {
+                await handleUpdate(id, formData, thumbnail);
+            } else {
+                await handleCreate(formData, thumbnail, images);
+            }
             router.push('/admins/dashboard/project');
         } catch (error) {
             console.error("Error submitting form:", error);
@@ -68,19 +117,31 @@ export default function ProjectForm() {
 
     return (
         <div className={styles.container}>
-            <h1>Add New Project</h1>
+            <h1>{id ? 'Edit Project' : 'Add New Project'}</h1>
             <form onSubmit={handleSubmit}>
-                {/* File inputs */}
+                {/* Thumbnail input & preview */}
                 <div>
                     <label>Thumbnail:</label>
                     <input
                         type="file"
                         accept="image/*"
                         onChange={(e) => setThumbnail(e.target.files[0])}
-                        required
+                        required={!id}
                     />
+                    {thumbnailPreview && (
+                        <div className={styles.thumbnailPreview}>
+                            <Image
+                                src={thumbnailPreview}
+                                alt="Thumbnail preview"
+                                width={100}
+                                height={100}
+                                objectFit="cover"
+                            />
+                        </div>
+                    )}
                 </div>
 
+                {/* Project Images with DragDropContext */}
                 <div>
                     <label>Project Images:</label>
                     <input
@@ -89,16 +150,20 @@ export default function ProjectForm() {
                         multiple
                         onChange={(e) => setImages(Array.from(e.target.files))}
                     />
-                </div>
-
-                {/* Image preview */}
-                {images.length > 0 && (
                     <DragDropContext onDragEnd={handleImageReorder}>
                         <Droppable droppableId="images" direction="horizontal">
                             {(provided) => (
-                                <div {...provided.droppableProps} ref={provided.innerRef} className={styles.imageGrid}>
-                                    {images.map((image, index) => (
-                                        <Draggable key={`image-${index}`} draggableId={`image-${index}`} index={index}>
+                                <div
+                                    ref={provided.innerRef}
+                                    {...provided.droppableProps}
+                                    className={styles.imageGrid}
+                                >
+                                    {imagesPreview.map((imageUrl, index) => (
+                                        <Draggable
+                                            key={imageUrl}
+                                            draggableId={imageUrl}
+                                            index={index}
+                                        >
                                             {(provided) => (
                                                 <div
                                                     ref={provided.innerRef}
@@ -107,8 +172,8 @@ export default function ProjectForm() {
                                                     className={styles.imagePreview}
                                                 >
                                                     <Image
-                                                        src={URL.createObjectURL(image)}
-                                                        alt={`Preview ${index + 1}`}
+                                                        src={imageUrl}
+                                                        alt={`Project ${index + 1}`}
                                                         width={100}
                                                         height={100}
                                                         objectFit="cover"
@@ -122,7 +187,7 @@ export default function ProjectForm() {
                             )}
                         </Droppable>
                     </DragDropContext>
-                )}
+                </div>
 
                 {/* Text inputs */}
                 {['title', 'slug', 'description'].map(field => (
@@ -167,6 +232,18 @@ export default function ProjectForm() {
                     </div>
                 </div>
 
+                {/* Preview Link Input */}
+                <div>
+                    <label>Preview Link:</label>
+                    <input
+                        type="url"
+                        name="previewLink"
+                        value={formData.previewLink}
+                        onChange={handleChange}
+                        placeholder="https://example.com"
+                    />
+                </div>
+
                 {/* Editor */}
                 <div>
                     <label>Content:</label>
@@ -177,7 +254,7 @@ export default function ProjectForm() {
                 </div>
 
                 <button type="submit" disabled={loading}>
-                    {loading ? 'Saving...' : 'Save Project'}
+                    {loading ? 'Saving...' : id ? 'Update Project' : 'Save Project'}
                 </button>
             </form>
         </div>

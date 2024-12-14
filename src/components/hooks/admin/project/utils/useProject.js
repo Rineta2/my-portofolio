@@ -95,21 +95,35 @@ export default function useProject() {
     }
   };
 
-  const handleUpdate = async (id, data, thumbnail) => {
+  const handleUpdate = async (id, data, thumbnail, newImages = []) => {
     setLoading(true);
     try {
       let updateData = { ...data };
+
       if (thumbnail) {
         const thumbnailUrl = await handleUpload(thumbnail, data.title);
         updateData.thumbnail = thumbnailUrl;
       }
+
+      if (newImages.length > 0) {
+        const newImageUrls = await Promise.all(
+          newImages.map((image) => handleUpload(image, data.title))
+        );
+
+        updateData.projectImages = [
+          ...(data.projectImages || []),
+          ...newImageUrls,
+        ];
+      }
+
       await updateDoc(
         doc(db, process.env.NEXT_PUBLIC_API_PROJECT, id),
         updateData
       );
-      fetchProjects();
+      await fetchProjects();
     } catch (error) {
       console.error("Error updating project:", error);
+      throw error;
     } finally {
       setLoading(false);
     }
