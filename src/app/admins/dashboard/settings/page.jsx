@@ -11,7 +11,7 @@ export async function generateMetadata() {
     };
 }
 
-export default function Settings() {
+export default async function Settings() {
     return (
         <>
             <Toaster />
