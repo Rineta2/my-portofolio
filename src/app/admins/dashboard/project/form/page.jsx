@@ -4,13 +4,6 @@ import FormContent from "@/components/hooks/admin/project/form/FormContent";
 
 import styles from "@/app/admins/layout.module.scss";
 
-// export async function generateMetadata() {
-//     return {
-//         title: `Project Form`,
-//         description: `Manage project form content and settings`,
-//     };
-// }
-
 export async function generateMetadata({ searchParams }) {
     const id = searchParams?.id;
     return {
@@ -18,7 +11,6 @@ export async function generateMetadata({ searchParams }) {
         description: id ? "Edit existing project" : "Create new project",
     };
 }
-
 
 export default async function Form() {
     return (

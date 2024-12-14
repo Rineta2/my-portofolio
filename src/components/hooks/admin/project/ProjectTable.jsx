@@ -4,7 +4,7 @@ import styles from "@/app/admins/layout.module.scss";
 
 import ProjectTableRow from '@/components/hooks/admin/project/ProjectTableRow';
 
-export default function ProjectTable({ currentItems, handleDelete }) {
+export default function ProjectTable({ currentItems, onDeleteClick }) {
     return (
         <div className={styles.table__container}>
             <table className={styles.table}>
@@ -19,12 +19,13 @@ export default function ProjectTable({ currentItems, handleDelete }) {
                         <th>Actions</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     {currentItems.map((project) => (
                         <ProjectTableRow
                             key={project.id}
                             project={project}
-                            handleDelete={handleDelete}
+                            onDeleteClick={onDeleteClick}
                         />
                     ))}
                 </tbody>

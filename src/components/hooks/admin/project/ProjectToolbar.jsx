@@ -8,6 +8,7 @@ export default function ProjectToolbar() {
     return (
         <div className={styles.toolbar}>
             <h1>Project</h1>
+
             <Link href="/admins/dashboard/project/form">
                 Tambah Project
             </Link>
