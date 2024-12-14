@@ -21,10 +21,12 @@ export default function ProjectForm() {
     const {
         formData,
         loading,
+        uploadProgress,
         handleSubmit,
         handleChange,
         setFormData,
         handleImageChange,
+        handleThumbnailChange,
         handleImageReorder,
         handleIconToggle,
         thumbnail,
@@ -59,6 +61,17 @@ export default function ProjectForm() {
                 }}
             />
             <h1>{id ? 'Edit Project' : 'Add New Project'}</h1>
+
+            {uploadProgress > 0 && uploadProgress < 100 && (
+                <div className={styles.progress}>
+                    <div
+                        className={styles.progress__bar}
+                        style={{ width: `${uploadProgress}%` }}
+                    />
+                    <span>{uploadProgress}%</span>
+                </div>
+            )}
+
             <form onSubmit={handleSubmit}>
                 <ProjectBasicInfo
                     formData={formData}
@@ -71,6 +84,7 @@ export default function ProjectForm() {
                     thumbnailPreview={thumbnailPreview}
                     imagesPreview={imagesPreview}
                     handleImageChange={handleImageChange}
+                    handleThumbnailChange={handleThumbnailChange}
                     handleImageReorder={handleImageReorder}
                     id={id}
                 />
@@ -92,8 +106,20 @@ export default function ProjectForm() {
                     setFormData={setFormData}
                 />
 
-                <button type="submit" className={styles.form__button} disabled={loading}>
-                    {loading ? 'Loading...' : id ? 'Update Project' : 'Save Project'}
+                <button
+                    type="submit"
+                    className={styles.form__button}
+                    disabled={loading}
+                >
+                    {loading ? (
+                        <span>
+                            {uploadProgress > 0
+                                ? `Uploading... ${uploadProgress}%`
+                                : 'Processing...'}
+                        </span>
+                    ) : (
+                        id ? 'Update Project' : 'Save Project'
+                    )}
                 </button>
             </form>
         </div>

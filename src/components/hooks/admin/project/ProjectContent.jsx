@@ -23,7 +23,9 @@ export default function ProjectContent() {
 
     const offset = currentPage * itemsPerPage;
 
-    const currentItems = projectList.slice(offset, offset + itemsPerPage);
+    const currentItems = [...projectList]
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .slice(offset, offset + itemsPerPage);
 
     const handlePageChange = ({ selected }) => {
         setCurrentPage(selected);

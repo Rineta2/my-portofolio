@@ -2331,6 +2331,32 @@
                         cursor: not-allowed;
                     }
                 }
+
+                .progress {
+                    width: 100%;
+                    height: 20px;
+                    background-color: #f0f0f0;
+                    border-radius: 10px;
+                    margin: 10px 0;
+                    overflow: hidden;
+                    position: relative;
+
+                    &__bar {
+                        height: 100%;
+                        background-color: #4caf50;
+                        transition: width 0.3s ease;
+                    }
+
+                    span {
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                        color: #fff;
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
+                }
             }
         }
         //============== Settings ==============//

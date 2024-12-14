@@ -1,6 +1,6 @@
 import React from "react";
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata() {
   return {
     title: `Admin Dashboard`,
     description: `Admin dashboard for managing site content and settings`,

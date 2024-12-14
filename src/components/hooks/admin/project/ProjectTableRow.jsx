@@ -4,7 +4,7 @@ import Link from "next/link";
 import styles from "@/app/admins/layout.module.scss";
 import { DynamicIcon } from '@/components/hooks/admin/project/techstack/DynamicIcons';
 
-export default function ProjectTableRow({ project, handleDelete }) {
+export default function ProjectTableRow({ project, onDeleteClick }) {
     return (
         <tr>
             <td>{project.title}</td>
@@ -36,7 +36,7 @@ export default function ProjectTableRow({ project, handleDelete }) {
                     >
                         Edit
                     </Link>
-                    <button onClick={() => handleDelete(project.id)}>
+                    <button onClick={() => onDeleteClick(project)}>
                         Delete
                     </button>
                 </div>

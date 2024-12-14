@@ -7,7 +7,6 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import styles from "@/app/admins/layout.module.scss";
 
 export default function ProjectMedia({
-    thumbnail,
     setThumbnail,
     thumbnailPreview,
     imagesPreview,
