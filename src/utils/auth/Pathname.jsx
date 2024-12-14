@@ -8,8 +8,6 @@ import Header from '@/components/layout/header/Header';
 
 import Footer from '@/components/layout/footer/Footer';
 
-import { Toaster } from 'react-hot-toast';
-
 const Pathname = ({ children }) => {
     const pathname = usePathname();
 

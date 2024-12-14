@@ -25,6 +25,7 @@ export default function useProjectForm() {
     content: "",
     icons: [],
     previewLink: "",
+    date: "",
   });
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailPreview, setThumbnailPreview] = useState(null);
@@ -45,6 +46,7 @@ export default function useProjectForm() {
           content: projectToEdit.content,
           icons: projectToEdit.icons || [],
           previewLink: projectToEdit.previewLink || "",
+          date: projectToEdit.date || "",
         });
         setThumbnailPreview(projectToEdit.thumbnail);
         setImagesPreview(projectToEdit.projectImages || []);

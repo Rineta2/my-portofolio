@@ -13,6 +13,7 @@
     "@iconify/react": "^5.1.0",
     "browser-image-compression": "^2.0.2",
     "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
     "firebase": "^11.0.2",
     "gsap": "^3.12.5",
     "imagekit": "^6.0.0",

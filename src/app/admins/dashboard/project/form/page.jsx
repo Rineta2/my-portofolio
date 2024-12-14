@@ -5,10 +5,9 @@ import FormContent from "@/components/hooks/admin/project/form/FormContent";
 import styles from "@/app/admins/layout.module.scss";
 
 export async function generateMetadata({ searchParams }) {
-    const id = searchParams?.id;
     return {
-        title: id ? "Edit Project" : "Add Project",
-        description: id ? "Edit existing project" : "Create new project",
+        title: searchParams.id ? "Edit Project" : "Add Project",
+        description: searchParams.id ? "Edit existing project" : "Create new project",
     };
 }
 
