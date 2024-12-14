@@ -1,9 +1,13 @@
 "use client";
 
 import React from "react";
+
 import AboutTable from "@/components/hooks/admin/about/AboutTable";
+
 import AboutToolbar from "@/components/hooks/admin/about/AboutToolbar";
+
 import useAbout from "@/components/hooks/admin/about/utils/useAbout";
+
 import styles from "@/app/admins/layout.module.scss";
 
 export default function AboutContent() {
