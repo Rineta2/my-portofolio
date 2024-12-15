@@ -60,36 +60,40 @@ export default function PortofolioContent({ project }) {
             ))
             }
 
-            <div className={styles.category_buttons}>
-                <button
-                    className={selectedCategory === 'all' ? styles.active : ''}
-                    onClick={() => setSelectedCategory('all')}
-                >
-                    All
-                </button>
-
-                {uniqueCategories.map((category, index) => (
+            <div className={styles.content}>
+                <div className={styles.sidebar}>
                     <button
-                        key={index}
-                        className={selectedCategory === category ? styles.active : ''}
-                        onClick={() => setSelectedCategory(category)}
-                    >
-                        {category}
-                    </button>
-                ))}
-            </div>
+                        className={selectedCategory === 'all' ? styles.active : ''}
+                            onClick={() => setSelectedCategory('all')}
+                        >
+                            All
+                        </button>
 
-            {
-                filteredRemainingProjects.map((item, index) => (
-                    <div className={styles.box} key={index}>
+                    {uniqueCategories.map((category, index) => (
+                        <button
+                            key={index}
+                            className={selectedCategory === category ? styles.active : ''}
+                            onClick={() => setSelectedCategory(category)}
+                    >
+                                {category}
+                            </button>
+                        ))}
+                </div>
+
+                <aside className={styles.aside}>
+                    {
+                        filteredRemainingProjects.map((item, index) => (
+                            <div className={styles.box} key={index}>
                         <div className={styles.img}>
                             <Image src={item.thumbnail} alt={item.title} width={500} height={500} quality={100} loading='lazy' />
                         </div>
                         <h1>{item.title}</h1>
                         <span>{formatDate(item.date)}</span>
-                    </div>
-                ))
-            }
+                        </div>
+                    ))
+                    }
+                </aside>
+            </div>
         </div >
     )
 }

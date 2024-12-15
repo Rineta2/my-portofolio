@@ -35,15 +35,3 @@ section {
     padding: 4rem 1rem;
   }
 }
-
-.dragging {
-  cursor: grabbing !important;
-}
-
-.image-preview {
-  transition: transform 0.2s;
-}
-
-.image-preview:hover {
-  transform: scale(1.05);
-}
