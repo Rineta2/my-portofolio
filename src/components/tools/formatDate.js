@@ -1,18 +1,22 @@
 import {
   parseISO,
   formatDistanceToNow,
-  differenceInMonths,
+  differenceInDays,
   format,
 } from "date-fns";
-import { id } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
 
 export const formatDate = (date) => {
   const parsedDate = parseISO(date);
-  const monthsDifference = differenceInMonths(new Date(), parsedDate);
+  const daysDifference = differenceInDays(new Date(), parsedDate);
 
-  if (monthsDifference >= 1) {
-    return format(parsedDate, "dd MMMM yyyy", { locale: id });
+  if (daysDifference > 7) {
+    return format(parsedDate, "dd MMMM yyyy", { locale: enUS });
   }
 
-  return formatDistanceToNow(parsedDate, { addSuffix: true, locale: id });
+  const formattedDate = formatDistanceToNow(parsedDate, {
+    addSuffix: true,
+    locale: enUS,
+  });
+  return formattedDate.replace("about ", "");
 };

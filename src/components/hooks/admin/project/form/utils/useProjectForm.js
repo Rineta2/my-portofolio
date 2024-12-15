@@ -127,12 +127,12 @@ export default function useProjectForm() {
     }));
   };
 
-  const handleIconToggle = (iconName) => {
+  const handleIconToggle = (iconUrl) => {
     setFormData((prev) => ({
       ...prev,
-      icons: prev.icons.includes(iconName)
-        ? prev.icons.filter((name) => name !== iconName)
-        : [...prev.icons, iconName],
+      icons: prev.icons.includes(iconUrl.url)
+        ? prev.icons.filter((url) => url !== iconUrl.url)
+        : [...prev.icons, iconUrl.url],
     }));
   };
 

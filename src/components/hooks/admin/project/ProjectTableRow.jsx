@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import Link from "next/link";
 import styles from "@/app/admins/layout.module.scss";
-import { DynamicIcon } from '@/components/hooks/admin/project/techstack/DynamicIcons';
 
 export default function ProjectTableRow({ project, onDeleteClick }) {
     return (
@@ -11,19 +10,29 @@ export default function ProjectTableRow({ project, onDeleteClick }) {
             <td>{project.category}</td>
             <td>{project.description}</td>
             <td>
-                <Image
-                    src={project.thumbnail}
-                    alt={project.title}
-                    width={50}
-                    height={50}
-                />
+                {project.thumbnail && (
+                    <Image
+                        src={project.thumbnail}
+                        alt={project.title}
+                        width={50}
+                        height={50}
+                        unoptimized
+                    />
+                )}
             </td>
             <td>{new Date(project.createdAt).toLocaleDateString()}</td>
             <td>
                 <div className={styles.icons__container}>
-                    {project.icons.map((iconName) => (
-                        <span key={iconName} className={styles.tech__icon}>
-                            <DynamicIcon iconName={iconName} />
+                    {project.icons && project.icons.map((iconUrl, index) => (
+                        <span key={`icon-${index}`} className={styles.tech__icon}>
+                            <Image 
+                                src={iconUrl}
+                                alt={`Tech Stack Icon ${index + 1}`}
+                                width={80}
+                                height={80}
+                                unoptimized
+                                style={{ objectFit: "contain" }}
+                            />
                         </span>
                     ))}
                 </div>

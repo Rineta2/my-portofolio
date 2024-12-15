@@ -10,6 +10,10 @@ import { parseISO, compareDesc } from 'date-fns'
 
 import { formatDate } from '@/components/tools/formatDate'
 
+import Link from 'next/link'
+
+import { BiCategory } from "react-icons/bi";
+
 export default function PortofolioContent({ project }) {
     const [selectedCategory, setSelectedCategory] = useState('all')
     const uniqueCategories = [...new Set(project.map(item => item.category))]
@@ -28,6 +32,34 @@ export default function PortofolioContent({ project }) {
 
     return (
         <div className={`${styles.portofolio__container} ${styles.container}`}>
+            {topProjects.map((item, index) => (
+                <div className={styles.top_project} key={index}>
+                    <div className={styles.text}>
+                        <h1>{item.title}</h1>
+
+                        <span className={styles.date}>{formatDate(item.date)}</span>
+
+                        <p>
+                            {item.description.split(' ').length > 25
+                                ? item.description.split(' ').slice(0, 25).join(' ') + '...'
+                                : item.description
+                            }
+                        </p>
+
+                        <div className={styles.tollbar}>
+                            <span><BiCategory size={30} /> {item.category}</span>
+
+                            <Link href={`/portofolio/${item.slug}`}>Live Priview</Link>
+                        </div>
+                    </div>
+
+                    <div className={styles.Image}>
+                        <Image src={item.thumbnail} alt={item.title} width={500} height={500} quality={100} loading='lazy' />
+                    </div>
+                </div>
+            ))
+            }
+
             <div className={styles.category_buttons}>
                 <button
                     className={selectedCategory === 'all' ? styles.active : ''}
@@ -35,6 +67,7 @@ export default function PortofolioContent({ project }) {
                 >
                     All
                 </button>
+
                 {uniqueCategories.map((category, index) => (
                     <button
                         key={index}
@@ -46,41 +79,17 @@ export default function PortofolioContent({ project }) {
                 ))}
             </div>
 
-            <div className={styles.top_projects}>
-                <div className={styles.top_projects_grid}>
-                    {topProjects.map((item, index) => (
-                        <div className={`${styles.box} ${styles.top_project}`} key={index}>
-                            <div className={styles.Image}>
-                                <Image src={item.thumbnail} alt={item.title} width={500} height={500} quality={100} loading='lazy' />
-                            </div>
-
-                            <div className={styles.text}>
-                                <div className="tollbar">
-                                    <span>{formatDate(item.date)}</span>
-                                    <span>{item.category}</span>
-                                </div>
-                                <h1>{item.title}</h1>
-                                <p>
-                                    {item.description.split(' ').length > 25
-                                        ? item.description.split(' ').slice(0, 25).join(' ') + '...'
-                                        : item.description
-                                    }
-                                </p>
-                            </div>
+            {
+                filteredRemainingProjects.map((item, index) => (
+                    <div className={styles.box} key={index}>
+                        <div className={styles.img}>
+                            <Image src={item.thumbnail} alt={item.title} width={500} height={500} quality={100} loading='lazy' />
                         </div>
-                    ))}
-                </div>
-            </div>
-
-            {filteredRemainingProjects.map((item, index) => (
-                <div className={styles.box} key={index}>
-                    <div className={styles.img}>
-                        <Image src={item.thumbnail} alt={item.title} width={500} height={500} quality={100} loading='lazy' />
+                        <h1>{item.title}</h1>
+                        <span>{formatDate(item.date)}</span>
                     </div>
-                    <h1>{item.title}</h1>
-                    <span>{formatDate(item.date)}</span>
-                </div>
-            ))}
-        </div>
+                ))
+            }
+        </div >
     )
 }

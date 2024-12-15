@@ -1337,11 +1337,11 @@
                                                 transform: translateY(-2px);
                                             }
 
-                                            svg {
-                                                width: 20px;
-                                                height: 20px;
-                                                color: #e2e8f0;
-                                            }
+                                           img{
+                                            width: 25px;
+                                            height: 25px;
+                                            object-fit: contain;
+                                           }
                                         }
                                     }
 
@@ -1603,7 +1603,7 @@
                             font-size: 1rem;
                             transition: all 0.2s ease;
                             border: none;
-
+                            background-color: $text-c;
                             &:focus {
                                 outline: none;
                                 border-color: #4299e1;
@@ -1666,6 +1666,12 @@
                         padding: 1rem;
                         width: 150px;
                         border-radius: 16px;
+
+                        img{
+                           width: 80px;
+                           height: 80px;
+                           object-fit: contain; 
+                        }
 
                         button {
                             padding: 0.875rem 1.5rem;

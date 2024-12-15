@@ -1,45 +1,92 @@
 import React, { useState } from 'react';
-
+import imageCompression from 'browser-image-compression';
 import { useIcons } from '@/components/hooks/admin/project/techstack/utils/useIcons';
-
-import { iconLibraries } from '@/components/hooks/admin/project/techstack/DynamicIcons';
-
 import toast from 'react-hot-toast';
-
 import styles from '@/app/admins/layout.module.scss';
+import Image from 'next/image';
 
 export default function IconForm() {
     const { addIcon } = useIcons();
-    const [newIcon, setNewIcon] = useState({ name: '' });
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [preview, setPreview] = useState(null);
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSelectedFile(file);
+            // Buat URL preview
+            const objectUrl = URL.createObjectURL(file);
+            setPreview(objectUrl);
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!newIcon.name) {
-            toast.error('Nama icon tidak boleh kosong!');
+        if (!selectedFile) {
+            toast.error('Pilih file icon terlebih dahulu!');
             return;
         }
 
-        const iconExists = Object.values(iconLibraries).some(lib => lib[newIcon.name]);
-        if (!iconExists) {
-            toast.error(`Icon "${newIcon.name}" tidak ditemukan! Pastikan menggunakan format yang benar`);
+        // Validasi tipe file
+        const validTypes = ['image/png', 'image/jpeg', 'image/svg+xml', 'image/webp'];
+        if (!validTypes.includes(selectedFile.type)) {
+            toast.error('Format file tidak didukung! Gunakan PNG, JPEG, atau SVG');
             return;
         }
 
-        const success = await addIcon(newIcon);
-        if (success) {
-            setNewIcon({ name: '' });
+        try {
+            // Konfigurasi kompresi
+            const options = {
+                maxSizeMB: 1, // maksimal ukuran file 1MB
+                maxWidthOrHeight: 1920, // maksimal lebar atau tinggi 1920px
+                useWebWorker: true
+            };
+
+            const fileToUpload = selectedFile.type === 'image/svg+xml' 
+                ? selectedFile 
+                : await imageCompression(selectedFile, options);
+
+            const success = await addIcon(fileToUpload);
+            if (success) {
+                setSelectedFile(null);
+                setPreview(null);
+                e.target.reset();
+            }
+        } catch (error) {
+            console.error('Error compressing image:', error);
+            toast.error('Gagal mengkompresi gambar');
         }
     };
+
+    // Cleanup preview URL when component unmounts or when preview changes
+    React.useEffect(() => {
+        return () => {
+            if (preview) {
+                URL.revokeObjectURL(preview);
+            }
+        };
+    }, [preview]);
 
     return (
         <form onSubmit={handleSubmit} className={styles.techStack__form}>
             <div className={styles.form__group}>
+                {preview && (
+                    <div className={styles.preview}>
+                        <Image 
+                            src={preview} 
+                            alt="Preview" 
+                            width={100}
+                            height={100}
+                            style={{ objectFit: "contain" }}
+                        />
+                    </div>
+                )}
+                
                 <input
-                    type="text"
-                    placeholder="Nama Icon (contoh: FaReact, RiNextjsFill, SiJavascript)"
-                    value={newIcon.name}
-                    onChange={(e) => setNewIcon({ ...newIcon, name: e.target.value })}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
                     className={styles.input}
                 />
 
@@ -47,7 +94,7 @@ export default function IconForm() {
                     type="submit"
                     className={styles.button}
                 >
-                    Tambah Icon
+                    {preview ? "Simpan" : "Tambah Icon"}
                 </button>
             </div>
         </form>

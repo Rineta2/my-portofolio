@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-
 import { db } from "@/utils/firebase";
-
+import imagekit from "@/utils/imagekit";
 import {
   collection,
   addDoc,
@@ -9,7 +8,6 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-
 import toast from "react-hot-toast";
 
 export const useIcons = () => {
@@ -29,10 +27,21 @@ export const useIcons = () => {
     }
   };
 
-  const addIcon = async (newIcon) => {
+  const addIcon = async (iconFile) => {
     const loadingToast = toast.loading("Menambahkan icon...");
     try {
-      await addDoc(collection(db, "icons"), newIcon);
+      // Upload ke ImageKit
+      const uploadResponse = await imagekit.upload({
+        file: iconFile,
+        fileName: `${Date.now()}_${iconFile.name}`,
+        folder: "/icons",
+      });
+
+      // Simpan hanya URL ke Firestore
+      await addDoc(collection(db, "icons"), {
+        url: uploadResponse.url
+      });
+
       await fetchIcons();
       toast.success("Icon berhasil ditambahkan!", {
         id: loadingToast,
@@ -50,6 +59,7 @@ export const useIcons = () => {
   const deleteIcon = async (id) => {
     const loadingToast = toast.loading("Menghapus icon...");
     try {
+      // Hapus dari Firestore
       await deleteDoc(doc(db, "icons", id));
       await fetchIcons();
       toast.success("Icon berhasil dihapus!", {
