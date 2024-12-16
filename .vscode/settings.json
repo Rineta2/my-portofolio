@@ -1,4 +1,8 @@
 {
     "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
-    "editor.guides.bracketPairs": "active"
+    "editor.guides.bracketPairs": "active",
+    "editor.cursorBlinking": "smooth",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.formatOnSave": true,
+    "diffEditor.codeLens": true
 }
