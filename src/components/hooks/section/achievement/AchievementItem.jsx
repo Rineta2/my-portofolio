@@ -21,7 +21,6 @@ export default function AchievementItem({ item, index }) {
                     quality={100}
                     width={500}
                     height={500}
-                    priority={index < 6}
                 />
                 <div className={styles.text}>
                     <h2>{item.title}</h2>
