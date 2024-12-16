@@ -34,9 +34,7 @@ export default function PortoSwipper({ project, thumbsSwiper, setThumbsSwiper })
                 {
                     project.projectImages && project.projectImages.map((image, index) => (
                         <SwiperSlide key={index} className={styles.swiperSlide}>
-                            <div className={styles.img}>
-                                <Image src={image} alt={project.title} width={500} height={500} quality={100} />
-                            </div>
+                            <Image src={image} alt={project.title} width={500} height={500} quality={100} />
                         </SwiperSlide>
                     ))
                 }
