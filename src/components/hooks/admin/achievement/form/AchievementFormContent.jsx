@@ -1,14 +1,11 @@
 "use client"
 
 import React, { useEffect } from 'react'
-
 import { useAchievementForm } from '@/components/hooks/admin/achievement/utils/useAchievementForm'
-
 import styles from "@/app/admins/layout.module.scss"
-
 import Image from 'next/image'
-
 import Link from 'next/link'
+import { format } from 'date-fns'
 
 export default function AchievementFormContent({ id }) {
     const {
@@ -28,13 +25,13 @@ export default function AchievementFormContent({ id }) {
         }
     }, [id, fetchAchievement])
 
+    const formattedDate = formData.date ? format(new Date(formData.date), 'yyyy-MM-dd') : ''
+
     return (
         <section className={styles.achievement__form}>
             <div className={`${styles.container} ${styles.achievement__container}`}>
-
                 <div className={styles.toolbar}>
                     <h1>{id ? "Edit Achievement" : "Add Achievement"}</h1>
-
                     <Link href="/admins/dashboard/achievement">
                         Kembali
                     </Link>
@@ -48,6 +45,18 @@ export default function AchievementFormContent({ id }) {
                             id="title"
                             name="title"
                             value={formData.title}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+
+                    <div className={styles.form__group}>
+                        <label htmlFor="date">Date</label>
+                        <input
+                            type="date"
+                            id="date"
+                            name="date"
+                            value={formattedDate}
                             onChange={handleInputChange}
                             required
                         />

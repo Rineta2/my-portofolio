@@ -4,11 +4,9 @@ import Home from "@/components/section/home/Home";
 
 import About from "@/components/section/about/About";
 
-// import Achievement from "@/components/section/achievement/Achievement";
-
 import RegisterSW from "@/components/hooks/meta/RegisterSW";
 
-import Achievement from "@/components/hooks/section/test/Achievement";
+import Achievement from "@/components/hooks/section/achievement/Achievement";
 
 import "@/components/styling/globals.scss";
 
