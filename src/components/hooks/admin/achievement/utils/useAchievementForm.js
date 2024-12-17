@@ -5,6 +5,7 @@ import imagekit from "@/utils/imagekit";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { createWorker } from "tesseract.js";
+import imageCompression from 'browser-image-compression';
 
 // Konstanta untuk kata kunci pencarian
 const TITLE_KEYWORDS = [
@@ -14,28 +15,47 @@ const TITLE_KEYWORDS = [
   "sertifikat",
   "sertifikasi",
   "tema",
+  "titled"
 ];
 
 export const useAchievementForm = (initialImageUrl = "") => {
   const router = useRouter();
-  const [formData, setFormData] = useState({ title: "" });
+  const [formData, setFormData] = useState({
+    title: "",
+    createdAt: new Date().toISOString()
+  });
   const [image, setImage] = useState(null);
-  const [currentImageUrl, setCurrentImageUrl] = useState(initialImageUrl);
   const [isLoading, setIsLoading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(initialImageUrl);
 
+  const compressImage = async (file) => {
+    const options = {
+      maxSizeMB: 1, // maksimum 1MB
+      maxWidthOrHeight: 1024, // maksimum dimensi 1024px
+      useWebWorker: true
+    };
+
+    try {
+      const compressedFile = await imageCompression(file, options);
+      return compressedFile;
+    } catch (error) {
+      console.error("Error compressing image:", error);
+      return file; // fallback ke file asli jika kompresi gagal
+    }
+  };
+
   const uploadImage = async (file) => {
     try {
+      const compressedFile = await compressImage(file);
       const response = await imagekit.upload({
-        file,
+        file: compressedFile,
         fileName: `achievement/${file.name}`,
         folder: "/achievement",
       });
-      setCurrentImageUrl(response.url);
       return response.url;
     } catch (error) {
       console.error("Error uploading image:", error);
-      return null;
+      throw error; // Lebih baik throw error untuk handling di handleSubmit
     }
   };
 
@@ -92,10 +112,9 @@ export const useAchievementForm = (initialImageUrl = "") => {
     setIsLoading(true);
 
     try {
-      let imageUrl = currentImageUrl;
+      let imageUrl = previewUrl;
       if (image) {
         imageUrl = await uploadImage(image);
-        if (!imageUrl) throw new Error("Failed to upload image");
       }
 
       await addDoc(collection(db, process.env.NEXT_PUBLIC_API_ACHIEVEMENT), {
@@ -113,15 +132,14 @@ export const useAchievementForm = (initialImageUrl = "") => {
     }
   };
 
-  const handleInputChange = ({ target: { name, value } }) => {
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const handleInputChange = useCallback(({ target: { name, value } }) => {
+    setFormData(prev => ({ ...prev, [name]: value }));
+  }, []);
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (!file) {
       setPreviewUrl(null);
-      setCurrentImageUrl("");
       setImage(null);
       return;
     }
@@ -130,30 +148,26 @@ export const useAchievementForm = (initialImageUrl = "") => {
     setIsLoading(true);
 
     try {
-      const extractedTitle = await extractTextFromImage(file);
+      const compressedFile = await compressImage(file);
+      const extractedTitle = await extractTextFromImage(compressedFile);
       if (extractedTitle) {
         setFormData((prev) => ({ ...prev, title: extractedTitle }));
       }
 
-      // Set preview image
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result);
-        setCurrentImageUrl("");
-      };
-      reader.readAsDataURL(file);
+      reader.onloadend = () => setPreviewUrl(reader.result);
+      reader.readAsDataURL(compressedFile);
     } catch (error) {
       console.error("Error processing image:", error);
-      toast.error("Failed to extract text from image");
+      toast.error("Failed to process image");
     } finally {
       setIsLoading(false);
     }
   };
 
   const resetForm = () => {
-    setFormData({ title: "" });
+    setFormData({ title: "", createdAt: new Date().toISOString() });
     setImage(null);
-    setCurrentImageUrl("");
     setPreviewUrl(null);
   };
 
@@ -166,7 +180,6 @@ export const useAchievementForm = (initialImageUrl = "") => {
       if (docSnap.exists()) {
         const data = docSnap.data();
         setFormData({ title: data.title });
-        setCurrentImageUrl(data.imageUrl);
         setPreviewUrl(data.imageUrl);
       }
     } catch (error) {
@@ -184,7 +197,6 @@ export const useAchievementForm = (initialImageUrl = "") => {
     handleInputChange,
     handleImageChange,
     previewUrl,
-    currentImageUrl,
     resetForm,
     fetchAchievement,
   };

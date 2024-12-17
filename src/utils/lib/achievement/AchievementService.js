@@ -11,7 +11,7 @@ export const fetchAchievements = async () => {
             ...doc.data(),
             id: doc.id,
         }));
-        return filteredData;
+        return filteredData.sort((a, b) => b.createdAt - a.createdAt);
     } catch (err) {
         console.error("Error fetching achievements:", err);
         throw err;
