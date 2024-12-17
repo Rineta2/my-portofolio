@@ -12,20 +12,11 @@ export default function Achievement() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        getAchievements();
+        fetchAchievements()
+            .then(data => setAchievements(data))
+            .catch(err => setError(err.message))
+            .finally(() => setLoading(false));
     }, []);
-
-    const getAchievements = async () => {
-        try {
-            setLoading(true);
-            const data = await fetchAchievements();
-            setAchievements(data);
-        } catch (err) {
-            setError(err.message);
-        } finally {
-            setLoading(false);
-        }
-    };
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -34,10 +25,10 @@ export default function Achievement() {
         <div>
             <h2>Achievements</h2>
             <div>
-                {achievements.map((achievement) => (
-                    <div key={achievement.id}>
-                        <Image src={achievement.imageUrl} alt={achievement.title} width={500} height={500} quality={100} />
-                        <h3>{achievement.title}</h3>
+                {achievements.map(({ id, imageUrl, title }) => (
+                    <div key={id}>
+                        <Image src={imageUrl} alt={title} width={500} height={500} quality={100} />
+                        <h3>{title}</h3>
                     </div>
                 ))}
             </div>
