@@ -1191,7 +1191,7 @@
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    margin-bottom: 5rem;
+                    margin-bottom: 2rem;
 
                     h1 {
                         font-size: 2rem;
@@ -1210,6 +1210,33 @@
                         align-items: center;
                         color: $text-c;
                         gap: 0.5rem;
+                    }
+                }
+
+                .search__container {
+                    margin-bottom: 1rem;
+
+                    .search__input {
+                        width: 100%;
+                        padding: 1rem;
+                        border: 1px solid #ddd;
+                        border-radius: 4px;
+                        font-size: 1rem;
+                        outline: none;
+                        background: #262d4a;
+                        color: $text-c;
+                        border: none;
+
+                        &::placeholder {
+                            color: #94a3b8;
+                            letter-spacing: 2px;
+                        }
+
+                        &:focus {
+                            outline: none;
+                            border-color: $text-c;
+                            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+                        }
                     }
                 }
 
@@ -1337,11 +1364,11 @@
                                                 transform: translateY(-2px);
                                             }
 
-                                           img{
-                                            width: 25px;
-                                            height: 25px;
-                                            object-fit: contain;
-                                           }
+                                            img {
+                                                width: 25px;
+                                                height: 25px;
+                                                object-fit: contain;
+                                            }
                                         }
                                     }
 
@@ -1667,10 +1694,10 @@
                         width: 150px;
                         border-radius: 16px;
 
-                        img{
-                           width: 80px;
-                           height: 80px;
-                           object-fit: contain; 
+                        img {
+                            width: 80px;
+                            height: 80px;
+                            object-fit: contain;
                         }
 
                         button {

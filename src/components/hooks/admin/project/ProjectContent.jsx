@@ -18,12 +18,17 @@ export default function ProjectContent() {
     const [currentPage, setCurrentPage] = useState(0);
     const [showModal, setShowModal] = useState(false);
     const [projectToDelete, setProjectToDelete] = useState(null);
+    const [searchTerm, setSearchTerm] = useState("");
 
     const itemsPerPage = 5;
 
     const offset = currentPage * itemsPerPage;
 
-    const currentItems = [...projectList]
+    const filteredProjects = projectList.filter(project =>
+        project.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const currentItems = [...filteredProjects]
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         .slice(offset, offset + itemsPerPage);
 
@@ -42,9 +47,24 @@ export default function ProjectContent() {
         setProjectToDelete(null);
     };
 
+    const handleSearch = (e) => {
+        setSearchTerm(e.target.value);
+        setCurrentPage(0);
+    };
+
     return (
         <div className={`${styles.container} ${styles.project__container}`}>
             <ProjectToolbar />
+
+            <div className={styles.search__container}>
+                <input
+                    type="text"
+                    placeholder="Search projects..."
+                    value={searchTerm}
+                    onChange={handleSearch}
+                    className={styles.search__input}
+                />
+            </div>
 
             <ProjectTable
                 currentItems={currentItems}
@@ -52,7 +72,7 @@ export default function ProjectContent() {
             />
 
             <ProjectPagination
-                pageCount={Math.ceil(projectList.length / itemsPerPage)}
+                pageCount={Math.ceil(filteredProjects.length / itemsPerPage)}
                 handlePageChange={handlePageChange}
             />
 
