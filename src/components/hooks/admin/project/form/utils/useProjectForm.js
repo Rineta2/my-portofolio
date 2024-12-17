@@ -81,15 +81,19 @@ export default function useProjectForm() {
 
   // Handle thumbnail change dengan kompresi
   const handleThumbnailChange = async (file) => {
+    const loadingToast = toast.loading('Compressing thumbnail...');
     try {
       const compressedFile = await compressImage(file);
       setThumbnail(compressedFile);
       const objectUrl = URL.createObjectURL(compressedFile);
       setThumbnailPreview(objectUrl);
+      toast.success('Thumbnail compressed successfully');
       return () => URL.revokeObjectURL(objectUrl);
     } catch (error) {
       toast.error("Error compressing thumbnail");
       console.error(error);
+    } finally {
+      toast.dismiss(loadingToast);
     }
   };
 
@@ -97,6 +101,8 @@ export default function useProjectForm() {
   const handleImageChange = async (e) => {
     const files = Array.from(e.target.files);
     setUploadProgress(0);
+
+    const loadingToast = toast.loading('Compressing images...');
 
     try {
       const compressedFiles = await Promise.all(
@@ -112,9 +118,12 @@ export default function useProjectForm() {
       );
 
       setImagesPreview(newImagePreviews);
+      toast.success('Images compressed successfully');
     } catch (error) {
       toast.error("Error compressing images");
       console.error(error);
+    } finally {
+      toast.dismiss(loadingToast);
     }
   };
 
@@ -150,6 +159,8 @@ export default function useProjectForm() {
     e.preventDefault();
     setIsSubmitting(true);
 
+    const loadingToast = toast.loading(id ? 'Updating project...' : 'Creating project...');
+
     try {
       if (id) {
         await handleUpdate(id, formData, thumbnail);
@@ -165,6 +176,7 @@ export default function useProjectForm() {
         error.message || "An error occurred while saving the project"
       );
     } finally {
+      toast.dismiss(loadingToast);
       setIsSubmitting(false);
       setUploadProgress(0);
     }

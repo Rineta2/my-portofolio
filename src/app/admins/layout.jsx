@@ -11,6 +11,8 @@ import Header from "@/components/layout/header/admin/Header";
 
 import styles from "@/app/admins/layout.module.scss";
 
+import { Toaster } from "react-hot-toast";
+
 export default function AdminLayout({ children }) {
   const { user, loading } = useAuth();
   const router = useRouter();
@@ -46,11 +48,11 @@ export default function AdminLayout({ children }) {
 
   return (
     <Fragment>
+      <Toaster />
       <div className={styles.admin}>
         <div
-          className={`${styles.sidebar} ${
-            isSidebarOpen ? styles.open : styles.close
-          }`}
+          className={`${styles.sidebar} ${isSidebarOpen ? styles.open : styles.close
+            }`}
         >
           <Header toggleSidebar={toggleSidebar} />
           <Navbar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
