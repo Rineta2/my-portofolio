@@ -4,6 +4,8 @@ import { getAchievement } from "@/utils/lib/achievement/read_server"
 
 import Image from "next/image"
 
+export const dynamic = 'force-dynamic'
+
 export default async function Achievement() {
     const achievement = await getAchievement();
 
@@ -13,12 +15,18 @@ export default async function Achievement() {
 
             <ol>
                 {achievement?.map((item, index) => (
-                    <li key={index}>
-                        <Image src={item?.imageUrl} alt={item?.title} width={500} height={500} quality={100} />
-                        <h2>{item?.title}</h2>
-                    </li>
+                    <AchievementCard key={index} achievement={item} />
                 ))}
             </ol>
         </section>
+    )
+}
+
+export function AchievementCard({ achievement }) {
+    return (
+        <li key={achievement?.id}>
+            <Image src={achievement?.imageUrl} alt={achievement?.title} width={500} height={500} quality={100} />
+            <h2>{achievement?.title}</h2>
+        </li>
     )
 }
