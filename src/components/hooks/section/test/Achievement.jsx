@@ -1,32 +1,46 @@
-import React from 'react'
+"use client"
 
-import { getAchievement } from "@/utils/lib/achievement/read_server"
+import React, { useState, useEffect } from 'react';
 
-import Image from "next/image"
+import { fetchAchievements } from "@/utils/lib/achievement/AchievementService";
 
-export const dynamic = 'force-dynamic'
+import Image from "next/image";
 
-export default async function Achievement() {
-    const achievement = await getAchievement();
+export default function Achievement() {
+    const [achievements, setAchievements] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        getAchievements();
+    }, []);
+
+    const getAchievements = async () => {
+        try {
+            setLoading(true);
+            const data = await fetchAchievements();
+            setAchievements(data);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
 
     return (
-        <section>
-            <h1>Achievement</h1>
-
-            <ol>
-                {achievement?.map((item, index) => (
-                    <AchievementCard key={index} achievement={item} />
+        <div>
+            <h2>Achievements</h2>
+            <div>
+                {achievements.map((achievement) => (
+                    <div key={achievement.id}>
+                        <Image src={achievement.imageUrl} alt={achievement.title} width={500} height={500} quality={100} />
+                        <h3>{achievement.title}</h3>
+                    </div>
                 ))}
-            </ol>
-        </section>
-    )
-}
-
-export function AchievementCard({ achievement }) {
-    return (
-        <li key={achievement?.id}>
-            <Image src={achievement?.imageUrl} alt={achievement?.title} width={500} height={500} quality={100} />
-            <h2>{achievement?.title}</h2>
-        </li>
-    )
+            </div>
+        </div>
+    );
 }
