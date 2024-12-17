@@ -22,6 +22,7 @@ export default function AchievementItem({ item, index }) {
                     width={500}
                     height={500}
                 />
+
                 <div className={styles.text}>
                     <h2>{item.title}</h2>
                 </div>
