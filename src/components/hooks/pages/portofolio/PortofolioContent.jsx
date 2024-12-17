@@ -19,15 +19,26 @@ import CategorySidebar from '@/components/hooks/pages/portofolio/CategorySidebar
 
 import ProjectCard from '@/components/hooks/pages/portofolio/ProjectCard'
 
-export default function PortofolioContent({ project }) {
+import { fetchProjects } from '@/utils/lib/project/ProjectService'
+
+export default function PortofolioContent() {
     const [selectedCategory, setSelectedCategory] = useState('all')
+    const [projects, setProjects] = useState([])
     const topProjectRef = useRef(null)
     const sidebarRef = useRef(null)
     const projectsRef = useRef([])
 
-    const uniqueCategories = [...new Set(project.map(item => item.category))]
+    useEffect(() => {
+        const loadProjects = async () => {
+            const projectData = await fetchProjects()
+            setProjects(projectData)
+        }
+        loadProjects()
+    }, [])
 
-    const allSortedProjects = [...project].sort((a, b) => {
+    const uniqueCategories = [...new Set(projects.map(item => item.category))]
+
+    const allSortedProjects = [...projects].sort((a, b) => {
         return compareDesc(parseISO(a.date), parseISO(b.date))
     })
 
