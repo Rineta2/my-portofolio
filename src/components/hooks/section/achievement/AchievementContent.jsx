@@ -2,8 +2,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 
-import { fetchAchievements } from "@/utils/lib/achievement/AchievementService";
-
 import Image from "next/image";
 
 import styles from "@/components/section/achievement/achievement.module.scss";
@@ -14,14 +12,17 @@ import { useAchievementAnimationScroll } from "@/components/hooks/animation/achi
 
 import AchievementHeading from "@/components/hooks/section/achievement/AchievementHeading"
 
+import { fetchData } from "@/utils/lib/achievement/FetchAchievement"
+
 export default function AchievementContent({ achievement }) {
     const [achievements, setAchievements] = useState([]);
     const { initializeAnimation } = useAchievementAnimation(styles);
     const { initializeAnimationScroll } = useAchievementAnimationScroll(styles);
     const contentRef = useRef(null);
 
+
     useEffect(() => {
-        fetchAchievements()
+        fetchData()
             .then(data => setAchievements(data));
     }, []);
 
