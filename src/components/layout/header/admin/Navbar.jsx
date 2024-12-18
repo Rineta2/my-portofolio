@@ -58,7 +58,7 @@ export default function Navbar({ isOpen, setIsOpen }) {
           {isOpen && (
             <div className={styles.profileInfo}>
               <span className={styles.profileName}>
-                {user?.displayName || "Admin"}
+                {user?.displayName || user?.email || "Admin"}
               </span>
               <span className={styles.profileEmail}>{user?.email}</span>
             </div>
@@ -77,13 +77,11 @@ export default function Navbar({ isOpen, setIsOpen }) {
               <>
                 <div
                   onClick={() => toggleSubmenu(item.id)}
-                  className={`${styles.navbarLink} ${
-                    openSubmenu === item.id ? styles.active : ""
-                  } ${
-                    item.submenu.some((sub) => sub.path === pathname)
+                  className={`${styles.navbarLink} ${openSubmenu === item.id ? styles.active : ""
+                    } ${item.submenu.some((sub) => sub.path === pathname)
                       ? styles.active
                       : ""
-                  }`}
+                    }`}
                 >
                   <span className={styles.navbarIcon}>{item.icon}</span>
                   {isOpen && (
@@ -98,9 +96,8 @@ export default function Navbar({ isOpen, setIsOpen }) {
                       <li key={subItem.id} className={styles.navbarSubmenuItem}>
                         <Link
                           href={subItem.path}
-                          className={`${styles.navbarSubmenuLink} ${
-                            pathname === subItem.path ? styles.active : ""
-                          }`}
+                          className={`${styles.navbarSubmenuLink} ${pathname === subItem.path ? styles.active : ""
+                            }`}
                           onClick={handleLinkClick}
                         >
                           {subItem.name}
@@ -113,9 +110,8 @@ export default function Navbar({ isOpen, setIsOpen }) {
             ) : (
               <Link
                 href={item.path}
-                className={`${styles.navbarLink} ${
-                  pathname === item.path ? styles.active : ""
-                }`}
+                className={`${styles.navbarLink} ${pathname === item.path ? styles.active : ""
+                  }`}
                 onClick={handleLinkClick}
               >
                 <span className={styles.navbarIcon}>{item.icon}</span>

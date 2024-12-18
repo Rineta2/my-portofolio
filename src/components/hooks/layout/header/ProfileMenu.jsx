@@ -1,5 +1,7 @@
 import Link from "next/link";
+
 import { LayoutDashboard, LogOut, X } from "lucide-react";
+
 import styles from "@/components/layout/header/header.module.scss";
 
 export default function ProfileMenu({ user, logout, setShowProfileMenu }) {

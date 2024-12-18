@@ -4,6 +4,8 @@ import { db, auth } from "@/utils/firebase";
 
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 
+import { updateProfile } from "firebase/auth";
+
 import { toast } from "react-hot-toast";
 
 import { handleImageUpload } from "@/components/hooks/admin/settings/utils/imageUtils";
@@ -11,10 +13,15 @@ import { handleImageUpload } from "@/components/hooks/admin/settings/utils/image
 export function useProfile() {
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({
-    displayName: "",
     email: "",
     phoneNumber: "",
     photoURL: "",
+    displayName: "",
+    role: "",
+    emailVerified: false,
+    createdAt: "",
+    updatedAt: "",
+    uid: ""
   });
   const [file, setFile] = useState(null);
 
@@ -34,6 +41,11 @@ export function useProfile() {
           email: data.email || "",
           phoneNumber: data.phoneNumber || "",
           photoURL: data.photoURL || "",
+          role: data.role || "",
+          emailVerified: data.emailVerified || false,
+          createdAt: data.createdAt || "",
+          updatedAt: data.updatedAt || "",
+          uid: data.uid || ""
         });
       }
     } catch (error) {
@@ -68,7 +80,15 @@ export function useProfile() {
         updateData.photoURL = photoURL;
       }
 
+      updateData.updatedAt = new Date().toISOString();
+
       await updateDoc(doc(db, "users", auth.currentUser.uid), updateData);
+
+      await updateProfile(auth.currentUser, {
+        displayName: updateData.displayName,
+        photoURL: updateData.photoURL
+      });
+
       toast.success("Profil berhasil diperbarui");
       getUserData();
     } catch (error) {

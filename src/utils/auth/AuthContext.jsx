@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState, useRef } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { auth, db } from "@/utils/firebase";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
@@ -15,7 +15,6 @@ export const useAuth = () => useContext(AuthContext);
 export function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const isInitialMount = useRef(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -27,11 +26,13 @@ export function AuthContextProvider({ children }) {
           if (userDoc.exists()) {
             const userData = userDoc.data();
             const isNewRegistration = Cookies.get('isNewRegistration');
+            const lastLoginDate = localStorage.getItem('lastLoginDate');
+            const today = new Date().toDateString();
 
             const updatedUser = {
               ...user,
               ...userData,
-              displayName: `${userData.firstName} ${userData.lastName}`,
+              displayName: userData.displayName || `${userData.firstName} ${userData.lastName}`,
               isAdmin: userData.role === process.env.NEXT_PUBLIC_ROLE_ADMINS,
               role: userData.role,
             };
@@ -46,8 +47,11 @@ export function AuthContextProvider({ children }) {
             if (isNewRegistration) {
               toast.success('Selamat datang di aplikasi kami!');
               Cookies.remove('isNewRegistration');
-            } else if (!isInitialMount.current) {
-              toast.success(`Selamat datang kembali, ${userData.firstName}!`);
+              localStorage.setItem('lastLoginDate', today);
+            } else if (!lastLoginDate || lastLoginDate !== today) {
+              const displayName = userData.displayName || `${userData.firstName} ${userData.lastName}`;
+              toast.success(`Selamat datang kembali, ${displayName}!`);
+              localStorage.setItem('lastLoginDate', today);
             }
 
             Cookies.set('lastLoginTime', new Date().toISOString(), {
@@ -67,7 +71,6 @@ export function AuthContextProvider({ children }) {
       }
     });
 
-    isInitialMount.current = false;
     return () => unsubscribe();
   }, []);
 
@@ -91,6 +94,8 @@ export function AuthContextProvider({ children }) {
         await signOut(auth);
         return null;
       }
+
+      localStorage.removeItem('lastLoginDate');
 
       return result;
     } catch (error) {

@@ -13,6 +13,7 @@ export default function ProfileForm() {
         userData,
         loading,
         handleChange,
+        handleFileChange,
         handleSubmit
     } = useProfile();
 
@@ -50,13 +51,17 @@ export default function ProfileForm() {
                         <input
                             type="tel"
                             name="phoneNumber"
-                            readOnly
                             value={userData.phoneNumber}
                             onChange={handleChange}
                             className={styles.settingsInput}
                         />
                     </div>
-                    <ProfileImage />
+
+                    <ProfileImage
+                        photoURL={userData.photoURL}
+                        onFileChange={handleFileChange}
+                    />
+
                     <button
                         type="submit"
                         disabled={loading}
@@ -66,7 +71,6 @@ export default function ProfileForm() {
                     </button>
                 </form>
             </div>
-
         </section>
     );
 }
