@@ -12,7 +12,8 @@ export default function ProjectMedia({
     imagesPreview,
     handleImageChange,
     handleImageReorder,
-    id
+    id,
+    handleDeleteImage
 }) {
     return (
         <>
@@ -26,6 +27,7 @@ export default function ProjectMedia({
                         required={!id}
                     />
                 </div>
+
                 {thumbnailPreview && (
                     <div className={styles.thumbnailPreview}>
                         <Image
@@ -79,6 +81,14 @@ export default function ProjectMedia({
                                                         objectFit="cover"
                                                         unoptimized
                                                     />
+
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => handleDeleteImage(index)}
+                                                        className={styles.delete__button}
+                                                    >
+                                                        ✕
+                                                    </button>
                                                 </div>
                                             )}
                                         </Draggable>

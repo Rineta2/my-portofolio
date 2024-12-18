@@ -163,7 +163,7 @@ export default function useProjectForm() {
 
     try {
       if (id) {
-        await handleUpdate(id, formData, thumbnail);
+        await handleUpdate(id, formData, thumbnail, images);
         toast.success("Project updated successfully!");
       } else {
         await handleCreate(formData, thumbnail, images);
@@ -197,6 +197,25 @@ export default function useProjectForm() {
     };
   }, [imagesPreview, thumbnailPreview]);
 
+  const handleDeleteImage = (index) => {
+    // Buat salinan array untuk preview dan file images
+    const newImagesPreview = [...imagesPreview];
+    const newImages = [...images];
+
+    // Hapus URL dari blob jika ada
+    if (newImagesPreview[index]?.startsWith('blob:')) {
+      URL.revokeObjectURL(newImagesPreview[index]);
+    }
+
+    // Hapus dari kedua array
+    newImagesPreview.splice(index, 1);
+    newImages.splice(index, 1);
+
+    // Update state
+    setImagesPreview(newImagesPreview);
+    setImages(newImages);
+  };
+
   return {
     formData,
     loading: loading || isSubmitting,
@@ -208,6 +227,7 @@ export default function useProjectForm() {
     handleThumbnailChange,
     handleImageReorder,
     handleIconToggle,
+    handleDeleteImage,
     thumbnail,
     setThumbnail,
     thumbnailPreview,

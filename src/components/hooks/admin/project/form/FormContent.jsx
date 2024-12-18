@@ -29,6 +29,7 @@ export default function ProjectForm() {
         handleThumbnailChange,
         handleImageReorder,
         handleIconToggle,
+        handleDeleteImage,
         thumbnail,
         setThumbnail,
         thumbnailPreview,
@@ -86,6 +87,7 @@ export default function ProjectForm() {
                     handleImageChange={handleImageChange}
                     handleThumbnailChange={handleThumbnailChange}
                     handleImageReorder={handleImageReorder}
+                    handleDeleteImage={handleDeleteImage}
                     id={id}
                 />
 
