@@ -2,19 +2,11 @@ import React from 'react'
 
 import PortofolioDetailsContent from '@/components/hooks/pages/portofolio/slug/PortofolioDetailsContent'
 
-import { getProjects } from '@/utils/lib/project/read_server'
+import { fetchProjectBySlug } from '@/utils/lib/project/FetchProject'
 
 export const generateMetadata = async ({ params }) => {
     try {
-        const project = await getProjects(params.slug);
-
-        if (!project) {
-            return {
-                title: 'Project Not Found',
-                description: 'The requested project could not be found.',
-                robots: { index: false }
-            }
-        }
+        const project = await fetchProjectBySlug(params.slug);
 
         return {
             title: `Portfolio - ${project.title}`,
@@ -37,7 +29,7 @@ export const generateMetadata = async ({ params }) => {
 
 export default async function PortfolioDetails({ params }) {
     try {
-        const project = await getProjects(params.slug);
+        const project = await fetchProjectBySlug(params.slug);
 
         if (!project) {
             return (

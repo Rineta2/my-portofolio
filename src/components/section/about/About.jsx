@@ -2,13 +2,13 @@ import React from "react";
 
 import AboutClient from "@/components/hooks/section/about/AboutClient";
 
-import { getAbout } from "@/utils/lib/about/read_server";
+import { fetchAbout } from "@/utils/lib/about/FetchAbout";
 
-import { getSkills } from "@/utils/lib/skills/read_server";
+import { fetchSkills } from "@/utils/lib/skills/FetchSkills";
 
 export default async function About() {
-  const about = await getAbout();
-  const skills = await getSkills();
+  const about = await fetchAbout();
+  const skills = await fetchSkills();
 
   if (!about) {
     return <div>Halaman Tidak Ditemukan</div>;

@@ -12,7 +12,7 @@ import { useAchievementAnimationScroll } from "@/components/hooks/animation/achi
 
 import AchievementHeading from "@/components/hooks/section/achievement/AchievementHeading"
 
-import { fetchData } from "@/utils/lib/achievement/FetchAchievement"
+import { fetchAchievement } from "@/utils/lib/achievement/FetchAchievement"
 
 export default function AchievementContent({ achievement }) {
     const [achievements, setAchievements] = useState([]);
@@ -22,7 +22,7 @@ export default function AchievementContent({ achievement }) {
 
 
     useEffect(() => {
-        fetchData()
+        fetchAchievement()
             .then(data => setAchievements(data));
     }, []);
 
