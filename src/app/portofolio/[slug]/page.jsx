@@ -18,7 +18,6 @@ export const generateMetadata = async ({ params }) => {
             },
         }
     } catch (error) {
-        console.error('Error generating metadata:', error);
         return {
             title: 'Error',
             description: 'An error occurred while loading the project.',
