@@ -12,8 +12,8 @@ export async function generateMetadata({ searchParams }) {
     };
 }
 
-export default function AchievementForm({ searchParams }) {
-    const id = searchParams?.id;
+export default function AchievementFormPage({ searchParams }) {
+    const id = searchParams.id;
     return (
         <AchievementFormContent id={id} />
     )

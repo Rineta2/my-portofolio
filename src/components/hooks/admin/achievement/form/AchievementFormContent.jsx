@@ -17,7 +17,7 @@ export default function AchievementFormContent({ id }) {
         previewUrl,
         currentImageUrl,
         fetchAchievement,
-    } = useAchievementForm()
+    } = useAchievementForm(id)
 
     useEffect(() => {
         if (id) {

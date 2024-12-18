@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { db } from "@/utils/firebase";
-import { collection, addDoc, doc, getDoc } from "firebase/firestore";
+import { collection, addDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import imagekit from "@/utils/imagekit";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -8,7 +8,7 @@ import { createWorker } from "tesseract.js";
 import imageCompression from 'browser-image-compression';
 import { format, parse } from 'date-fns';
 
-export const useAchievementForm = (initialImageUrl = "") => {
+export const useAchievementForm = (id = null, initialImageUrl = "") => {
   const router = useRouter();
   const [formData, setFormData] = useState({ title: "", date: "" });
   const [image, setImage] = useState(null);
@@ -51,21 +51,28 @@ export const useAchievementForm = (initialImageUrl = "") => {
     if (!text) return "";
 
     const removeWords = [
-      'certificate of', 'has participated in', 'has',
-      'tema', 'certification', 'certificate', 'sertifikat',
-      'sertifikasi', 'certified that'
+      "tema",
+      "has participated in",
+      "certificate of",
+      "certification",
+      "certificate",
+      "sertifikat",
+      "sertifikasi",
+      "certified that"
     ];
 
-    const cleanedText = removeWords.reduce(
-      (acc, word) => acc.replace(new RegExp(word, 'gi'), ''),
-      text
-    ).replace(/[^\w\s-]/g, ' ').trim().replace(/\s+/g, ' ');
+    const removePattern = new RegExp(removeWords.join("|"), "gi");
 
-    return cleanedText.length < 3
-      ? "English Proficiency Test Bogor Regency"
-      : cleanedText.split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-        .join(' ');
+    const cleanedText = text
+      .replace(removePattern, "")
+      .replace(/[^\w\s-]/g, " ")
+      .trim()
+      .replace(/\s+/g, " ");
+
+    return cleanedText
+      .split(" ")
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
   };
 
   const handleSubmit = async (e) => {
@@ -74,17 +81,30 @@ export const useAchievementForm = (initialImageUrl = "") => {
 
     try {
       const imageUrl = image ? await uploadImage(image) : previewUrl;
-      const parsedDate = parse(formData.date, 'yyyy-MM-dd', new Date());
 
-      await addDoc(collection(db, process.env.NEXT_PUBLIC_API_ACHIEVEMENT), {
+      let achievementData = {
         title: formData.title,
-        date: parsedDate,
         imageUrl,
-      });
+      };
 
-      toast.success("Achievement added successfully");
-      setTimeout(() => router.push("/admins/dashboard/achievement"), 2000);
+      if (formData.date) {
+        achievementData.date = parse(formData.date, 'yyyy-MM-dd', new Date());
+      }
+
+      if (id) {
+        console.log("Updating document with ID:", id);
+        const docRef = doc(db, process.env.NEXT_PUBLIC_API_ACHIEVEMENT, id);
+        await updateDoc(docRef, achievementData);
+        toast.success("Achievement updated successfully");
+      } else {
+        console.log("Creating new document");
+        await addDoc(collection(db, process.env.NEXT_PUBLIC_API_ACHIEVEMENT), achievementData);
+        toast.success("Achievement added successfully");
+      }
+
+      router.push("/admins/dashboard/achievement");
     } catch (error) {
+      console.error("Error saving achievement:", error);
       toast.error("Failed to save changes");
     } finally {
       setIsLoading(false);
@@ -124,7 +144,7 @@ export const useAchievementForm = (initialImageUrl = "") => {
       return response.url;
     } catch (error) {
       console.error("Error uploading image:", error);
-      throw error; // Lebih baik throw error untuk handling di handleSubmit
+      throw error;
     }
   };
 
