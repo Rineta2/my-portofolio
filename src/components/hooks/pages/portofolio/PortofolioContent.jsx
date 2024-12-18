@@ -1,63 +1,34 @@
 "use client"
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useRef } from 'react';
 
-import styles from "@/app/portofolio/Portofolio.module.scss"
+import styles from "@/app/portofolio/Portofolio.module.scss";
 
-import { parseISO, compareDesc } from 'date-fns'
+import TopProject from "@/components/hooks/pages/portofolio/TopProject";
 
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import CategorySidebar from '@/components/hooks/pages/portofolio/CategorySidebar';
 
-import {
-    initializeAnimations,
-    categoryChangeAnimation,
-} from '@/components/hooks/animation/portofolio/portofolioAnimations'
+import ProjectCard from '@/components/hooks/pages/portofolio/ProjectCard';
 
-import TopProject from "@/components/hooks/pages/portofolio/TopProject"
+import { usePortfolioData } from '@/components/hooks/pages/portofolio/utils/usePortofolioData';
 
-import CategorySidebar from '@/components/hooks/pages/portofolio/CategorySidebar'
-
-import ProjectCard from '@/components/hooks/pages/portofolio/ProjectCard'
-
-import { fetchProjects } from "@/utils/lib/project/FetchProject"
+import { usePortfolioAnimations } from '@/components/hooks/animation/portofolio/usePortofolioAnimations';
 
 export default function PortofolioContent() {
-    const [selectedCategory, setSelectedCategory] = useState('all')
-    const [projects, setProjects] = useState([])
-    const topProjectRef = useRef(null)
-    const sidebarRef = useRef(null)
-    const projectsRef = useRef([])
+    const {
+        selectedCategory,
+        setSelectedCategory,
+        projects,
+        uniqueCategories,
+        topProjects,
+        filteredRemainingProjects
+    } = usePortfolioData();
 
-    useEffect(() => {
-        fetchProjects()
-            .then(data => setProjects(data))
-    }, [])
+    const topProjectRef = useRef(null);
+    const sidebarRef = useRef(null);
+    const projectsRef = useRef([]);
 
-    const uniqueCategories = [...new Set(projects.map(item => item.category))]
-
-    const allSortedProjects = [...projects].sort((a, b) => {
-        return compareDesc(parseISO(a.date), parseISO(b.date))
-    })
-
-    const topProjects = allSortedProjects.slice(0, 1)
-
-    const filteredRemainingProjects = selectedCategory === 'all'
-        ? allSortedProjects.filter(project => !topProjects.includes(project))
-        : allSortedProjects.filter(project =>
-            !topProjects.includes(project) && project.category === selectedCategory
-        )
-
-    useEffect(() => {
-        initializeAnimations(topProjectRef, sidebarRef, projectsRef);
-
-        return () => {
-            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-        };
-    }, []);
-
-    useEffect(() => {
-        categoryChangeAnimation(projectsRef);
-    }, [selectedCategory]);
+    usePortfolioAnimations(topProjectRef, sidebarRef, projectsRef, projects, selectedCategory);
 
     return (
         <div className={`${styles.portofolio__container} ${styles.container}`}>
@@ -86,5 +57,5 @@ export default function PortofolioContent() {
                 </aside>
             </div>
         </div>
-    )
+    );
 }
