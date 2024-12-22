@@ -36,6 +36,7 @@ export default function TagFormModal({ onAddTag, onUpdateTag, onClose, editingTa
             <div className={styles.modal}>
                 <div className={styles.modal__header}>
                     <h2>{isEditing ? 'Edit Tag' : 'Add New Tag'}</h2>
+
                     <button
                         onClick={onClose}
                         className={styles.modal__close}
@@ -43,6 +44,7 @@ export default function TagFormModal({ onAddTag, onUpdateTag, onClose, editingTa
                         ×
                     </button>
                 </div>
+
                 <form onSubmit={handleSubmit} className={styles.add__new__tag__form}>
                     <div className={styles.add__new__tag__form__container}>
                         <div className={styles.form__group}>
@@ -60,6 +62,7 @@ export default function TagFormModal({ onAddTag, onUpdateTag, onClose, editingTa
                                 ))}
                             </select>
                         </div>
+
                         <div className={styles.form__group}>
                             <label>Tag Name</label>
                             <input
@@ -70,11 +73,13 @@ export default function TagFormModal({ onAddTag, onUpdateTag, onClose, editingTa
                                 required
                             />
                         </div>
+
                         <div className={styles.modal__actions}>
-                            <button type="button" onClick={onClose}>Cancel</button>
                             <button type="submit">
                                 {isEditing ? 'Save Changes' : 'Add Tag'}
                             </button>
+
+                            <button type="button" onClick={onClose}>Cancel</button>
                         </div>
                     </div>
                 </form>
