@@ -2,7 +2,9 @@ import React from "react";
 
 import ArticleContent from "@/components/hooks/pages/articles/ArticleContent";
 
-import styles from "@/app/articles/Articles.module.scss"
+import styles from "@/app/articles/Articles.module.scss";
+
+import { fetchArticles } from "@/utils/lib/articles/FetchArticles";
 
 export async function generateMetadata() {
   return {
@@ -12,9 +14,11 @@ export async function generateMetadata() {
 }
 
 export default async function Articles() {
+  const articles = await fetchArticles();
+
   return (
     <section className={styles.articles}>
-      <ArticleContent />
+      <ArticleContent articles={articles} />
     </section>
   );
 }

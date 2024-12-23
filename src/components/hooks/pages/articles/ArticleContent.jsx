@@ -1,35 +1,41 @@
-"use client";
-
-import { useState, useEffect } from "react";
-
-import { fetchArticles } from "@/utils/lib/articles/FetchArticles";
-
 import styles from "@/app/articles/Articles.module.scss";
 
 import Image from "next/image";
 
-export default function ArticleContent() {
-  const [articles, setArticles] = useState([]);
+import { formatDate } from "@/components/tools/formatDate";
 
-  useEffect(() => {
-    fetchArticles().then((data) => setArticles(data));
-  }, []);
+import Link from "next/link";
 
+export default function ArticleContent({ articles }) {
   return (
     <div className={styles.articleContainer}>
-      {articles.map((item, index) => (
-        <div key={index} className={styles.box}>
+      <h1>Article Content</h1>
+
+      {articles?.map((article) => (
+        <div key={article.id}>
           <div className={styles.img}>
             <Image
-              src={item.imageUrl}
+              src={article.imageUrl}
               width={500}
               height={500}
-              alt={item.title}
+              alt={article.title}
               quality={100}
             />
           </div>
 
-          <h1>{item.title}</h1>
+          <div className={styles.text}>
+            <div className={styles.toolbar}>
+              <span className={styles.category}>{article.categoryName}</span>
+
+              <span className={styles.date}>
+                {formatDate(article.publishDate)}
+              </span>
+            </div>
+
+            <h1>{article.title}</h1>
+
+            <Link href={`/articles/${article.slug}`}>Read More</Link>
+          </div>
         </div>
       ))}
     </div>

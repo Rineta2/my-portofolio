@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 
 export const fetchArticles = async () => {
@@ -29,7 +29,6 @@ export const fetchArticleBySlug = async (slug) => {
     const doc = querySnapshot.docs[0];
     return { id: doc.id, ...doc.data() };
   } catch (error) {
-    console.error("Error fetching article by slug:", error);
     return null;
   }
 };
