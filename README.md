@@ -28,6 +28,16 @@ This portfolio is built with:
 - 🎬 Smooth Animations
 - 📊 Interactive Components
 - 🎮 3D Elements
+- 📝 Articles Section
+- 🔍 Project Section
+- 📈 Skills
+- 📱 Social Media Integration
+- 📬 Contact Form with Validation
+- 📊 GitHub Projects Integration
+- 🎨 Custom CSS Animations
+- 🔄 Loading States/Transitions
+- 📱 PWA Support
+- 🔒 Protected Admin Dashboard
 
 ## 🛠️ Projects Showcase
 
