@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 import React from "react";
 
 import { fetchArticleBySlug } from "@/utils/lib/articles/FetchArticles";
