@@ -24,8 +24,8 @@ export const navLink = [
 
   {
     id: 3,
-    name: "Blogs",
-    path: "/blogs",
+    name: "Articles",
+    path: "/articles",
   },
 
   {
