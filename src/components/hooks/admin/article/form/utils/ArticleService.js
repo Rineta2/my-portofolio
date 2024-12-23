@@ -158,10 +158,7 @@ export const articleService = {
   // Add new method to get admin users
   async getAdminUsers() {
     try {
-      const q = query(
-        collection(db, process.env.NEXT_PUBLIC_API_USERS),
-        where("role", "==", process.env.NEXT_PUBLIC_ROLE_ADMINS)
-      );
+      const q = query(collection(db, "users"), where("role", "==", "admins"));
       const querySnapshot = await getDocs(q);
       return querySnapshot.docs.map((doc) => ({
         id: doc.id,
