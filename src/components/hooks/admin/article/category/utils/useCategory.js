@@ -9,7 +9,7 @@ export function useCategoryOperations() {
 
     const fetchCategories = async () => {
         try {
-            const querySnapshot = await getDocs(collection(db, 'articleCategories'))
+            const querySnapshot = await getDocs(collection(db, process.env.NEXT_PUBLIC_API_ARTICLE_CATEGORY))
             const categoriesData = querySnapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()
@@ -25,7 +25,7 @@ export function useCategoryOperations() {
         if (!newCategory.trim()) return
 
         try {
-            await addDoc(collection(db, 'articleCategories'), {
+            await addDoc(collection(db, process.env.NEXT_PUBLIC_API_ARTICLE_CATEGORY), {
                 name: newCategory,
             })
             setNewCategory('')
@@ -40,7 +40,7 @@ export function useCategoryOperations() {
         if (!editingCategory || !editingCategory.name.trim()) return
 
         try {
-            const categoryRef = doc(db, 'articleCategories', editingCategory.id)
+            const categoryRef = doc(db, process.env.NEXT_PUBLIC_API_ARTICLE_CATEGORY, editingCategory.id)
             await updateDoc(categoryRef, {
                 name: editingCategory.name,
             })
@@ -55,7 +55,7 @@ export function useCategoryOperations() {
         if (!window.confirm('Are you sure you want to delete this category?')) return
 
         try {
-            await deleteDoc(doc(db, 'articleCategories', id))
+            await deleteDoc(doc(db, process.env.NEXT_PUBLIC_API_ARTICLE_CATEGORY, id))
             fetchCategories()
         } catch (error) {
             console.error('Error deleting category:', error)

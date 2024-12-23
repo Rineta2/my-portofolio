@@ -15,14 +15,15 @@ export const useIcons = () => {
 
   const fetchIcons = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, "icons"));
+      const querySnapshot = await getDocs(
+        collection(db, process.env.NEXT_PUBLIC_API_ICONS)
+      );
       const iconsList = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
       setIcons(iconsList);
     } catch (error) {
-      console.error("Error mengambil data icons:", error);
       toast.error("Gagal mengambil data icons");
     }
   };
@@ -38,8 +39,8 @@ export const useIcons = () => {
       });
 
       // Simpan hanya URL ke Firestore
-      await addDoc(collection(db, "icons"), {
-        url: uploadResponse.url
+      await addDoc(collection(db, process.env.NEXT_PUBLIC_API_ICONS), {
+        url: uploadResponse.url,
       });
 
       await fetchIcons();
@@ -48,7 +49,6 @@ export const useIcons = () => {
       });
       return true;
     } catch (error) {
-      console.error("Error menambah icon:", error);
       toast.error("Gagal menambahkan icon", {
         id: loadingToast,
       });
@@ -60,13 +60,12 @@ export const useIcons = () => {
     const loadingToast = toast.loading("Menghapus icon...");
     try {
       // Hapus dari Firestore
-      await deleteDoc(doc(db, "icons", id));
+      await deleteDoc(doc(db, process.env.NEXT_PUBLIC_API_ICONS, id));
       await fetchIcons();
       toast.success("Icon berhasil dihapus!", {
         id: loadingToast,
       });
     } catch (error) {
-      console.error("Error menghapus icon:", error);
       toast.error("Gagal menghapus icon", {
         id: loadingToast,
       });
