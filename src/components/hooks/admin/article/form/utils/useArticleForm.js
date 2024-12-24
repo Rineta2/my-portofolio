@@ -22,7 +22,10 @@ export function useArticleForm() {
     tags: [],
     tagNames: [],
     authorId: "",
+    authorName: "",
+    authorPhoto: "",
     folderName: "",
+    role: "",
   });
   const [imageFile, setImageFile] = useState(null);
   const [categories, setCategories] = useState([]);
@@ -34,6 +37,16 @@ export function useArticleForm() {
       if (id) {
         try {
           const article = await articleService.getArticle(id);
+
+          let authorData = {};
+          if (article.authorId) {
+            try {
+              authorData = await articleService.getAdminById(article.authorId);
+            } catch (error) {
+              console.error("Failed to load admin data:", error);
+            }
+          }
+
           setFormData({
             title: article.title,
             slug: article.slug,
@@ -46,9 +59,13 @@ export function useArticleForm() {
             tags: article.tags.map((tag) => tag.id),
             tagNames: article.tags.map((tag) => tag.name),
             authorId: article.authorId,
+            authorName: authorData?.displayName || "",
+            authorPhoto: authorData?.photoURL || "",
             folderName: article.folderName || "",
+            role: authorData?.role || "",
           });
         } catch (error) {
+          console.error("Error loading article:", error);
           toast.error("Failed to load article");
         }
       }

@@ -49,6 +49,7 @@ export const articleService = {
           name: tag.name,
         })),
         authorId: data.authorId,
+        role: data.role,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       });
@@ -106,6 +107,7 @@ export const articleService = {
           name: tag.name,
         })),
         authorId: data.authorId,
+        role: data.role,
         updatedAt: new Date().toISOString(),
       });
     } catch (error) {
@@ -190,6 +192,27 @@ export const articleService = {
       }
     } catch (error) {
       throw error;
+    }
+  },
+
+  // Tambahkan method baru
+  async getAdminById(adminId) {
+    try {
+      const userDoc = await getDoc(doc(db, "users", adminId));
+      if (userDoc.exists() && userDoc.data().role === "admins") {
+        const userData = userDoc.data();
+        return {
+          id: userDoc.id,
+          displayName: userData.displayName,
+          photoURL: userData.photoURL,
+          role: userData.role,
+          ...userData,
+        };
+      }
+      return null;
+    } catch (error) {
+      console.error("Error fetching admin:", error);
+      throw new Error("Failed to fetch admin data");
     }
   },
 };

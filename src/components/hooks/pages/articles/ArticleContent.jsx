@@ -121,15 +121,32 @@ export default function ArticleContent({ articles, categories }) {
             </div>
 
             <div className={styles.text}>
-              <div className={styles.category}>
-                <span>{article.categoryName}</span>
+              <div className={styles.profile}>
+                <div className={styles.category}>
+                  <span>{article.categoryName}</span>
+                </div>
+
+                <div className={styles.author}>
+                  <Image
+                    src={article.authorPhoto}
+                    width={500}
+                    height={500}
+                    quality={100}
+                    alt={article.authorName}
+                  />
+
+                  <div className={styles.authorText}>
+                    <h3>{article.authorName}</h3>
+                    <span>{article.role}</span>
+                  </div>
+                </div>
               </div>
 
               <h1>{article.title}</h1>
 
               <p>
-                {article.description.length > 200
-                  ? `${article.description.substring(0, 200)}...`
+                {article.description.length > 150
+                  ? `${article.description.substring(0, 150)}...`
                   : article.description}
               </p>
             </div>
@@ -141,13 +158,13 @@ export default function ArticleContent({ articles, categories }) {
         <h1>Explore all news updates</h1>
 
         <div className={styles.searchContainer}>
+          <Search />
           <input
             type="text"
             placeholder="Search Articles..."
             readOnly
             onClick={() => setIsModalOpen(true)}
           />
-          <Search />
         </div>
       </div>
 
@@ -201,39 +218,44 @@ export default function ArticleContent({ articles, categories }) {
         </div>
       )}
 
-      {remainingArticles?.map((article) => (
-        <div key={article.id}>
-          <div className={styles.img}>
-            <Image
-              src={article.imageUrl}
-              width={500}
-              height={500}
-              alt={article.title}
-              quality={100}
-            />
-          </div>
-
-          <div className={styles.text}>
-            <div className={styles.toolbar}>
-              <span className={styles.category}>{article.categoryName}</span>
-
-              <span className={styles.date}>
-                {formatDate(article.createdAt)}
-              </span>
+      <div className={styles.content}>
+        {remainingArticles?.map((article) => (
+          <Link
+            key={article.id}
+            href={`/articles/${createSlug(article.categoryName)}/${createSlug(
+              article.slug
+            )}`}
+            className={styles.box}
+          >
+            <div className={styles.img}>
+              <Image
+                src={article.imageUrl}
+                width={500}
+                height={500}
+                alt={article.title}
+                quality={100}
+              />
             </div>
 
-            <h1>{article.title}</h1>
+            <div className={styles.text}>
+              <h1>{article.title}</h1>
+              <p>
+                {article.description.length > 100
+                  ? `${article.description.substring(0, 100)}...`
+                  : article.description}
+              </p>
 
-            <Link
-              href={`/articles/${createSlug(article.categoryName)}/${createSlug(
-                article.slug
-              )}`}
-            >
-              Read More
-            </Link>
-          </div>
-        </div>
-      ))}
+              <div className={styles.bottom}>
+                <span className={styles.category}>{article.categoryName}</span>
+
+                <span className={styles.date}>
+                  {formatDate(article.createdAt)}
+                </span>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
