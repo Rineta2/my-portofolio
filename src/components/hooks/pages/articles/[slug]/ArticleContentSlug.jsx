@@ -1,8 +1,11 @@
 "use client";
 
 import React from "react";
+
 import Image from "next/image";
+
 import styles from "@/app/articles/Articles.module.scss";
+
 import { formatDate } from "@/components/tools/formatDate";
 
 export default function ArticleContentSlug({ article }) {

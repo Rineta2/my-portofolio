@@ -2,19 +2,22 @@ $primary-c: #ad947d;
 $background-c: #212121;
 $text-c: #e8e8e8;
 
+$body-f: "Open Sans", serif;
+$sec-f: "Noto Sans", serif;
+
 @mixin glass-effect {
-    background-color: rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 @mixin flex-center {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 @mixin justify-flex-center {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

@@ -15,12 +15,13 @@ export async function generateMetadata() {
   };
 }
 
-export default async function Articles() {
+export default async function ArticlesPage() {
   const articles = await fetchArticles();
+  const categories = await fetchArticles();
 
   return (
     <section className={styles.articles}>
-      <ArticleContent articles={articles} />
+      <ArticleContent articles={articles} categories={categories} />
     </section>
   );
 }
