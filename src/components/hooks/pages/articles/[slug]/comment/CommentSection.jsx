@@ -14,7 +14,6 @@ import { Comment } from "@/components/hooks/pages/articles/[slug]/comment/Commen
 import { useComments } from "@/components/hooks/pages/articles/[slug]/comment/utils/ueComments";
 import { toast } from "react-hot-toast";
 import styles from "@/app/articles/Articles.module.scss";
-import useModalEffects from "@/components/tools/useModalEffect";
 import AuthModal from "@/components/layout/header/auth/AuthModal";
 
 export default function CommentSection({ articleId }) {
@@ -64,21 +63,21 @@ export default function CommentSection({ articleId }) {
         likes: [],
       });
       setNewComment("");
-      toast.success("Comment posted successfully!");
+      toast.success("Komentar berhasil dipost!");
     } catch (error) {
-      toast.error("Failed to post comment");
+      toast.error("Gagal mempost komentar");
     }
   };
 
   const handleDeleteComment = async (commentId) => {
-    if (!window.confirm("Are you sure you want to delete this comment?"))
+    if (!window.confirm("Apakah Anda yakin ingin menghapus komentar ini?"))
       return;
 
     try {
       await deleteDoc(doc(db, process.env.NEXT_PUBLIC_API_COMMENTS, commentId));
-      toast.success("Comment deleted successfully!");
+      toast.success("Komentar berhasil dihapus!");
     } catch (error) {
-      toast.error("Failed to delete comment");
+      toast.error("Gagal menghapus komentar");
     }
   };
 
@@ -96,9 +95,9 @@ export default function CommentSection({ articleId }) {
       );
       setEditingComment(null);
       setEditContent("");
-      toast.success("Comment updated successfully!");
+      toast.success("Komentar berhasil diubah!");
     } catch (error) {
-      toast.error("Failed to update comment");
+      toast.error("Gagal mengubah komentar");
     }
   };
 
@@ -126,14 +125,15 @@ export default function CommentSection({ articleId }) {
 
       setReplyContent("");
       setReplyingTo(null);
-      toast.success("Reply posted successfully!");
+      toast.success("Balasan berhasil dipost!");
     } catch (error) {
-      toast.error("Failed to post reply");
+      toast.error("Gagal mempost balasan");
     }
   };
 
   const handleDeleteReply = async (commentId, replyId) => {
-    if (!window.confirm("Are you sure you want to delete this reply?")) return;
+    if (!window.confirm("Apakah Anda yakin ingin menghapus balasan ini?"))
+      return;
 
     try {
       await deleteDoc(
@@ -145,9 +145,9 @@ export default function CommentSection({ articleId }) {
           replyId
         )
       );
-      toast.success("Reply deleted successfully!");
+      toast.success("Balasan berhasil dihapus!");
     } catch (error) {
-      toast.error("Failed to delete reply");
+      toast.error("Gagal menghapus balasan");
     }
   };
 
@@ -171,9 +171,9 @@ export default function CommentSection({ articleId }) {
       );
       setEditingReply(null);
       setEditContent("");
-      toast.success("Reply updated successfully!");
+      toast.success("Balasan berhasil diubah!");
     } catch (error) {
-      toast.error("Failed to update reply");
+      toast.error("Gagal mengubah balasan");
     }
   };
 
@@ -226,6 +226,7 @@ export default function CommentSection({ articleId }) {
               setEditingComment(comment.id);
               setEditContent(comment.content);
             }}
+            handleEditComment={handleEditComment}
             onDelete={handleDeleteComment}
             onReply={(commentId) => setReplyingTo(commentId)}
             isEditing={editingComment === comment.id}

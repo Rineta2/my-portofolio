@@ -1506,3 +1506,64 @@
     }
   }
 }
+
+//=============== Article Not Found ===============
+
+.article__notfound {
+  .container {
+    max-width: 100vw;
+  }
+
+  .article__container {
+    max-width: 1440px;
+    margin: 0 auto;
+    margin-top: 5rem;
+
+    .content {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      place-items: center;
+
+      .img {
+        width: 400px;
+        height: 400px;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .text {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        width: 100%;
+
+        h1 {
+          font-size: 3rem;
+          font-weight: 600;
+          letter-spacing: 2px;
+        }
+
+        p {
+          font-size: 1.2rem;
+          font-weight: 400;
+          letter-spacing: 2px;
+        }
+
+        .button {
+          background-color: $primary-c;
+          color: $text-c;
+          padding: 1rem 2%;
+          border-radius: 0.5rem;
+          font-size: 1.2rem;
+          cursor: pointer;
+          width: fit-content;
+        }
+      }
+    }
+  }
+}

@@ -28,6 +28,7 @@ export function Comment({
   editingReply,
   visibleReplies,
   onToggleReplies,
+  handleEditComment,
 }) {
   const isReplyBeingEdited = (replyId) => editingReply === replyId;
 
@@ -59,7 +60,10 @@ export function Comment({
       {/* Comment content */}
       {isEditing ? (
         <form
-          onSubmit={(e) => onEdit(e, comment.id)}
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleEditComment(e);
+          }}
           className={styles.edit_form}
         >
           <textarea

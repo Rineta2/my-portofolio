@@ -6,6 +6,16 @@ import { fetchArticleBySlug } from "@/utils/lib/articles/FetchArticles";
 
 import ArticleContentSlug from "@/components/hooks/pages/articles/[slug]/ArticleContentSlug";
 
+import { Toaster } from "react-hot-toast";
+
+import styles from "@/app/articles/Articles.module.scss";
+
+import notfound from "@/components/assets/priview/notfound.gif";
+
+import Image from "next/image";
+
+import Link from "next/link";
+
 export const generateMetadata = async ({ params }) => {
   try {
     const article = await fetchArticleBySlug(params.slug);
@@ -21,8 +31,8 @@ export const generateMetadata = async ({ params }) => {
     };
   } catch (error) {
     return {
-      title: "Error",
-      description: "An error occurred while loading the article.",
+      title: "Articles not found",
+      description: "Articles not found",
       robots: { index: false },
     };
   }
@@ -34,20 +44,43 @@ export default async function ArticleDetails({ params }) {
 
     if (!article) {
       return (
-        <div className="container mx-auto px-4 py-8">
-          <h1 className="text-2xl font-bold">Article not found</h1>
-          <p>The requested article could not be found.</p>
-        </div>
+        <section className={styles.article__notfound}>
+          <div className={`${styles.article__container} ${styles.container}`}>
+            <div className={styles.content}>
+              <div className={styles.img}>
+                <Image src={notfound} alt="Article not found" />
+              </div>
+              <div className={styles.text}>
+                <h1 className={styles.article__title}>
+                  Artikel tidak ditemukan
+                </h1>
+
+                <p>Artikel yang Anda cari tidak ditemukan.</p>
+
+                <Link href="/articles" className={styles.button}>
+                  Kembali ke artikel
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
       );
     }
 
-    return <ArticleContentSlug article={article} />;
+    return (
+      <>
+        <Toaster />
+        <ArticleContentSlug article={article} />
+      </>
+    );
   } catch (error) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold">Error</h1>
-        <p>An error occurred while loading the article.</p>
-      </div>
+      <section>
+        <div className={`${styles.article__container} ${styles.container}`}>
+          <h1 className={styles.article__title}>Error</h1>
+          <p>An error occurred while loading the article.</p>
+        </div>
+      </section>
     );
   }
 }
