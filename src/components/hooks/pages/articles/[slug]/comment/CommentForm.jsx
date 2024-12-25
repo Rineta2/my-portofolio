@@ -11,7 +11,7 @@ export function CommentForm({
 }) {
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(content);
+    onSubmit(e);
   };
 
   return (

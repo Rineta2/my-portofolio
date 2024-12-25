@@ -11,10 +11,11 @@ import {
 } from "firebase/firestore";
 import { CommentForm } from "@/components/hooks/pages/articles/[slug]/comment/CommentForm";
 import { Comment } from "@/components/hooks/pages/articles/[slug]/comment/Comment";
-import AuthModalContent from "@/components/hooks/layout/auth/AuthModalContent";
 import { useComments } from "@/components/hooks/pages/articles/[slug]/comment/utils/ueComments";
 import { toast } from "react-hot-toast";
 import styles from "@/app/articles/Articles.module.scss";
+import useModalEffects from "@/components/tools/useModalEffect";
+import AuthModal from "@/components/layout/header/auth/AuthModal";
 
 export default function CommentSection({ articleId }) {
   const [user] = useAuthState(auth);
@@ -206,20 +207,12 @@ export default function CommentSection({ articleId }) {
         </div>
       )}
 
-      {showAuthModal && (
-        <div className={styles.modal_overlay}>
-          <div className={styles.modal_content}>
-            <button className={styles.close_button} onClick={handleCloseModal}>
-              ×
-            </button>
-            <AuthModalContent
-              activeTab={activeAuthTab}
-              onClose={handleCloseModal}
-              onTabChange={setActiveAuthTab}
-            />
-          </div>
-        </div>
-      )}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={handleCloseModal}
+        activeTab={activeAuthTab}
+        onTabChange={setActiveAuthTab}
+      />
 
       <div className={styles.comments_list}>
         {comments.map((comment) => (
