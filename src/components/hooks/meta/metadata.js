@@ -1,4 +1,4 @@
-const BASE_URL = "https://rzki-r-my-porto.vercel.app";
+const BASE_URL = process.env.NEXT_PUBLIC_URL;
 
 export const metadata = {
   title: "My Portfolio - Rizki Ramadhan",
@@ -10,24 +10,29 @@ export const metadata = {
     "Aplikasi Mobile",
     "Portfolio",
     "Rizki Ramadhan",
+    "Rizki Ramadhan Portfolio",
   ],
 
   icons: {
     icon: [
       {
-        url: "/icon.png",
+        url: `${BASE_URL}/icon.png`,
         sizes: "64x64 32x32 24x24 16x16",
         type: "image/x-icon",
       },
     ],
-    apple: "/icon.png",
-    shortcut: "/icon.png",
-    appleTouchIcon: "/icon.png",
+    apple: `${BASE_URL}/icon.png`,
+    shortcut: `${BASE_URL}/icon.png`,
+    appleTouchIcon: `${BASE_URL}/icon.png`,
   },
 
-  manifest: "/manifest.json",
+  manifest: `${BASE_URL}/manifest.json`,
 
   metadataBase: new URL(BASE_URL),
+  canonical: BASE_URL,
+
+  viewport:
+    "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
 
   other: {
     "theme-color": "#ffffff",
@@ -39,32 +44,36 @@ export const metadata = {
     type: "website",
     title: "My Portfolio - Rizki Ramadhan",
     description: "Seputar pengalaman dan proyek yang sudah saya kerjakan",
-    url: "https://rzki-r-my-porto.vercel.app/",
+    url: BASE_URL,
     siteName: "My Portfolio - Rizki Ramadhan",
+    locale: "id_ID",
     images: [
       {
-        url: "https://rzki-r-my-porto.vercel.app/icon.png",
+        url: `${BASE_URL}/icon.png`,
         width: 1920,
         height: 1080,
+        alt: "Icon for My Portfolio - Rizki Ramadhan",
       },
     ],
   },
+
   twitter: {
     card: "summary_large_image",
     title: "My Portfolio - Rizki Ramadhan",
     description: "Seputar pengalaman dan proyek yang sudah saya kerjakan",
     creator: "@rizki_ramadhan",
-    images: ["https://rzki-r-my-porto.vercel.app/icon.png"],
+    site: "@rizki_ramadhan",
+    images: [`${BASE_URL}/icon.png`],
   },
+
   verification: {
     google: process.env.NEXT_PUBLIC_VERTIFICATION_API_KEY,
   },
+
   robots: {
     index: true,
     follow: true,
+    noarchive: true,
+    nocache: true,
   },
-};
-
-export const viewport = {
-  themeColor: "#ffffff",
 };

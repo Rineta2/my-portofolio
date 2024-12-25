@@ -25,7 +25,17 @@ export default function ArticleContent({ articles, categories }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const sortedCategories = categories?.sort((a, b) =>
+  const uniqueCategories = categories?.reduce((acc, current) => {
+    const isDuplicate = acc.find(
+      (item) => item.categoryName === current.categoryName
+    );
+    if (!isDuplicate) {
+      acc.push(current);
+    }
+    return acc;
+  }, []);
+
+  const sortedCategories = uniqueCategories?.sort((a, b) =>
     a.categoryName.localeCompare(b.categoryName)
   );
 
