@@ -1,61 +1,70 @@
-"use client"
+"use client";
 
-import React, { useRef } from 'react';
-
+import React, { useState, useRef } from "react";
 import styles from "@/app/portofolio/Portofolio.module.scss";
+import { usePortfolioAnimations } from "@/components/hooks/animation/portofolio/usePortofolioAnimations";
+import { TopProject } from "@/components/hooks/pages/portofolio/TopProject";
+import { CategorySidebar } from "@/components/hooks/pages/portofolio/CategorySidebar";
+import { ProjectCard } from "@/components/hooks/pages/portofolio/ProjectCard";
 
-import TopProject from "@/components/hooks/pages/portofolio/TopProject";
+export default function PortofolioContent({ projects, categories }) {
+  const sortedProjects = projects?.sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
+  const topProjects = sortedProjects?.slice(0, 1);
+  const remainingProjects = sortedProjects?.slice(1);
 
-import CategorySidebar from '@/components/hooks/pages/portofolio/CategorySidebar';
+  const uniqueCategories = [
+    ...new Set(categories?.map((cat) => cat.category)),
+  ].map((category) => ({
+    id: categories.find((cat) => cat.category === category).id,
+    category,
+  }));
 
-import ProjectCard from '@/components/hooks/pages/portofolio/ProjectCard';
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const filteredProjects = remainingProjects?.filter(
+    (project) =>
+      selectedCategory === "all" || project.category === selectedCategory
+  );
 
-import { usePortfolioData } from '@/components/hooks/pages/portofolio/utils/usePortofolioData';
+  const topProjectRef = useRef(null);
+  const sidebarRef = useRef(null);
+  const projectsRef = useRef([]);
 
-import { usePortfolioAnimations } from '@/components/hooks/animation/portofolio/usePortofolioAnimations';
+  usePortfolioAnimations(
+    topProjectRef,
+    sidebarRef,
+    projectsRef,
+    filteredProjects,
+    selectedCategory
+  );
 
-export default function PortofolioContent() {
-    const {
-        selectedCategory,
-        setSelectedCategory,
-        projects,
-        uniqueCategories,
-        topProjects,
-        filteredRemainingProjects
-    } = usePortfolioData();
+  return (
+    <div className={`${styles.portofolio__container} ${styles.container}`}>
+      <div ref={topProjectRef}>
+        {topProjects?.map((project) => (
+          <TopProject key={project.id} project={project} />
+        ))}
+      </div>
 
-    const topProjectRef = useRef(null);
-    const sidebarRef = useRef(null);
-    const projectsRef = useRef([]);
+      <div className={styles.content}>
+        <CategorySidebar
+          categories={uniqueCategories}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+          sidebarRef={sidebarRef}
+        />
 
-    usePortfolioAnimations(topProjectRef, sidebarRef, projectsRef, projects, selectedCategory);
-
-    return (
-        <div className={`${styles.portofolio__container} ${styles.container}`}>
-            <div ref={topProjectRef}>
-                {topProjects.map((item, index) => (
-                    <TopProject key={index} project={item} />
-                ))}
-            </div>
-
-            <div className={styles.content}>
-                <CategorySidebar
-                    categories={uniqueCategories}
-                    selectedCategory={selectedCategory}
-                    onCategoryChange={setSelectedCategory}
-                    sidebarRef={sidebarRef}
-                />
-
-                <aside className={styles.aside}>
-                    {filteredRemainingProjects.map((item, index) => (
-                        <ProjectCard
-                            key={index}
-                            project={item}
-                            projectRef={el => projectsRef.current[index] = el}
-                        />
-                    ))}
-                </aside>
-            </div>
+        <div className={styles.aside}>
+          {filteredProjects?.map((project, index) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              ref={(el) => (projectsRef.current[index] = el)}
+            />
+          ))}
         </div>
-    );
+      </div>
+    </div>
+  );
 }
