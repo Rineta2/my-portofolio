@@ -1,3 +1,5 @@
+export const revalidate = 30;
+
 import React from "react";
 
 import { fetchProjects } from "@/utils/lib/project/FetchProject";
