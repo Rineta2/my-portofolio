@@ -190,7 +190,8 @@
         display: flex;
         flex-wrap: wrap;
         gap: 2rem;
-        background-color: hsla(0, 0%, 100%, 0.1);
+        background-color: rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(0, 0, 0, 0.1);
         padding: 2rem;
         border-radius: 24px;
         height: fit-content;

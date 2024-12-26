@@ -20,7 +20,6 @@ export default function AchievementContent({ achievement }) {
     const { initializeAnimationScroll } = useAchievementAnimationScroll(styles);
     const contentRef = useRef(null);
 
-
     useEffect(() => {
         fetchAchievement()
             .then(data => setAchievements(data));
