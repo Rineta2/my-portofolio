@@ -2,11 +2,13 @@ import React from 'react'
 
 import ContactContent from '@/components/hooks/pages/contact/ContactContent'
 
-import TestimonialsContent from "@/components/hooks/pages/testimonials/TestimonialsContent"
+import TestimonialsClient from "@/components/hooks/pages/testimonials/TestimonialsClient"
 
 import styles from '@/app/contact/Contact.module.scss'
 
 import { Toaster } from "react-hot-toast";
+
+import { fetchTestimonials } from "@/utils/lib/testimonials/FetchTestimonials"
 
 export async function generateMetadata() {
     return {
@@ -16,6 +18,7 @@ export async function generateMetadata() {
 }
 
 export default async function Contact() {
+    const testimonials = await fetchTestimonials();
     return (
         <>
             <Toaster />
@@ -24,7 +27,7 @@ export default async function Contact() {
             </section>
 
             <section className={styles.testimonials}>
-                <TestimonialsContent />
+                <TestimonialsClient testimonials={testimonials} />
             </section>
         </>
 

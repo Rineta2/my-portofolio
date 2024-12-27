@@ -1,4 +1,4 @@
-import { Instagram, Linkedin, Github, Facebook } from "lucide-react";
+import { Instagram, Linkedin, Github, Facebook, Heart } from "lucide-react";
 
 export const contact = {
   title: "Get In Touch With Us",
@@ -34,7 +34,7 @@ export const socialLink = [
 ];
 
 export const testiomials = {
-  icons: "Love",
+  icons: <Heart />,
   title: "Built to impress",
   desc: "Why leading companies build with Teamcamp",
 };
