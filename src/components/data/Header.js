@@ -2,12 +2,10 @@ import { Facebook, Instagram, Linkedin, Youtube, Github } from "lucide-react";
 
 import { FaTiktok } from "react-icons/fa";
 
-export const logoName = [
-  {
-    name: "Rizki R",
-    path: "/",
-  },
-];
+export const logoName = {
+  name: "R",
+  path: "/",
+};
 
 export const navLink = [
   {

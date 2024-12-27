@@ -4,7 +4,9 @@ import React from 'react'
 
 import { usePathname } from "next/navigation";
 
-import Header from '@/components/layout/header/Header';
+// import Header from '@/components/layout/header/Header';
+
+import Testing from '@/components/layout/header/Testing';
 
 import Footer from '@/components/layout/footer/Footer';
 
@@ -19,11 +21,11 @@ const Pathname = ({ children }) => {
 
     return (
         <>
-            <Header />
+            <Testing />
             {children}
             <Footer />
         </>
-    )
-}
+    );
+};
 
 export default Pathname;

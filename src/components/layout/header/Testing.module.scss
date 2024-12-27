@@ -1,0 +1,235 @@
+@use "../../styling/variable.scss" as *;
+
+.header {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem 2%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+
+  .nav__logo {
+    position: relative;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    font-size: 1.5rem;
+    color: #fff;
+  }
+
+  .nav {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 2rem;
+    transition: all 0.5s ease;
+
+    &.nav__sticky {
+      position: fixed;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      animation: slideDown 0.8s ease forwards;
+
+      @keyframes slideDown {
+        from {
+          top: -100px;
+          opacity: 0;
+        }
+        to {
+          top: 1rem;
+          opacity: 1;
+        }
+      }
+
+      &.nav__sticky_up {
+        animation: none;
+        top: 1rem;
+      }
+    }
+
+    .nav__list {
+      display: flex;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+
+      .nav__item {
+        width: 120px;
+        height: 40px;
+        border-radius: 2rem;
+        display: grid;
+        place-items: center;
+        transition: all 0.5s ease-in-out;
+        position: relative;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border-radius: 2rem;
+          z-index: -1;
+          transform: translateX(-100%);
+          transition: transform 0.5s ease-in-out;
+        }
+
+        a {
+          font-size: 1rem;
+          font-weight: 500;
+          letter-spacing: 2px;
+          color: #fff;
+        }
+
+        &.nav__item__active {
+          &::before {
+            transform: translateX(0);
+            background-color: rgba(255, 255, 255, 0.1);
+          }
+        }
+      }
+    }
+  }
+
+  .nav__actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    .nav__actions__dark {
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .nav__actions__menu {
+      cursor: pointer;
+
+      button {
+        display: grid;
+        place-items: center;
+        border-radius: 2rem;
+        height: 40px;
+        width: 100px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: 2px;
+        color: #fff;
+      }
+    }
+  }
+
+  .headerProfileMenu {
+    position: fixed;
+    top: 80px;
+    right: 2%;
+    width: 280px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    animation: slideIn 0.3s ease;
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profileInfo {
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 1rem;
+
+      h1 {
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    .menuItem {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      color: #fff;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      svg {
+        opacity: 0.8;
+      }
+    }
+
+    .dashboardLink,
+    .logoutButton {
+      @include flex-center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      color: $text-c;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+
+      &:hover {
+        background: hsla(0, 0%, 100%, 0.05);
+        color: $text-c;
+      }
+    }
+
+    .closeButton {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      cursor: pointer;
+      color: $text-c;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $text-c;
+      }
+    }
+  }
+}
