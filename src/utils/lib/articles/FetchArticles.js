@@ -5,7 +5,8 @@ import { db } from "@/utils/firebase";
 export const fetchArticles = async () => {
   try {
     const querySnapshot = await getDocs(
-      collection(db, process.env.NEXT_PUBLIC_API_ARTICLE)
+      collection(db, process.env.NEXT_PUBLIC_API_ARTICLE),
+      { next: { revalidate: 30 } }
     );
     const data = querySnapshot.docs.map((doc) => ({
       id: doc.id,
@@ -21,7 +22,7 @@ export const fetchArticleBySlug = async (slug) => {
   try {
     const articlesRef = collection(db, process.env.NEXT_PUBLIC_API_ARTICLE);
     const q = query(articlesRef, where("slug", "==", slug));
-    const querySnapshot = await getDocs(q);
+    const querySnapshot = await getDocs(q, { next: { revalidate: 30 } });
 
     if (querySnapshot.empty) {
       return null;
