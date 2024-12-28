@@ -269,7 +269,7 @@
         transition: all 0.3s ease;
         top: 10px;
         right: -20px;
-        color: $background-c;
+        color: $text-c;
 
         &:hover {
           background: #f5f5f5;
@@ -307,7 +307,7 @@
             &:hover,
             &.active {
               background: $primary-c;
-              color: $background-c;
+              color: $text-c;
             }
 
             .navbarIcon {
@@ -426,7 +426,7 @@
             padding: 1rem 1rem;
             border-radius: 0.5rem;
             background: $primary-c;
-            color: $background-c;
+            color: $text-c;
             text-decoration: none;
             font-size: 1.2rem;
             transition: all 0.3s ease;
@@ -519,7 +519,7 @@
             padding: 1rem 1rem;
             border-radius: 0.5rem;
             background: $text-c;
-            color: $background-c;
+            color: $text-c;
             text-decoration: none;
             font-size: 1.2rem;
             border: none;
@@ -664,7 +664,7 @@
             padding: 1rem 1rem;
             border-radius: 0.5rem;
             background: $primary-c;
-            color: $background-c;
+            color: $text-c;
             text-decoration: none;
             font-size: 1.2rem;
             transition: all 0.3s ease;
@@ -984,7 +984,7 @@
             padding: 1rem 1rem;
             border-radius: 0.5rem;
             background: $primary-c;
-            color: $background-c;
+            color: $text-c;
             text-decoration: none;
             font-size: 1.2rem;
             transition: all 0.3s ease;
@@ -1202,7 +1202,7 @@
             padding: 1rem 1rem;
             border-radius: 0.5rem;
             background: $primary-c;
-            color: $background-c;
+            color: $text-c;
             text-decoration: none;
             font-size: 1.2rem;
             transition: all 0.3s ease;
@@ -1904,7 +1904,7 @@
 
             th {
               background-color: $text-c;
-              color: $background-c;
+              color: $text-c;
               font-weight: 600;
               font-size: 1.4rem;
               text-transform: uppercase;
@@ -2091,7 +2091,7 @@
             grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             gap: 1rem;
             padding: 1rem;
-            background: $background-c;
+            background: $text-c;
             border-radius: 8px;
 
             .iconItem {
@@ -2105,7 +2105,7 @@
               cursor: pointer;
               transition: all 0.2s ease;
               gap: 6px;
-              color: $background-c;
+              color: $text-c;
 
               &:hover {
                 background: #f0f0f0;
@@ -2116,7 +2116,7 @@
                 color: $text-c;
 
                 svg {
-                  color: $background-c;
+                  color: $text-c;
                 }
               }
             }
@@ -2439,7 +2439,7 @@
             padding: 1rem 1rem;
             border-radius: 0.5rem;
             background: $primary-c;
-            color: $background-c;
+            color: $text-c;
             text-decoration: none;
             font-size: 1.2rem;
             transition: all 0.3s ease;
@@ -2956,7 +2956,7 @@
 
             th {
               background-color: $text-c;
-              color: $background-c;
+              color: $text-c;
               font-weight: 600;
               font-size: 1.4rem;
               text-transform: uppercase;
@@ -3243,7 +3243,7 @@
               background-color: #f7fafc;
               border: none;
               margin-bottom: 1rem;
-              color: $background-c;
+              color: $text-c;
             }
           }
         }
@@ -3305,7 +3305,7 @@
             background: #fff;
             border-radius: 0.5rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            color: $background-c;
+            color: $text-c;
 
             :global(.ql-toolbar) {
               border-top-left-radius: 0.5rem;

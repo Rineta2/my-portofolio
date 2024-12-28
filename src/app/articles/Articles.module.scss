@@ -253,7 +253,7 @@
               span {
                 font-size: 1.2rem;
                 font-weight: 600;
-                color: $background-c;
+                color: $text-c;
                 letter-spacing: 2px;
 
                 @media (max-width: 768px) {
@@ -439,7 +439,7 @@
           border-radius: 12px;
 
           .searchIcon {
-            color: $background-c;
+            color: $text-c;
           }
 
           input {
@@ -450,10 +450,10 @@
             font-size: 1.2rem;
             letter-spacing: 2px;
             line-height: 1.5;
-            color: $background-c;
+            color: $text-c;
 
             &::placeholder {
-              color: $background-c;
+              color: $text-c;
             }
           }
         }
@@ -483,7 +483,7 @@
               font-size: 1.2rem;
               font-weight: 600;
               letter-spacing: 2px;
-              color: $background-c;
+              color: $text-c;
 
               @media (max-width: 1280px) {
                 font-size: 1rem;
@@ -494,7 +494,7 @@
               font-size: 1.2rem;
               font-weight: 400;
               letter-spacing: 2px;
-              color: $background-c;
+              color: $text-c;
 
               @media (max-width: 1280px) {
                 font-size: 0.9rem;
@@ -600,7 +600,7 @@
               border-radius: 1rem;
               width: fit-content;
               background-color: $text-c;
-              color: $background-c;
+              color: $text-c;
               font-weight: 600;
               letter-spacing: 2px;
 
@@ -864,7 +864,7 @@
     button {
       padding: 0.8rem 1.5rem;
       background: $text-c;
-      color: $background-c;
+      color: $text-c;
       border: none;
       border-radius: 8px;
       font-weight: 600;
@@ -1004,7 +1004,7 @@
     .login_button {
       padding: 0.8rem 1.5rem;
       background: $text-c;
-      color: $background-c;
+      color: $text-c;
       border: none;
       border-radius: 8px;
       font-weight: 600;
@@ -1102,7 +1102,7 @@
 
         &:first-child {
           background: $text-c;
-          color: $background-c;
+          color: $text-c;
           border: none;
 
           &:hover {
