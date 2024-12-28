@@ -5,7 +5,8 @@ import { db } from "@/utils/firebase";
 export const fetchAbout = async () => {
   try {
     const querySnapshot = await getDocs(
-      collection(db, process.env.NEXT_PUBLIC_API_ABOUT)
+      collection(db, process.env.NEXT_PUBLIC_API_ABOUT),
+      { next: { revalidate: 30 } }
     );
     const data = querySnapshot.docs.map((doc) => ({
       id: doc.id,

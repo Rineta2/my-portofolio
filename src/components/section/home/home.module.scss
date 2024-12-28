@@ -68,6 +68,10 @@
       padding: 1rem 2%;
     }
 
+    @media (max-width: 992px) {
+      padding: 1rem 0;
+    }
+
     .content {
       display: grid;
       place-items: center;

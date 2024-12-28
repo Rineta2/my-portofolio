@@ -18,13 +18,12 @@ export default function AboutContent({ about }) {
     return (
         <div className={styles.content}>
             {about?.map((image, index) => (
-                <div key={index} className={styles.image}>
-                    <div
-                        className={styles.img}
-                        ref={el => imageRefs.current[index] = el}
-                    >
-                        <Image src={image?.imageUrl} style={{ cursor: "pointer" }} alt={image?.title} width={500} height={500} />
-                    </div>
+                <div
+                    key={index}
+                    className={styles.img}
+                    ref={el => imageRefs.current[index] = el}
+                >
+                    <Image src={image?.imageUrl} style={{ cursor: "pointer" }} alt={image?.title} width={500} height={500} />
                 </div>
             ))}
 
