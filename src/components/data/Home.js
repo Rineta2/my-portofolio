@@ -4,11 +4,17 @@ import { Github, Linkedin, Instagram, Facebook } from "lucide-react";
 
 import rocket from "@/components/assets/home/rocket.png";
 
+import pictureBack from "@/components/assets/element/Vector_2.png";
+
+import pictureBackTop from "@/components/assets/element/home_top.png";
+
 export const home = {
   text: "Hey, I’m Rizki Ramadhan",
   title: "But you can call me Rizki",
   description:
     "I’m a graphic designer, UX/UI designer & front-end web developer",
+  pictureBack: pictureBack,
+  pictureBackTop: pictureBackTop,
 };
 
 export const homeBtn = [

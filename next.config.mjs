@@ -1,4 +1,5 @@
 import withPWA from "next-pwa";
+
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -19,4 +20,6 @@ export default withPWA({
   register: true,
   skipWaiting: true,
   disable: process.env.NODE_ENV === "development",
+  buildExcludes: [/middleware-manifest\.json$/],
+  publicExcludes: ["!icon.png"],
 })(nextConfig);

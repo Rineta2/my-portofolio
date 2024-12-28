@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 
 import styles from "./home.module.scss";
 
-import { home, homeImg, icons, startImg, rocketImg } from "@/components/data/Home";
+import { home, homeImg, icons, rocketImg } from "@/components/data/Home";
 
 import { initializeButtonAnimation } from "@/components/hooks/animation/home/buttonAnimation";
 

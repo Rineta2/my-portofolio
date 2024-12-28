@@ -1,5 +1,12 @@
 const BASE_URL = process.env.NEXT_PUBLIC_URL;
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1.0,
+  maximumScale: 1.0,
+  userScalable: "no",
+};
+
 export const metadata = {
   title: "My Portfolio - Rizki Ramadhan",
   description: "Seputar pengalaman dan proyek yang sudah saya kerjakan",
@@ -16,26 +23,23 @@ export const metadata = {
   icons: {
     icon: [
       {
-        url: `${BASE_URL}/icon.png`,
+        url: "/icon.png",
         sizes: "64x64 32x32 24x24 16x16",
         type: "image/x-icon",
       },
     ],
-    apple: `${BASE_URL}/icon.png`,
-    shortcut: `${BASE_URL}/icon.png`,
-    appleTouchIcon: `${BASE_URL}/icon.png`,
+    apple: "/icon.png",
+    shortcut: "/icon.png",
+    appleTouchIcon: "/icon.png",
   },
 
-  manifest: `${BASE_URL}/manifest.json`,
+  manifest: "/manifest.json",
 
   metadataBase: new URL(BASE_URL),
   canonical: BASE_URL,
 
-  viewport:
-    "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
-
   other: {
-    "theme-color": "#ffffff",
+    "theme-color": "#030e21",
     "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-capable": "yes",
   },
@@ -49,7 +53,7 @@ export const metadata = {
     locale: "id_ID",
     images: [
       {
-        url: `${BASE_URL}/icon.png`,
+        url: "/icon.png",
         width: 1920,
         height: 1080,
         alt: "Icon for My Portfolio - Rizki Ramadhan",
@@ -63,7 +67,7 @@ export const metadata = {
     description: "Seputar pengalaman dan proyek yang sudah saya kerjakan",
     creator: "@rizki_ramadhan",
     site: "@rizki_ramadhan",
-    images: [`${BASE_URL}/icon.png`],
+    images: ["/icon.png"],
   },
 
   verification: {

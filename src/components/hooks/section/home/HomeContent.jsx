@@ -13,13 +13,16 @@ import { MoveRight } from "lucide-react";
 export default function HomeContent({ home, homeImg, imageRefs, homeBtn }) {
     return (
         <div className={styles.content}>
-            <Image
-                src={homeImg.img}
-                alt="home"
-                ref={(el) => (imageRefs.current[0] = el)}
-                key={homeImg.id}
-                unoptimized
-            />
+            <div className={styles.img}>
+                <Image
+                    src={homeImg.img}
+                    alt="home"
+                    ref={(el) => (imageRefs.current[0] = el)}
+                    key={homeImg.id}
+                    unoptimized
+                    className={styles.profile}
+                />
+            </div>
 
             <div className={styles.box}>
                 <h1 className={styles.text}>{home.text}</h1>

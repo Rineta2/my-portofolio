@@ -73,17 +73,21 @@
       place-items: center;
       gap: 2rem;
 
-      img {
-        width: 200px;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 50%;
-        object-position: center;
-        cursor: pointer;
+      .img {
+        position: relative;
 
-        @media (max-width: 1366px) {
-          width: 150px;
-          height: 150px;
+        .profile {
+          width: 200px;
+          height: 200px;
+          object-fit: cover;
+          border-radius: 50%;
+          object-position: center;
+          cursor: pointer;
+
+          @media (max-width: 1366px) {
+            width: 150px;
+            height: 150px;
+          }
         }
       }
 
@@ -191,7 +195,6 @@
         }
 
         .textItem {
-          font-weight: 800;
           @media (max-width: 768px) {
             flex-wrap: wrap;
             align-items: center;
@@ -201,9 +204,11 @@
 
           .char {
             letter-spacing: 2px;
-            font-size: 2.8rem;
+            font-weight: 900;
+            font-size: 3rem;
             font-family: $sec-f;
-            font-weight: 800;
+            text-transform: uppercase;
+
             @media (max-width: 1366px) {
               font-size: 2.5rem;
             }
@@ -415,5 +420,34 @@
       width: 300px;
       height: 300px;
     }
+  }
+}
+
+.back {
+  position: absolute;
+  bottom: -60%;
+  left: 0;
+  z-index: -1;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.2;
+  }
+}
+
+.backTop {
+  position: absolute;
+  top: -30px;
+  right: 0;
+  z-index: -1;
+  img {
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    object-fit: cover;
+    object-position: center;
   }
 }

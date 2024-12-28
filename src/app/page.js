@@ -12,6 +12,8 @@ import "@/components/styling/globals.scss";
 
 import { Toaster } from "react-hot-toast";
 
+import Background from "@/components/hooks/section/home/Background";
+
 export default function page() {
   return (
     <Fragment>
@@ -34,6 +36,7 @@ export default function page() {
       />
       <RegisterSW />
       <Home />
+      <Background />
       <About />
       <Achievement />
     </Fragment>

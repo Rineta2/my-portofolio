@@ -10,7 +10,7 @@
   justify-content: space-between;
   align-items: center;
   overflow: hidden;
-
+  z-index: $z-index-large;
   @media (max-width: 992px) {
     padding: 1rem 2%;
   }
@@ -151,7 +151,7 @@
     padding: 0.5rem;
     border-radius: 2rem;
     transition: all 0.5s ease;
-    z-index: $z-index-large;
+
     @media (max-width: 768px) {
       position: fixed;
       top: unset;
