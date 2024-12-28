@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 
 import Link from 'next/link';
 
-import styles from '@/components/layout/header/Header.module.scss';
+import styles from '@/components/layout/header/header.module.scss';
 
 import { logoName, navLink } from '@/components/data/Header';
 

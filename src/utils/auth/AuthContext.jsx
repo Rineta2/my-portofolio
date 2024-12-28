@@ -1,11 +1,17 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
+
 import { auth, db } from "@/utils/firebase";
+
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+
 import { doc, getDoc } from "firebase/firestore";
+
 import { useRouter } from "next/navigation";
+
 import Cookies from "js-cookie";
+
 import toast from "react-hot-toast";
 
 const AuthContext = createContext({});
