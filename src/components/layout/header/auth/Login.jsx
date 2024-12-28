@@ -1,14 +1,19 @@
 "use client";
 import React, { useState, useEffect } from "react";
+
 import { useAuth } from "@/utils/auth/AuthContext";
+
 import {
   sendPasswordResetEmail,
   setPersistence,
   browserLocalPersistence,
   browserSessionPersistence,
 } from "firebase/auth";
+
 import styles from "@/components/layout/header/Header.module.scss";
+
 import { toast } from "react-hot-toast";
+
 import { auth } from "@/utils/firebase";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
