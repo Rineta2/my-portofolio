@@ -173,6 +173,8 @@
       z-index: $z-index-medium;
       opacity: 0;
       visibility: hidden;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       transition: opacity 0.5s ease, visibility 0.5s ease;
 
       @media (max-width: 768px) {

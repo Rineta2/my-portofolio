@@ -4,7 +4,8 @@ import { db } from "@/utils/firebase";
 export const fetchTestimonials = async () => {
   try {
     const querySnapshot = await getDocs(
-      collection(db, process.env.NEXT_PUBLIC_API_TESTIMONIAL)
+      collection(db, process.env.NEXT_PUBLIC_API_TESTIMONIAL),
+      { next: { revalidate: 30 } }
     );
     const data = querySnapshot.docs.map((doc) => {
       const docData = doc.data();

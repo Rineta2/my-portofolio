@@ -1,10 +1,21 @@
-import React from 'react'
+import { fetchAchievement } from "@/utils/lib/achievement/FetchAchievement"
 
-import AchievementContent from "@/components/hooks/section/achievement/AchievementContent"
+import { achievementHeading } from "@/components/data/Achiement"
+
+import AchievementContent from "@/components/hooks/section/achievement/AchievmentContent"
 
 export default async function Achievement() {
 
+    const rawAchievements = await fetchAchievement();
+
+    const achievements = rawAchievements.map(achievement => ({
+        ...achievement,
+        date: achievement.date?.toDate?.()
+            ? achievement.date.toDate().toISOString()
+            : new Date(achievement.date).toISOString()
+    }));
+
     return (
-        <AchievementContent />
+        <AchievementContent achievements={achievements} heading={achievementHeading} />
     )
 }
