@@ -8,11 +8,13 @@ import RegisterSW from "@/components/hooks/meta/RegisterSW";
 
 import Achievement from "@/components/hooks/section/achievement/Achievement";
 
-import "@/components/styling/globals.scss";
+import Portofolio from "@/components/section/portofolio/Portofolio";
 
 import { Toaster } from "react-hot-toast";
 
 import Background from "@/components/hooks/section/home/Background";
+
+import "@/components/styling/globals.scss";
 
 export default function page() {
   return (
@@ -39,6 +41,7 @@ export default function page() {
       <Background />
       <About />
       <Achievement />
+      <Portofolio />
     </Fragment>
   );
 }
