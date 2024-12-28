@@ -128,7 +128,7 @@
             width: fit-content;
             border-radius: 12px;
             background: $text-c;
-            color: $background-c;
+            color: $dark-bg;
 
             @media (max-width: 1280px) {
               font-size: 1.15rem;
@@ -360,7 +360,7 @@
                 color: $text-c;
                 padding: 0.5rem 1rem;
                 border-radius: 12px;
-                background-color: $background-c;
+                background-color: $dark-bg;
 
                 @media (max-width: 1280px) {
                   font-size: 1rem;

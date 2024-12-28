@@ -7,7 +7,7 @@ import {
   browserLocalPersistence,
   browserSessionPersistence,
 } from "firebase/auth";
-import styles from "@/components/layout/header/header.module.scss";
+import styles from "@/components/layout/header/Header.module.scss";
 import { toast } from "react-hot-toast";
 import { auth } from "@/utils/firebase";
 

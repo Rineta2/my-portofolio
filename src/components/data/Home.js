@@ -1,47 +1,60 @@
-import img from "@/components/assets/home/img.png";
+import img from "@/components/assets/home/img.webp";
 
 import { Github, Linkedin, Instagram, Facebook } from "lucide-react";
 
-export const home = [
+import rocket from "@/components/assets/home/rocket.png";
+
+export const home = {
+  text: "Hey, I’m Rizki Ramadhan",
+  title: "But you can call me Rizki",
+  description:
+    "I’m a graphic designer, UX/UI designer & front-end web developer",
+};
+
+export const homeBtn = [
   {
     id: 1,
-    text: "Hello, I'm",
-    title: "Rizki R",
-    description: "I'm a software engineer and a web developer",
+    name: "See My Projects",
+    path: "/portfolio",
+  },
+
+  {
+    id: 2,
     name: "Let's me talk",
-    path: "/about",
+    path: "/contact",
   },
 ];
 
-export const homeImg = [
-  {
-    id: 1,
-    img: img,
-  },
-];
+export const homeImg = {
+  img: img,
+};
 
 export const icons = [
   {
     id: 1,
     icons: <Github />,
-    path: "",
+    path: "https://github.com/Rineta2",
   },
 
   {
     id: 2,
     icons: <Linkedin />,
-    path: "",
+    path: "https://www.linkedin.com/in/rizki-ramadhan12",
   },
 
   {
     id: 3,
     icons: <Instagram />,
-    path: "",
+    path: "https://www.instagram.com/rzkir.20",
   },
 
   {
     id: 4,
     icons: <Facebook />,
-    path: "",
+    path: "https://www.facebook.com/profile.php?id=100007663247764",
   },
 ];
+
+export const rocketImg = {
+  rocket: rocket,
+};

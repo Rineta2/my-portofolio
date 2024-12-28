@@ -1,16 +1,15 @@
 @use "./variable.scss" as *;
 
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+[data-theme="dark"] {
+  --background: #{$dark-bg};
+  --text-c: #{$text-c};
+  --nav-bg: rgba(255, 255, 255, 0.1);
+}
 
-body {
-  color: $text-c;
-  background: rgb(33, 33, 33);
-  background: radial-gradient(
-    circle,
-    rgba(33, 33, 33, 1) 0%,
-    rgba(17, 30, 46, 1) 100%
-  );
-  font-family: $body-f;
+[data-theme="light"] {
+  --background: #{$light-bg};
+  --text-c: #{$black-c};
+  --nav-bg: rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -21,13 +20,19 @@ body {
   text-decoration: none;
 }
 
+body {
+  color: var(--text-c);
+  background: var(--background);
+  transition: all 0.3s ease-in-out;
+}
+
 html {
   font-size: 85%;
   scroll-behavior: smooth;
 
   &::-webkit-scrollbar {
     width: 0.5rem;
-    background-color: $background-c;
+    background-color: var(--background);
   }
 
   &::-webkit-scrollbar-thumb {

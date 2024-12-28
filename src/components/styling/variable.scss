@@ -1,9 +1,17 @@
-$primary-c: #ad947d;
-$background-c: #212121;
-$text-c: #e8e8e8;
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&display=swap");
 
-$body-f: "Open Sans", serif;
-$sec-f: "Noto Sans", serif;
+$primary-c: #4361ee;
+$dark-bg: #111e2e;
+
+$text-c: #e8e8e8;
+$light-bg: #f7f7f8;
+$black-c: #252422;
+
+$sec-f: "Audiowide", serif;
+
+$z-index-small: 50;
+$z-index-medium: 100;
+$z-index-large: 200;
 
 @mixin glass-effect {
   background-color: rgba(0, 0, 0, 0.1);

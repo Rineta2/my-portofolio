@@ -8,30 +8,36 @@ import AnimatedText from "@/components/hooks/animation/home/AnimatedText";
 
 import styles from "@/components/section/home/home.module.scss";
 
-export default function HomeContent({ home, homeImg, imageRefs }) {
+import { MoveRight } from "lucide-react";
+
+export default function HomeContent({ home, homeImg, imageRefs, homeBtn }) {
     return (
         <div className={styles.content}>
-            {home.map((item) => (
-                <div className={styles.box} key={item.id}>
-                    <span className={styles.text}>{item.text}</span>
-                    <AnimatedText text={item.title} />
-                    <p>{item.description}</p>
-                    <Link href={item.path} className={styles.link}>
-                        {item.name}
-                    </Link>
-                </div>
-            ))}
+            <Image
+                src={homeImg.img}
+                alt="home"
+                ref={(el) => (imageRefs.current[0] = el)}
+                key={homeImg.id}
+                unoptimized
+            />
 
-            {homeImg.map((image, index) => (
-                <div
-                    className={styles.img}
-                    key={image.id}
-                    ref={(el) => (imageRefs.current[index] = el)}
-                    style={{ cursor: "pointer" }}
-                >
-                    <Image src={image.img} alt="home" quality={100} />
-                </div>
-            ))}
+            <div className={styles.box}>
+                <h1 className={styles.text}>{home.text}</h1>
+                <AnimatedText text={home.title} />
+                <p>{home.description}</p>
+            </div>
+
+            <div className={styles.btn}>
+                {
+                    homeBtn.map((item) => {
+                        return (
+                            <Link key={item.id} href={item.path}>
+                                <MoveRight />{item.name}
+                            </Link>
+                        )
+                    })
+                }
+            </div>
         </div>
     );
 }

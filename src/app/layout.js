@@ -4,11 +4,11 @@ metadata.manifest = "/manifest.json";
 
 export { metadata };
 
-import { Noto_Sans } from "next/font/google";
+import { Poppins } from "next/font/google";
 
-const notoSans = Noto_Sans({
+const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "700", "900"],
 });
 
 import "@/components/styling/globals.scss";
@@ -17,13 +17,17 @@ import Providers from "@/utils/auth/Provider";
 
 import Pathname from "@/utils/auth/Pathname";
 
+import { ThemeProvider } from "@/utils/theme/ThemeContext";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${notoSans.variable}`}>
-        <Providers>
-          <Pathname>{children}</Pathname>
-        </Providers>
+      <body className={`${poppins.variable}`}>
+        <ThemeProvider>
+          <Providers>
+            <Pathname>{children}</Pathname>
+          </Providers>
+        </ThemeProvider>
       </body>
     </html>
   );

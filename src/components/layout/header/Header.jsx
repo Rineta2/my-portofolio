@@ -1,86 +1,131 @@
-"use client";
+"use client"
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from 'react'
 
-import { usePathname } from "next/navigation";
+import Link from 'next/link';
 
-import { useAuth } from "@/utils/auth/AuthContext";
+import styles from '@/components/layout/header/Header.module.scss';
 
-import styles from "@/components/layout/header/header.module.scss";
+import { logoName, navLink } from '@/components/data/Header';
 
-import NavLogo from "@/components/hooks/layout/header/NavLogo";
+import { SunMoon, CloudMoon } from 'lucide-react';
 
-import NavList from "@/components/hooks/layout/header/NavList";
-
-import NavActions from "@/components/hooks/layout/header/NavActions";
-
-import ProfileMenu from "@/components/hooks/layout/header/ProfileMenu";
+import { usePathname } from 'next/navigation';
 
 import AuthModal from "@/components/layout/header/auth/AuthModal";
 
-import useHeaderScroll from "@/components/hooks/animation/header/useHeaderScroll";
+import { useAuth } from "@/utils/auth/AuthContext";
 
-import useModalEffects from "@/components/tools/useModalEffect";
+import ProfileMenu from "@/components/hooks/layout/header/ProfileMenu";
 
-export default function Header() {
-  const { user, logout } = useAuth();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("login");
-  const [showProfileMenu, setShowProfileMenu] = useState(false);
-  const [showHamburgerMenu, setShowHamburgerMenu] = useState(false);
-  const pathname = usePathname();
+import Image from "next/image";
 
-  useHeaderScroll(pathname);
-  useModalEffects(showHamburgerMenu);
-  useModalEffects(showProfileMenu);
-  useModalEffects(isModalOpen);
+import { useTheme } from "@/utils/theme/ThemeContext";
 
-  const toggleMenu = () => {
-    setShowHamburgerMenu(!showHamburgerMenu);
-    document.body.style.overflow = !showHamburgerMenu ? 'hidden' : 'unset';
-  };
+export default function Testing() {
+    const pathname = usePathname();
+    const { user, logout } = useAuth();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [activeTab, setActiveTab] = useState("login");
+    const [showProfileMenu, setShowProfileMenu] = useState(false);
 
-  useEffect(() => {
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, []);
+    const [sticky, setSticky] = useState(false);
+    const [scrollingUp, setScrollingUp] = useState(false);
+    const [lastScroll, setLastScroll] = useState(0);
 
-  return (
-    <>
-      <header className={`${styles.header} ${showHamburgerMenu ? styles.menuOpen : ''}`}>
-        <nav className={`${styles.nav} ${styles.container}`}>
-          <NavLogo />
-          <NavList
-            pathname={pathname}
-            showHamburgerMenu={showHamburgerMenu}
-            toggleMenu={toggleMenu}
-          />
-          <NavActions
-            user={user}
-            setIsModalOpen={setIsModalOpen}
-            setShowProfileMenu={setShowProfileMenu}
-            showProfileMenu={showProfileMenu}
-            toggleMenu={toggleMenu}
-            showHamburgerMenu={showHamburgerMenu}
-          />
-        </nav>
+    const { isDarkMode, toggleTheme } = useTheme();
 
-        {showProfileMenu && (
-          <ProfileMenu
-            user={user}
-            logout={logout}
-            setShowProfileMenu={setShowProfileMenu}
-          />
-        )}
-      </header>
+    const handleScroll = useCallback(() => {
+        const currentScroll = window.scrollY;
+        const isScrollingUp = currentScroll < lastScroll;
 
-      <AuthModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-      />
-    </>
-  );
+        if (currentScroll > 100) {
+            setSticky(true);
+            setScrollingUp(isScrollingUp);
+        } else {
+            setSticky(false);
+            setScrollingUp(false);
+        }
+
+        setLastScroll(currentScroll);
+    }, [lastScroll]);
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [handleScroll])
+
+
+    return (
+        <header className={`${styles.header} ${isDarkMode ? styles.header__dark : styles.header__light} container`}>
+            <Link href={logoName.path} className={styles.nav__logo}>
+                {logoName.name}
+            </Link>
+
+            <nav className={`${styles.nav} ${sticky ? styles.nav__sticky : ''} ${scrollingUp ? styles.nav__sticky_up : ''} container`}>
+                <ul className={styles.nav__list}>
+                    {
+                        navLink.map((item, index) => (
+                            <li className={`${styles.nav__item} ${pathname === item.path ? styles.nav__item__active : ''}`} key={index}>
+                                <Link href={item.path}>
+                                    <span className={styles.nav__item__icon}>
+                                        {item.icon}
+                                    </span>
+
+                                    <span className={styles.nav__item__name}>
+                                        {item.name}
+                                    </span>
+                                </Link>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </nav>
+
+            <div className={styles.nav__actions}>
+                <div
+                    className={styles.nav__actions__dark}
+                    onClick={toggleTheme}
+                >
+                    {isDarkMode ? <SunMoon /> : <CloudMoon />}
+                </div>
+
+                <div className={styles.nav__actions__menu}>
+                    {user ? (
+                        <div onClick={() => setShowProfileMenu(!showProfileMenu)}>
+                            <Image
+                                src={user.photoURL}
+                                alt={`Profile picture of ${user.displayName || user.email}`}
+                                width={40}
+                                height={40}
+                                className={styles.profileImage}
+                                style={{ objectFit: 'cover', borderRadius: '50%', border: '2px solid #e8e8e8' }}
+                                onError={(e) => {
+                                    e.target.src = '/default-avatar.png';
+                                }}
+                                unoptimized
+                            />
+                        </div>
+                    ) : (
+                        <button onClick={() => setIsModalOpen(true)}>Login</button>
+                    )}
+                </div>
+            </div>
+
+            {showProfileMenu && (
+                <ProfileMenu
+                    user={user}
+                    logout={logout}
+                    setShowProfileMenu={setShowProfileMenu}
+                />
+            )}
+
+            <AuthModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                activeTab={activeTab}
+                onTabChange={setActiveTab}
+            />
+        </header>
+    )
 }

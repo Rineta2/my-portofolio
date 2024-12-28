@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 
 import styles from "./home.module.scss";
 
-import { home, homeImg, icons } from "@/components/data/Home";
+import { home, homeImg, icons, startImg, rocketImg } from "@/components/data/Home";
 
 import { initializeButtonAnimation } from "@/components/hooks/animation/home/buttonAnimation";
 
@@ -15,6 +15,12 @@ import { initializeImageAnimation } from "@/components/hooks/animation/home/useH
 import HomeContent from "@/components/hooks/section/home/HomeContent";
 
 import HomeBottom from "@/components/hooks/section/home/HomeBottom";
+
+import { homeBtn } from "@/components/data/Home";
+
+import { useTheme } from "@/utils/theme/ThemeContext";
+
+import Rocket from "@/components/hooks/section/home/Rocket";
 
 export default function Home() {
   const sectionRef = useRef(null);
@@ -37,12 +43,15 @@ export default function Home() {
     };
   }, []);
 
+  const { isDarkMode } = useTheme();
+
   return (
-    <section ref={sectionRef} className={styles.home}>
+    <section ref={sectionRef} className={`${styles.home} ${isDarkMode ? styles.dark : styles.light}`}>
       <div className={styles.overlay}></div>
-      <div className={`${styles.home__container} ${styles.container}`}>
-        <HomeContent home={home} homeImg={homeImg} imageRefs={imageRefs} />
+      <div className={`${styles.home__container} container`}>
+        <HomeContent home={home} homeImg={homeImg} imageRefs={imageRefs} homeBtn={homeBtn} />
         <HomeBottom icons={icons} />
+        <Rocket rocketImg={rocketImg} />
       </div>
     </section>
   );

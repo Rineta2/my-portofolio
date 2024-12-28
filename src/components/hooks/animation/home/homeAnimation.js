@@ -1,18 +1,11 @@
 import gsap from "gsap";
 
+import styles from "@/components/section/home/home.module.scss";
+
 export const initializeCircleAnimation = (sectionRef) => {
   // Create single light circle
   const circle = document.createElement("div");
-  circle.style.cssText = `
-    position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
-    width: 600px;
-    height: 600px;
-    pointer-events: none;
-    filter: blur(30px);
-    transform-origin: center center;
-  `;
+  circle.classList.add(styles.lightCircle);
   sectionRef.current.appendChild(circle);
 
   // Animate circle

@@ -1,255 +1,419 @@
 @use "../../styling/variable.scss" as *;
 
 .home {
-    position: relative;
-    overflow: hidden;
-    margin-top: 5rem;
+  position: relative;
+  overflow: hidden;
 
-    @media (max-width: 1280px) {
-        margin-top: 0;
-    }
-
-    .container {
-        max-width: 100vw;
-    }
-
-    &__container {
-        padding: 1rem 2%;
-
-        @media (max-width: 480px) {
-            padding: 1rem 0;
+  &.dark {
+    .content {
+      .btn {
+        a {
+          &::before {
+            background-color: $text-c;
+          }
         }
+      }
+    }
 
-        .content {
-            display: grid;
-            place-items: center;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
+    .lightCircle {
+      background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.127) 0%,
+        rgba(255, 255, 255, 0) 70%
+      );
+    }
+  }
 
-            @media (max-width: 920px) {
-                grid-template-columns: repeat(1, 1fr);
-                gap: 0;
+  &.light {
+    .content {
+      .btn {
+        a {
+          &::before {
+            background-color: $black-c;
+          }
+        }
+      }
+    }
+
+    .lightCircle {
+      background: hsla(205, 46%, 10%, 1);
+
+      background: linear-gradient(
+        90deg,
+        hsla(205, 46%, 10%, 1) 0%,
+        hsla(191, 28%, 23%, 1) 50%,
+        hsla(207, 41%, 27%, 1) 100%
+      );
+
+      background: -moz-linear-gradient(
+        90deg,
+        hsla(205, 46%, 10%, 1) 0%,
+        hsla(191, 28%, 23%, 1) 50%,
+        hsla(207, 41%, 27%, 1) 100%
+      );
+
+      background: -webkit-linear-gradient(
+        90deg,
+        hsla(205, 46%, 10%, 1) 0%,
+        hsla(191, 28%, 23%, 1) 50%,
+        hsla(207, 41%, 27%, 1) 100%
+      );
+    }
+  }
+
+  &__container {
+    padding: 1rem 5%;
+
+    @media (max-width: 1366px) {
+      padding: 1rem 2%;
+    }
+
+    .content {
+      display: grid;
+      place-items: center;
+      gap: 2rem;
+
+      img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 50%;
+        object-position: center;
+        cursor: pointer;
+
+        @media (max-width: 1366px) {
+          width: 150px;
+          height: 150px;
+        }
+      }
+
+      .box {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        text-align: center;
+        margin-top: 2rem;
+
+        .text {
+          font-size: 2rem;
+          letter-spacing: 2px;
+          position: relative;
+
+          @media (max-width: 1366px) {
+            font-size: 1.8rem;
+          }
+
+          @media (max-width: 992px) {
+            font-size: 1.5rem;
+          }
+
+          @media (max-width: 768px) {
+            font-size: 1.4rem;
+          }
+
+          @media (max-width: 468px) {
+            font-size: 1.2rem;
+          }
+
+          &::before {
+            position: absolute;
+            top: 50%;
+            left: 21%;
+            content: "";
+            width: 50px;
+            height: 2px;
+            background-color: $text-c;
+            animation: animate 1.5s linear forwards;
+
+            @media (max-width: 768px) {
+              left: 2%;
             }
 
-            .box {
-                display: flex;
-                flex-direction: column;
-                gap: 1.5rem;
-
-                @media (max-width: 920px) {
-                    gap: 1rem;
-                }
-
-                h1 {
-                    font-size: 4rem;
-                    display: inline-block;
-                    font-weight: 800;
-
-                    @media (max-width: 480px) {
-                        font-size: 2rem;
-                    }
-                }
-
-                .text {
-                    font-size: 1.4rem;
-                    color: $primary-c;
-                    letter-spacing: 2px;
-                    position: relative;
-
-                    @media (max-width: 480px) {
-                        font-size: 1.2rem;
-                    }
-
-                    @media (max-width: 320px) {
-                        font-size: 1rem;
-                    }
-
-                    &::before {
-                        position: absolute;
-                        top: 10px;
-                        left: -70px;
-                        content: "";
-                        width: 50px;
-                        height: 2px;
-                        background-color: $text-c;
-                        animation: animate 1s linear forwards;
-
-                        @media (max-width: 480px) {
-                            left: -50px;
-                            width: 40px;
-                        }
-
-                        @media (max-width: 320px) {
-                            left: -40px;
-                            width: 30px;
-                            top: 5px;
-                        }
-
-                        @keyframes animate {
-                            0% {
-                                width: 0;
-                            }
-
-                            100% {
-                                width: 50px;
-
-                                @media (max-width: 480px) {
-                                    width: 40px;
-                                }
-
-                                @media (max-width: 320px) {
-                                    width: 30px;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                p {
-                    font-size: 1.2rem;
-                    color: $text-c;
-
-                    @media (max-width: 480px) {
-                        font-size: 1.1rem;
-                    }
-                }
-
-                .link {
-                    width: 150px;
-                    height: 50px;
-                    background-color: $primary-c;
-                    color: $text-c;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    margin-top: 2rem;
-                    border-radius: 12px;
-                    transition: all 0.3s ease-in-out;
-                    font-size: 1.4rem;
-                    position: relative;
-
-                    @media (max-width: 480px) {
-                        width: 100px;
-                        height: 40px;
-                        font-size: 1rem;
-                    }
-
-                    &::before {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        content: "";
-                        width: 100%;
-                        height: 100%;
-                        background-color: $text-c;
-                        z-index: -1;
-                        border-radius: 12px;
-                        transition: all 0.3s ease-in-out;
-                    }
-
-                    &:hover {
-                        &::before {
-                            top: 20px;
-                            left: 20px;
-                            z-index: -1;
-                        }
-                    }
-                }
+            @media (max-width: 468px) {
+              left: 0;
             }
 
-            .img {
-                @media (max-width: 920px) {
-                    width: 500px;
-                    order: -1;
-                }
+            @keyframes animate {
+              0% {
+                width: 0;
+              }
 
-                @media (max-width: 768px) {
-                    width: 400px;
-                }
+              100% {
+                width: 50px;
 
                 @media (max-width: 480px) {
-                    width: 100%;
+                  width: 40px;
                 }
 
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
+                @media (max-width: 320px) {
+                  width: 30px;
                 }
+              }
             }
+          }
+
+          &::after {
+            position: absolute;
+            top: 50%;
+            right: 21%;
+            content: "";
+            width: 50px;
+            height: 2px;
+            background-color: $text-c;
+            animation: animate 1.5s linear forwards;
+
+            @media (max-width: 768px) {
+              right: 2%;
+            }
+
+            @media (max-width: 468px) {
+              right: 0;
+            }
+
+            @keyframes animate {
+              0% {
+                width: 0;
+              }
+
+              100% {
+                width: 50px;
+
+                @media (max-width: 480px) {
+                  width: 40px;
+                }
+
+                @media (max-width: 320px) {
+                  width: 30px;
+                }
+              }
+            }
+          }
         }
 
-        .bottom {
-            display: flex;
-            justify-content: space-between;
+        .textItem {
+          font-weight: 800;
+          @media (max-width: 768px) {
+            flex-wrap: wrap;
             align-items: center;
-            margin-top: 5rem;
+            justify-content: center;
+            line-height: 2;
+          }
 
-            @media (max-width: 1280px) {
-                margin-top: 0;
-                gap: 2rem;
+          .char {
+            letter-spacing: 2px;
+            font-size: 2.8rem;
+            font-family: $sec-f;
+            font-weight: 800;
+            @media (max-width: 1366px) {
+              font-size: 2.5rem;
+            }
+
+            @media (max-width: 992px) {
+              font-size: 2rem;
+            }
+
+            @media (max-width: 768px) {
+              font-size: 1.7rem;
             }
 
             @media (max-width: 480px) {
-                margin-top: 3rem;
+              font-size: 1.3rem;
             }
-
-            .left {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-                transform-style: preserve-3d;
-                perspective: 500px;
-                cursor: pointer;
-
-                span {
-                    writing-mode: vertical-lr;
-                    font-size: 1.2rem;
-                    letter-spacing: 2px;
-                    transform: rotate(180deg);
-                    backface-visibility: hidden;
-
-                    @media (max-width: 480px) {
-                        font-size: 1rem;
-                    }
-                }
-
-                svg {
-                    backface-visibility: hidden;
-                }
-            }
-
-            .right {
-                display: flex;
-                gap: 1.5rem;
-
-                @media (max-width: 480px) {
-                    gap: 1rem;
-                    flex-wrap: wrap;
-                    justify-content: end;
-                }
-
-                a {
-                    width: 60px;
-                    height: 60px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    border-radius: 50%;
-                    transition: all 0.3s ease-in-out;
-
-                    @media (max-width: 480px) {
-                        width: 50px;
-                        height: 50px;
-                    }
-
-                    &:hover {
-                        background-color: $primary-c;
-                        color: $text-c;
-                    }
-                }
-            }
+          }
         }
+
+        p {
+          font-size: 1.4rem;
+          max-width: 38%;
+          margin: 0 auto;
+          line-height: 2;
+
+          @media (max-width: 1366px) {
+            font-size: 1.3rem;
+          }
+
+          @media (max-width: 992px) {
+            max-width: 42%;
+          }
+
+          @media (max-width: 768px) {
+            max-width: 50%;
+          }
+
+          @media (max-width: 468px) {
+            max-width: 100%;
+            font-size: 1.1rem;
+          }
+        }
+      }
+
+      .btn {
+        display: flex;
+        gap: 4rem;
+        margin-top: 2rem;
+
+        a {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          font-size: 1.3rem;
+          font-weight: 600;
+          position: relative;
+
+          @media (max-width: 1366px) {
+            font-size: 1.2rem;
+          }
+
+          &::before {
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            content: "";
+            width: 0;
+            height: 2px;
+            z-index: -1;
+            border-radius: 12px;
+            transition: all 0.5s ease-in-out;
+          }
+
+          &:hover {
+            &::before {
+              width: 100%;
+            }
+          }
+
+          svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
     }
+
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4rem;
+
+      .left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        transform-style: preserve-3d;
+        perspective: 500px;
+        cursor: pointer;
+
+        span {
+          writing-mode: vertical-lr;
+          font-size: 1.2rem;
+          letter-spacing: 3px;
+          transform: rotate(180deg);
+          backface-visibility: hidden;
+
+          @media (max-width: 1366px) {
+            font-size: 1.1rem;
+          }
+
+          @media (max-width: 480px) {
+            font-size: 1rem;
+          }
+        }
+
+        svg {
+          backface-visibility: hidden;
+        }
+      }
+
+      .right {
+        display: flex;
+        gap: 0.5rem;
+
+        @media (max-width: 480px) {
+          gap: 1rem;
+          flex-wrap: wrap;
+          justify-content: end;
+        }
+
+        a {
+          width: 60px;
+          height: 60px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+          transition: all 0.3s ease-in-out;
+
+          @media (max-width: 1366px) {
+            width: 50px;
+            height: 50px;
+          }
+
+          &:hover {
+            background-color: $primary-c;
+            color: $text-c;
+          }
+        }
+      }
+    }
+
+    .rocket {
+      position: absolute;
+      top: 5%;
+      left: 15%;
+      z-index: -1;
+      cursor: pointer;
+      transition: filter 0.3s ease;
+
+      @media (max-width: 992px) {
+        left: 10%;
+      }
+
+      @media (max-width: 768px) {
+        left: 5%;
+      }
+
+      @media (max-width: 468px) {
+        left: 2%;
+        top: 0;
+      }
+
+      &:hover {
+        filter: brightness(1.2);
+      }
+
+      img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        object-position: center;
+
+        @media (max-width: 468px) {
+          width: 150px;
+          height: 150px;
+        }
+      }
+    }
+  }
+
+  .lightCircle {
+    position: absolute;
+    border-radius: 50%;
+    width: 600px;
+    height: 600px;
+    pointer-events: none;
+    filter: blur(30px);
+    transform-origin: center center;
+
+    @media (max-width: 992px) {
+      width: 400px;
+      height: 400px;
+    }
+
+    @media (max-width: 468px) {
+      width: 300px;
+      height: 300px;
+    }
+  }
 }

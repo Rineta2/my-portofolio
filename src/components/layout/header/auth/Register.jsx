@@ -15,7 +15,7 @@ import "react-phone-number-input/style.css";
 
 import PhoneInput from "react-phone-number-input";
 
-import styles from "@/components/layout/header/header.module.scss";
+import styles from "@/components/layout/header/Header.module.scss";
 
 import { toast } from "react-hot-toast";
 
