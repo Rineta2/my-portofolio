@@ -30,6 +30,10 @@ html {
   font-size: 85%;
   scroll-behavior: smooth;
 
+  @media (min-width: 1920px) {
+    font-size: 100%;
+  }
+
   &::-webkit-scrollbar {
     width: 0.5rem;
     background-color: var(--background);
