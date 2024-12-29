@@ -48,7 +48,7 @@ export default function TestimonialsClient({ testimonials: initialTestimonials }
     useModalEffects({ isOpen: isModalOpen, onClose: () => setIsModalOpen(false), user });
 
     return (
-        <div className={`${styles.container} ${styles.testimonials__container}`}>
+        <div className={`${styles.testimonials__container} container`}>
             <TestimonialsHeading />
             <AuthModal
                 isOpen={isModalOpen}

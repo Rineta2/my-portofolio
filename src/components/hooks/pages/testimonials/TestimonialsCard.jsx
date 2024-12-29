@@ -5,20 +5,20 @@ import styles from "@/app/contact/Contact.module.scss";
 export default function TestimonialsCard({ testimonial }) {
     const { name, position, content, photoURL } = testimonial;
 
-    const avatarUrl = photoURL && photoURL !== '/default-avatar.png' ? photoURL : '/default-avatar.png';
+    const avatarUrl = photoURL ? photoURL : '/default-avatar.png';
 
     return (
         <div className={styles.box}>
             <div className={styles.profile}>
-                {avatarUrl !== '/default-avatar.png' ? (
+                {photoURL ? (
                     <Image
                         src={avatarUrl}
                         alt={name}
-                        width={40}
-                        height={40}
+                        width={500}
+                        height={500}
                     />
                 ) : (
-                    <User size={40} color="#666" />
+                    <User size={40} />
                 )}
 
                 <div className={styles.profile__info}>
