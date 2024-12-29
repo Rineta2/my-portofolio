@@ -60,12 +60,6 @@ export default function TestimonialsClient({ testimonials: initialTestimonials }
                 {testimonials.map((testimonial) => (
                     <TestimonialsCard key={testimonial.id} testimonial={testimonial} />
                 ))}
-                {testimonials.map((testimonial) => (
-                    <TestimonialsCard key={testimonial.id} testimonial={testimonial} />
-                ))}
-                {testimonials.map((testimonial) => (
-                    <TestimonialsCard key={testimonial.id} testimonial={testimonial} />
-                ))}
             </div>
 
             <div className={styles.btn}>
