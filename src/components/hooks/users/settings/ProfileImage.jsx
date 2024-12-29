@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import styles from '@/app/users/layout.module.scss';
+import styles from '@/app/admins/layout.module.scss';
 
 export default function ProfileImage({ photoURL, onFileChange }) {
     return (
