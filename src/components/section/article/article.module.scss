@@ -1,0 +1,379 @@
+@use "../../styling/variable.scss" as *;
+
+.article {
+  &.dark {
+    .article__heading {
+      .article__link {
+        &::after {
+          background-color: $text-c;
+        }
+      }
+    }
+
+    .articles__grid {
+      .bottom__article {
+        .article__card {
+          .article__info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+
+            .date {
+              font-size: 1.4rem;
+              font-weight: 600;
+              color: $primary-c;
+              letter-spacing: 2px;
+            }
+
+            h3 {
+              font-size: 3rem;
+              line-height: 2;
+              letter-spacing: 1.5;
+            }
+
+            .tags {
+              span {
+                background-color: $text-c;
+                color: $black-c;
+              }
+            }
+          }
+        }
+      }
+
+      .main__article {
+        .top__article {
+          .article__card {
+            .article__info {
+              .tags {
+                span {
+                  background-color: $text-c;
+                  color: $black-c;
+                }
+              }
+            }
+          }
+        }
+
+        .side__articles {
+          .article__card {
+            .article__info {
+              .tags {
+                span {
+                  background-color: $text-c;
+                  color: $black-c;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.light {
+    .article__heading {
+      .article__link {
+        &::after {
+          background-color: $black-c;
+        }
+      }
+    }
+
+    .articles__grid {
+      .bottom__article {
+        .article__card {
+          .article__info {
+            .tags {
+              span {
+                background-color: $black-c;
+                color: $text-c;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__container {
+    padding: 1rem 5%;
+    .article__heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5rem;
+
+      @media (max-width: 992px) {
+        margin-bottom: 3rem;
+      }
+
+      .article__title {
+        font-size: 3.5rem;
+        font-weight: bold;
+        font-family: $sec-f;
+        letter-spacing: 2px;
+
+        @media (max-width: 992px) {
+          font-size: 2.5rem;
+        }
+      }
+
+      .article__link {
+        font-size: 1.5rem;
+        font-weight: 500;
+        position: relative;
+        letter-spacing: 2px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        @media (max-width: 992px) {
+          font-size: 1.2rem;
+        }
+
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+
+        &:hover {
+          &::after {
+            width: 100%;
+          }
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: -10px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          border-radius: 12px;
+          transition: all 0.5s ease-in-out;
+        }
+      }
+    }
+
+    .articles__grid {
+      display: flex;
+      flex-direction: column;
+      gap: 5rem;
+
+      .main__article {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+        height: 95vh;
+
+        .top__article {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+
+          .article__card {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 2rem;
+
+            .img {
+              width: 100%;
+              border-radius: 12px;
+              overflow: hidden;
+              height: 45%;
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+            }
+
+            .article__info {
+              display: flex;
+              flex-direction: column;
+              gap: 2rem;
+
+              .date {
+                font-size: 1.4rem;
+                font-weight: 600;
+                color: $primary-c;
+                letter-spacing: 2px;
+              }
+
+              h2 {
+                font-size: 2.5rem;
+                line-height: 2;
+                letter-spacing: 1.5;
+              }
+
+              p {
+                font-size: 1.4rem;
+                line-height: 1.5;
+              }
+
+              .tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                margin-top: 1rem;
+
+                span {
+                  height: 40px;
+                  display: grid;
+                  text-transform: capitalize;
+                  font-size: 1.4rem;
+                  place-items: center;
+                  letter-spacing: 2px;
+                  width: fit-content;
+                  border-radius: 12px;
+                  padding: 0 1rem;
+                }
+              }
+            }
+          }
+        }
+
+        .side__articles {
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
+          width: 100%;
+
+          .article__card {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            width: 100%;
+            gap: 2rem;
+            height: 100%;
+            overflow: auto;
+
+            .img {
+              width: 100%;
+              border-radius: 12px;
+              overflow: hidden;
+
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+            }
+
+            .article__info {
+              display: flex;
+              flex-direction: column;
+              gap: 1.5rem;
+              justify-content: center;
+
+              .date {
+                font-size: 1.2rem;
+                font-weight: 600;
+                color: $primary-c;
+                letter-spacing: 2px;
+              }
+
+              h4 {
+                font-size: 1.4rem;
+                line-height: 2;
+                letter-spacing: 1.5;
+              }
+
+              p {
+                font-size: 1.2rem;
+                line-height: 1.5;
+              }
+
+              .tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+
+                span {
+                  height: 40px;
+                  display: grid;
+                  text-transform: capitalize;
+                  font-size: 1.4rem;
+                  place-items: center;
+                  letter-spacing: 2px;
+                  width: fit-content;
+                  border-radius: 12px;
+                  padding: 0 1rem;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .bottom__article {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .article__card {
+          width: 100%;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 2rem;
+
+          .img {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+
+          .article__info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+
+            .date {
+              font-size: 1.4rem;
+              font-weight: 600;
+              color: $primary-c;
+              letter-spacing: 2px;
+            }
+
+            h3 {
+              font-size: 3rem;
+              line-height: 2;
+              letter-spacing: 1.5;
+            }
+
+            p {
+              font-size: 1.4rem;
+              line-height: 1.5;
+            }
+
+            .tags {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 0.5rem;
+              margin-top: 1rem;
+
+              span {
+                height: 40px;
+                display: grid;
+                text-transform: capitalize;
+                font-size: 1.4rem;
+                place-items: center;
+                letter-spacing: 2px;
+                width: fit-content;
+                border-radius: 12px;
+                padding: 0 1rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

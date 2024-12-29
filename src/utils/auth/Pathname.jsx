@@ -8,7 +8,7 @@ import Header from '@/components/layout/header/Header';
 
 import Footer from '@/components/layout/footer/Footer';
 
-import BackgroundTop from "@/components/hooks/section/home/BackgroundTop"
+import { Toaster } from "react-hot-toast";
 
 const Pathname = ({ children }) => {
     const pathname = usePathname();
@@ -21,7 +21,23 @@ const Pathname = ({ children }) => {
 
     return (
         <>
-            <BackgroundTop />
+            <Toaster
+                position="top-center"
+                toastOptions={{
+                    duration: 3000,
+                    style: {
+                        background: "#333",
+                        color: "#fff",
+                    },
+                    success: {
+                        duration: 3000,
+                        theme: {
+                            primary: "green",
+                            secondary: "black",
+                        },
+                    },
+                }}
+            />
             <Header />
             {children}
             <Footer />

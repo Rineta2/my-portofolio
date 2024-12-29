@@ -1,17 +1,23 @@
 export const revalidate = 0;
 
-import React from "react";
+import { fetchAchievement } from "@/utils/lib/achievement/FetchAchievement"
 
-import AchievementClient from "@/components/hooks/section/achievement/achievementClient";
+import { achievementHeading } from "@/components/data/Achiement"
 
-import { getAchievement } from "@/utils/lib/achievement/read_server";
+import AchievementContent from "@/components/hooks/section/achievement/AchievmentContent"
 
 export default async function Achievement() {
-    const achievement = await getAchievement();
 
-    if (!achievement) {
-        return <div>Halaman Tidak Ditemukan</div>;
-    }
+    const rawAchievements = await fetchAchievement();
 
-    return <AchievementClient achievement={achievement} />;
+    const achievements = rawAchievements.map(achievement => ({
+        ...achievement,
+        date: achievement.date?.toDate?.()
+            ? achievement.date.toDate().toISOString()
+            : new Date(achievement.date).toISOString()
+    }));
+
+    return (
+        <AchievementContent achievements={achievements} heading={achievementHeading} />
+    )
 }
