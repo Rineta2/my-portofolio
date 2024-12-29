@@ -55,6 +55,12 @@
         margin-bottom: 3rem;
       }
 
+      @media (max-width: 468px) {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: start;
+      }
+
       .portofolio__title {
         font-size: 3.5rem;
         font-weight: bold;

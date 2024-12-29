@@ -43,21 +43,20 @@ const ArticleCard = ({ article, imageSize, isMain }) => {
                     width={imageSize}
                     height={imageSize}
                     quality={100}
-                    loading="lazy"
                 />
             </div>
             <div className={styles.article__info}>
                 <span className={styles.date}>
                     {format(article.publishDate, "EEEE, dd MMMM yyyy")}
                 </span>
-                {isMain ? <h2>{article.title}</h2> :
-                    imageSize === 200 ? <h4>{article.title}</h4> : <h3>{article.title}</h3>}
+                {isMain ? <h3>{article.title}</h3> :
+                    imageSize === 200 ? <h4> {article.title}</h4> : <h2>{article.title}</h2>}
                 {isMain && <p>{getTruncatedDescription(article.description, 150)}</p>}
-                {!isMain && imageSize === 200 && <p>{getTruncatedDescription(article.description, 50)}</p>}
+                {!isMain && imageSize === 200 && <p>{getTruncatedDescription(article.description, 100)}</p>}
                 {!isMain && imageSize === 300 && <p>{getTruncatedDescription(article.description, 350)}</p>}
                 <ArticleTags tags={article.tags} />
             </div>
-        </Link>
+        </Link >
     );
 };
 
