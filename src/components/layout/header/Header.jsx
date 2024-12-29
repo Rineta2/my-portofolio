@@ -8,7 +8,7 @@ import styles from '@/components/layout/header/header.module.scss';
 
 import { logoName, navLink } from '@/components/data/Header';
 
-import { SunMoon, CloudMoon } from 'lucide-react';
+import { SunMoon, CloudMoon, User } from 'lucide-react';
 
 import { usePathname } from 'next/navigation';
 
@@ -92,19 +92,25 @@ export default function Testing() {
 
                 <div className={styles.nav__actions__menu}>
                     {user ? (
-                        <div onClick={() => setShowProfileMenu(!showProfileMenu)}>
-                            <Image
-                                src={user.photoURL}
-                                alt={`Profile picture of ${user.displayName || user.email}`}
-                                width={40}
-                                height={40}
-                                className={styles.profileImage}
-                                style={{ objectFit: 'cover', borderRadius: '50%', border: '2px solid #e8e8e8' }}
-                                onError={(e) => {
-                                    e.target.src = '/default-avatar.png';
-                                }}
-                                unoptimized
-                            />
+                        <div onClick={() => setShowProfileMenu(!showProfileMenu)} className={styles.profileMenu}>
+                            {user.photoURL ? (
+                                <Image
+                                    src={user.photoURL}
+                                    alt={`Profile picture of ${user.displayName || user.email}`}
+                                    width={40}
+                                    height={40}
+                                    className={styles.profileImage}
+                                    style={{ objectFit: 'cover', borderRadius: '50%', border: '2px solid #e8e8e8' }}
+                                    onError={(e) => {
+                                        e.target.src = '/default-avatar.png';
+                                    }}
+                                    unoptimized
+                                />
+                            ) : (
+                                <div className={styles.defaultAvatar}>
+                                    <User size={24} />
+                                </div>
+                            )}
                         </div>
                     ) : (
                         <button onClick={() => setIsModalOpen(true)}>Login</button>

@@ -42,6 +42,12 @@
           background-color: var(--nav-bg);
           color: $text-c;
         }
+
+        .profileMenu {
+          .defaultAvatar {
+            background-color: var(--nav-bg);
+          }
+        }
       }
     }
 
@@ -100,6 +106,12 @@
         button {
           background-color: var(--nav-bg);
           color: $black-c;
+        }
+
+        .profileMenu {
+          .defaultAvatar {
+            background-color: var(--nav-bg);
+          }
         }
       }
     }
@@ -304,6 +316,23 @@
         font-size: 1rem;
         font-weight: 500;
         letter-spacing: 2px;
+      }
+
+      .profileMenu {
+        cursor: pointer;
+
+        .defaultAvatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          display: grid;
+          place-items: center;
+
+          svg {
+            width: 24px;
+            height: 24px;
+          }
+        }
       }
     }
   }

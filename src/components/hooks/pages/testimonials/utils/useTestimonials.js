@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { addDoc, collection, Timestamp, getDoc, doc } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { toast } from "react-hot-toast";
 
@@ -18,13 +18,16 @@ export function useTestimonials(initialTestimonials) {
     }
 
     try {
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      const userData = userDoc.data();
+
       const testimonialData = {
         ...formData,
         name: user.displayName || "Anonim",
         position: formData.position,
         uid: user.uid,
         createdAt: Timestamp.now(),
-        photoURL: user.photoURL || "/default-avatar.png",
+        photoURL: userData?.photoURL || "/default-avatar.png",
       };
 
       const docRef = await addDoc(
