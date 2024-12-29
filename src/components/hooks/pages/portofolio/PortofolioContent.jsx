@@ -1,11 +1,18 @@
 "use client";
 
 import React, { useState, useRef } from "react";
+
 import styles from "@/app/portofolio/Portofolio.module.scss";
+
 import { usePortfolioAnimations } from "@/components/hooks/animation/portofolio/usePortofolioAnimations";
+
 import { TopProject } from "@/components/hooks/pages/portofolio/TopProject";
+
 import { CategorySidebar } from "@/components/hooks/pages/portofolio/CategorySidebar";
+
 import { ProjectCard } from "@/components/hooks/pages/portofolio/ProjectCard";
+
+import { useTheme } from "@/utils/theme/ThemeContext";
 
 export default function PortofolioContent({ projects, categories }) {
   const sortedProjects = projects?.sort(
@@ -39,8 +46,10 @@ export default function PortofolioContent({ projects, categories }) {
     selectedCategory
   );
 
+  const { isDarkMode } = useTheme();
+
   return (
-    <div className={`${styles.portofolio__container} ${styles.container}`}>
+    <div className={`${styles.portofolio__container} ${isDarkMode ? styles.dark : styles.light} container`}>
       <div ref={topProjectRef}>
         {topProjects?.map((project) => (
           <TopProject key={project.id} project={project} />

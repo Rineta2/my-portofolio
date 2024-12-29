@@ -10,11 +10,14 @@ import Image from 'next/image'
 
 import Link from 'next/link'
 
+import { useTheme } from "@/utils/theme/ThemeContext";
+
 export default function PortofolioDetailsContent({ project }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const { isDarkMode } = useTheme();
 
   return (
-    <section className={styles.portofolioDetails}>
+    <section className={`${styles.portofolioDetails} ${isDarkMode ? styles.dark : styles.light}`}>
       <div className={styles.portofolioDetails__container}>
         <div className={styles.portofolioDetails__content}>
           <ProjectSwiper

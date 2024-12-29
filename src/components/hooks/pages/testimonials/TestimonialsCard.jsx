@@ -1,5 +1,7 @@
 import Image from 'next/image';
+
 import { User } from 'lucide-react';
+
 import styles from "@/app/contact/Contact.module.scss";
 
 export default function TestimonialsCard({ testimonial }) {

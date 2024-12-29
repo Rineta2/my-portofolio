@@ -20,6 +20,8 @@ import useModalEffects from "@/components/tools/useModalEffect";
 
 import { useSearchModalAnimation } from "@/components/hooks/animation/article/useSearchModalAnimation";
 
+import { useTheme } from "@/utils/theme/ThemeContext";
+
 export default function ArticleContent({ articles, categories }) {
   const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState("");
@@ -67,8 +69,10 @@ export default function ArticleContent({ articles, categories }) {
     onClose: () => setIsModalOpen(false),
   });
 
+  const { isDarkMode } = useTheme();
+
   return (
-    <div className={`${styles.articles__container} ${styles.container}`}>
+    <div className={`${styles.articles__container} ${isDarkMode ? styles.dark : styles.light} container`}>
       <div className={styles.toolbar}>
         <div className={styles.heading}>
           <Link href="/">

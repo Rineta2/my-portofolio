@@ -1,17 +1,128 @@
 @use "../../components/styling/variable.scss" as *;
 
 .portofolio {
-  margin-top: 6rem;
-
-  .container {
-    max-width: 100vw;
-  }
-
   &__container {
     padding: 1rem 5%;
 
-    @media (max-width: 1280px) {
+    @media (max-width: 1366px) {
       padding: 1rem 2%;
+    }
+
+    &.dark {
+      .top_project {
+        border: 1px solid var(--nav-bg);
+
+        &:hover {
+          background-color: var(--nav-bg);
+        }
+
+        .text {
+          .tollbar {
+            span {
+              background: $text-c;
+              color: $black-c;
+            }
+          }
+        }
+      }
+
+      .content {
+        .sidebar {
+          background-color: var(--nav-bg);
+          border: 1px solid var(--nav-bg);
+
+          .heading {
+            &::before {
+              background-color: $text-c;
+            }
+          }
+        }
+
+        .aside {
+          .box {
+            border: 1px solid var(--nav-bg);
+
+            &:hover {
+              box-shadow: 0 0 10px var(--nav-bg);
+              background-color: var(--nav-bg);
+            }
+
+            .img {
+              .toolbar {
+                span {
+                  color: $text-c;
+                  background-color: $primary-c;
+                }
+              }
+            }
+
+            a {
+              color: $text-c;
+            }
+          }
+        }
+      }
+    }
+
+    &.light {
+      .top_project {
+        border: 1px solid var(--nav-bg);
+
+        &:hover {
+          background-color: hsla(0, 0%, 100%, 0.1);
+        }
+
+        .text {
+          .tollbar {
+            span {
+              background: $primary-c;
+              color: $text-c;
+            }
+          }
+        }
+      }
+
+      .content {
+        .sidebar {
+          background-color: transparent;
+          border: 1px solid var(--nav-bg);
+
+          .heading {
+            &::before {
+              background-color: $primary-c;
+            }
+          }
+
+          button {
+            color: $black-c;
+
+            &.active {
+              background-color: $primary-c;
+              color: $text-c;
+            }
+          }
+        }
+
+        .aside {
+          .box {
+            border: 1px solid var(--nav-bg);
+
+            &:hover {
+              box-shadow: 0 0 10px var(--nav-bg);
+              background-color: transparent;
+            }
+
+            .img {
+              .toolbar {
+                span {
+                  color: $text-c;
+                  background-color: $primary-c;
+                }
+              }
+            }
+          }
+        }
+      }
     }
 
     .top_project {
@@ -19,11 +130,10 @@
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
-      margin-bottom: 10rem;
+      margin-bottom: 5rem;
       padding: 1.5rem 1%;
       border-radius: 24px;
       transition: all 0.4s ease-in-out;
-      border: 1px solid hsla(0, 0%, 100%, 0.1);
 
       @media (max-width: 1280px) {
         margin-bottom: 5rem;
@@ -36,8 +146,6 @@
       }
 
       &:hover {
-        background-color: hsla(0, 0%, 100%, 0.1);
-
         .Image {
           img {
             transform: scale(1.05);
@@ -143,26 +251,8 @@
 
       .Image {
         width: 100%;
-        position: relative;
         border-radius: 24px;
         overflow: hidden;
-
-        &::before {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          content: "";
-          width: 10px;
-          height: 100%;
-          background: rgb(33, 33, 33);
-          background: radial-gradient(
-            circle,
-            rgba(33, 33, 33, 1) 0%,
-            rgba(17, 30, 46, 1) 100%
-          );
-          z-index: 1;
-        }
 
         img {
           width: 100%;
@@ -190,39 +280,31 @@
         display: flex;
         flex-wrap: wrap;
         gap: 2rem;
-        background-color: rgba(0, 0, 0, 0.1);
-        border: 1px solid rgba(0, 0, 0, 0.1);
         padding: 2rem;
         border-radius: 24px;
         height: fit-content;
         align-items: center;
         justify-content: center;
+        overflow: auto;
+        z-index: $z-index-medium;
 
-        @media (max-width: 992px) {
-          top: 12%;
+        &::-webkit-scrollbar {
+          display: none;
         }
 
         @media (max-width: 768px) {
           width: 100%;
           backdrop-filter: blur(10px);
-          top: 12%;
-          bottom: 0;
-          padding: 1rem;
-          z-index: 99;
+          padding: 0.5rem;
           flex-wrap: nowrap;
-          justify-content: center;
-          align-items: center;
+          justify-content: unset;
+          align-items: unset;
           margin-bottom: 1rem;
         }
 
         @media (max-width: 468px) {
-          justify-content: unset;
-          align-items: unset;
-          overflow-x: auto;
-          gap: 1rem;
-          &::-webkit-scrollbar {
-            display: none;
-          }
+          padding: 1rem 0;
+          gap: 0.5rem;
         }
 
         .heading {
@@ -279,6 +361,10 @@
             font-size: 1rem;
           }
 
+          @media (max-width: 768px) {
+            padding: 0.5rem 1rem;
+          }
+
           &.active {
             background-color: $primary-c;
             color: $text-c;
@@ -288,9 +374,13 @@
 
       .aside {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
         gap: 2rem;
         width: 100%;
+
+        @media (max-width: 1366px) {
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
 
         .box {
           position: relative;
@@ -301,12 +391,8 @@
           padding: 1rem;
           border-radius: 12px;
           transition: all 0.3s ease-in-out;
-          border: 1px solid hsla(0, 0%, 100%, 0.1);
 
           &:hover {
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            background-color: hsla(0, 0%, 100%, 0.1);
-
             .img {
               img {
                 transform: scale(1.05);
@@ -328,18 +414,10 @@
 
             img {
               width: 100%;
-              height: 180px;
+              height: 100%;
               object-fit: cover;
               transition: all 0.3s ease-in-out;
               filter: brightness(0.8);
-
-              @media (max-width: 1280px) {
-                height: 150px;
-              }
-
-              @media (max-width: 992px) {
-                height: 100%;
-              }
             }
 
             .toolbar {
@@ -357,10 +435,8 @@
                 font-size: 1.15rem;
                 text-transform: capitalize;
                 letter-spacing: 2px;
-                color: $text-c;
                 padding: 0.5rem 1rem;
                 border-radius: 12px;
-                background-color: $dark-bg;
 
                 @media (max-width: 1280px) {
                   font-size: 1rem;
@@ -395,7 +471,6 @@
             line-height: 1.5;
             font-weight: 400;
             text-transform: capitalize;
-            color: $text-c;
             margin-top: 1rem;
 
             @media (max-width: 1280px) {
@@ -409,24 +484,185 @@
 }
 
 .portofolioDetails {
-  margin-top: 5rem;
+  &.dark {
+    .portofolioDetails__container {
+      .portofolioDetails__content {
+        .mySwiper {
+          background-color: var(--nav-bg);
 
+          .swiperSlide {
+            &.active {
+              @media (max-width: 468px) {
+                border: 1px solid $primary-c;
+              }
+            }
+          }
+        }
+
+        aside {
+          .category {
+            span {
+              color: $text-c;
+            }
+          }
+
+          .framework {
+            span {
+              color: $text-c;
+            }
+          }
+
+          .linkPriview {
+            span {
+              color: $text-c;
+            }
+
+            a {
+              color: $text-c;
+            }
+          }
+        }
+      }
+
+      .textContent {
+        h2 {
+          color: $text-c;
+        }
+
+        h3 {
+          color: $text-c;
+        }
+
+        ol {
+          li {
+            color: $text-c;
+
+            strong {
+              font-weight: 600;
+              color: $text-c;
+            }
+          }
+        }
+
+        blockquote {
+          background: var(--nav-bg);
+          border-left: 4px solid $primary-c;
+          backdrop-filter: blur(10px);
+
+          p {
+            color: $text-c;
+          }
+        }
+
+        p {
+          color: $text-c;
+        }
+      }
+    }
+  }
+
+  &.light {
+    .portofolioDetails__container {
+      .portofolioDetails__content {
+        .mySwiper {
+          background-color: var(--nav-bg);
+
+          .swiperSlide {
+            &.active {
+              @media (max-width: 468px) {
+                border: 1px solid $primary-c;
+              }
+            }
+          }
+        }
+
+        aside {
+          .category {
+            span {
+              color: $black-c;
+            }
+          }
+
+          .framework {
+            span {
+              color: $black-c;
+            }
+          }
+
+          .linkPriview {
+            span {
+              color: $black-c;
+            }
+
+            a {
+              color: $black-c;
+            }
+          }
+        }
+      }
+
+      .textContent {
+        h2 {
+          color: $black-c;
+        }
+
+        h3 {
+          color: $black-c;
+        }
+
+        ol {
+          li {
+            color: $black-c;
+
+            strong {
+              font-weight: 600;
+              color: $black-c;
+            }
+          }
+        }
+
+        blockquote {
+          background: var(--nav-bg);
+          border-left: 4px solid $primary-c;
+          backdrop-filter: blur(10px);
+
+          p {
+            color: $black-c;
+          }
+        }
+
+        p {
+          color: $black-c;
+        }
+      }
+    }
+  }
   .portofolioDetails__container {
     max-width: 1440px;
     margin: 0 auto;
     padding: 1rem 2%;
+
+    @media (max-width: 468px) {
+      padding: 1rem 0;
+    }
 
     .portofolioDetails__content {
       display: flex;
       gap: 2rem;
       flex-direction: column;
       margin-bottom: 5rem;
+
       .priview {
         width: 100%;
         margin-bottom: 1rem;
         overflow: hidden;
         border-radius: 12px;
-        height: 20%;
+        height: 100%;
+
+        @media (max-width: 468px) {
+          height: 100%;
+          margin-bottom: 0;
+        }
 
         .swiperSlide {
           width: 100%;
@@ -446,9 +682,13 @@
       .mySwiper {
         width: 100%;
         padding: 1rem;
-        background-color: hsla(0, 0%, 100%, 0.1);
         border-radius: 12px;
         margin-bottom: 2rem;
+
+        @media (max-width: 468px) {
+          padding: 0.5rem;
+          margin-bottom: 1rem;
+        }
 
         .swiperSlide {
           width: 100%;
@@ -478,6 +718,10 @@
         display: flex;
         flex-direction: column;
         gap: 3.5rem;
+
+        @media (max-width: 468px) {
+          gap: 3rem;
+        }
 
         h1 {
           font-size: 3rem;
@@ -514,7 +758,6 @@
             font-size: 1.3rem;
             text-transform: capitalize;
             letter-spacing: 2px;
-            color: $text-c;
             font-weight: 800;
 
             @media (max-width: 992px) {
@@ -541,7 +784,6 @@
             font-size: 1.3rem;
             text-transform: capitalize;
             letter-spacing: 2px;
-            color: $text-c;
 
             @media (max-width: 992px) {
               font-size: 1.15rem;
@@ -572,11 +814,8 @@
               width: 50px;
               height: 50px;
               object-fit: cover;
-              background-color: rgba(0, 0, 0, 0.1);
               border-radius: 50%;
-              box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
               backdrop-filter: blur(10px);
-              border: 1px solid rgba(0, 0, 0, 0.1);
               transition: all 0.3s ease-in-out;
 
               @media (max-width: 992px) {
@@ -596,14 +835,12 @@
             font-size: 1.4rem;
             text-transform: capitalize;
             letter-spacing: 2px;
-            color: $text-c;
           }
 
           a {
             font-size: 1.4rem;
             text-transform: capitalize;
             letter-spacing: 2px;
-            color: $text-c;
             position: relative;
 
             &::before {
@@ -642,7 +879,6 @@
       h2 {
         font-size: 1.75rem;
         font-weight: 600;
-        color: $text-c;
         margin-bottom: 1rem;
         margin-top: 1rem;
       }
@@ -653,6 +889,10 @@
         color: $text-c;
         margin-bottom: 2rem;
         margin-top: 2rem;
+
+        @media (max-width: 468px) {
+          font-size: 1.5rem;
+        }
       }
 
       ol {
@@ -665,8 +905,12 @@
           padding-left: 2rem;
           margin-bottom: 1rem;
           font-size: 1.3rem;
-          color: $text-c;
           line-height: 2;
+
+          @media (max-width: 468px) {
+            font-size: 1.15rem;
+            padding-left: 1rem;
+          }
 
           &[data-list="ordered"] {
             counter-increment: item;
@@ -687,6 +931,10 @@
               position: absolute;
               left: 1rem;
               color: $primary-c;
+
+              @media (max-width: 468px) {
+                left: 0;
+              }
             }
           }
 
@@ -694,8 +942,16 @@
           &.ql-indent-1 {
             padding-left: 4rem;
 
+            @media (max-width: 468px) {
+              padding-left: 2rem;
+            }
+
             &::before {
               left: 2.5rem;
+
+              @media (max-width: 468px) {
+                left: 0;
+              }
             }
           }
 
@@ -703,15 +959,22 @@
           &.ql-indent-2 {
             padding-left: 5.5rem;
 
+            @media (max-width: 468px) {
+              padding-left: 3rem;
+            }
+
             &::before {
               left: 4rem;
+
+              @media (max-width: 468px) {
+                left: 0;
+              }
             }
           }
 
           // Bold text styling
           strong {
             font-weight: 600;
-            color: darken($text-c, 10%);
           }
         }
       }
@@ -720,15 +983,18 @@
       blockquote {
         margin: 2.5rem 0;
         padding: 1.75rem 2rem;
-        background: rgba($text-c, 0.05);
         border-left: 4px solid $primary-c;
         border-radius: 0.5rem;
         font-size: 1.2rem;
         line-height: 1.75;
 
+        @media (max-width: 468px) {
+          padding: 1rem 1.5rem;
+          font-size: 1rem;
+        }
+
         p {
           margin: 0;
-          color: rgba($text-c, 0.9);
           font-style: italic;
         }
       }
@@ -737,7 +1003,10 @@
       p {
         font-size: 1.2rem;
         line-height: 1.75;
-        color: $text-c;
+
+        @media (max-width: 468px) {
+          font-size: 1rem;
+        }
       }
 
       // Remove margin from last element
