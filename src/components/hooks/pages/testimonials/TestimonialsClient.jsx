@@ -17,6 +17,9 @@ import { useTestimonials } from '@/components/hooks/pages/testimonials/utils/use
 import TestimonialsHeading from '@/components/hooks/pages/testimonials/TestimonialsHeading';
 
 import useModalEffects from '@/components/tools/useModalEffect';
+
+import { useTheme } from "@/utils/theme/ThemeContext";
+
 export default function TestimonialsClient({ testimonials: initialTestimonials }) {
     const { user } = useAuth();
 
@@ -47,8 +50,10 @@ export default function TestimonialsClient({ testimonials: initialTestimonials }
 
     useModalEffects({ isOpen: isModalOpen, onClose: () => setIsModalOpen(false), user });
 
+    const { isDarkMode } = useTheme();
+
     return (
-        <div className={`${styles.testimonials__container} container`}>
+        <div className={`${styles.testimonials__container} ${isDarkMode ? styles.dark : styles.light} container`}>
             <TestimonialsHeading />
             <AuthModal
                 isOpen={isModalOpen}

@@ -21,6 +21,7 @@ export async function generateMetadata() {
 
 export default async function Contact() {
     const testimonials = await fetchTestimonials();
+
     return (
         <>
             <Toaster />
