@@ -1,21 +1,264 @@
 @use "../../components/styling/variable.scss" as *;
 
 .articles {
-  .container {
-    max-width: 100vw;
-  }
-
   &__container {
     padding: 1rem 5%;
-    margin-top: 5rem;
 
-    @media (max-width: 1280px) {
+    @media (max-width: 1366px) {
       padding: 1rem 2%;
     }
 
     @media (max-width: 992px) {
       padding: 1rem 0;
-      margin-top: 2rem;
+    }
+
+    &.dark {
+      .toolbar {
+        .category {
+          background-color: var(--nav-bg);
+          border: 1px solid var(--nav-bg);
+          a {
+            &.active {
+              background-color: var(--nav-bg);
+              color: $text-c;
+            }
+          }
+        }
+      }
+
+      .topArticles {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-bottom: 5rem;
+
+        @media (max-width: 768px) {
+          grid-template-columns: repeat(1, 1fr);
+          margin-bottom: 2rem;
+          gap: 2rem;
+        }
+
+        .box {
+          background-color: rgba(255, 255, 255, 0.02);
+          border: 1px solid var(--nav-bg);
+
+          &:hover {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+          }
+
+          .img {
+            .date {
+              background-color: rgba(0, 0, 0, 0.5);
+              color: $text-c;
+              backdrop-filter: blur(10px);
+            }
+          }
+
+          .text {
+            .profile {
+              background-color: rgba(255, 255, 255, 0.02);
+              border: 1px solid var(--nav-bg);
+
+              .category {
+                background-color: $primary-c;
+
+                span {
+                  color: $text-c;
+                }
+              }
+
+              .author {
+                img {
+                  border: 1px solid var(--nav-bg);
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .tollbarBottom {
+        .searchContainer {
+          background-color: var(--nav-bg);
+          border: 1px solid transparent;
+
+          input {
+            &::placeholder {
+              color: $text-c;
+            }
+          }
+        }
+      }
+
+      .searchModal {
+        background-color: rgba(0, 0, 0, 0.5);
+        .modalContent {
+          background-color: $light-bg;
+          .modalHeader {
+            .searchIcon {
+              color: $black-c;
+            }
+
+            input {
+              color: $black-c;
+
+              &::placeholder {
+                color: $black-c;
+              }
+            }
+          }
+
+          .modalResults {
+            .searchResultItem {
+              &:hover {
+                background-color: rgba(0, 0, 0, 0.5);
+              }
+
+              h3 {
+                color: $black-c;
+              }
+
+              p {
+                color: $black-c;
+              }
+            }
+          }
+        }
+      }
+
+      .content {
+        .box {
+          .text {
+            .bottom {
+              .category {
+                background-color: $light-bg;
+                color: $black-c;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &.light {
+      .toolbar {
+        .category {
+          background-color: transparent;
+          border: 1px solid var(--nav-bg);
+
+          a {
+            &.active {
+              background-color: $primary-c;
+              color: $text-c;
+            }
+          }
+        }
+      }
+
+      .topArticles {
+        .box {
+          background-color: transparent;
+          backdrop-filter: blur(10px);
+          border: 1px solid var(--nav-bg);
+
+          &:hover {
+            border: 1px solid var(--nav-bg);
+          }
+
+          .img {
+            .date {
+              background-color: var(--nav-bg);
+              color: $text-c;
+              backdrop-filter: blur(10px);
+            }
+          }
+
+          .text {
+            .profile {
+              background-color: var(--nav-bg);
+              border: 1px solid var(--nav-bg);
+
+              .category {
+                background-color: $primary-c;
+
+                span {
+                  color: $text-c;
+                }
+              }
+
+              .author {
+                img {
+                  border: 1px solid var(--nav-bg);
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .tollbarBottom {
+        .searchContainer {
+          background-color: var(--nav-bg);
+          border: 1px solid transparent;
+
+          input {
+            &::placeholder {
+              color: $black-c;
+            }
+          }
+        }
+      }
+
+      .searchModal {
+        background-color: rgba(0, 0, 0, 0.5);
+
+        .modalContent {
+          background-color: $light-bg;
+
+          .modalHeader {
+            .searchIcon {
+              color: $black-c;
+            }
+
+            input {
+              color: $black-c;
+
+              &::placeholder {
+                color: $black-c;
+              }
+            }
+          }
+
+          .modalResults {
+            .searchResultItem {
+              &:hover {
+                background-color: rgba(0, 0, 0, 0.5);
+              }
+
+              h3 {
+                color: $black-c;
+              }
+
+              p {
+                color: $black-c;
+              }
+            }
+          }
+        }
+      }
+
+      .content {
+        .box {
+          .text {
+            .bottom {
+              .category {
+                background-color: $primary-c;
+                color: $text-c;
+              }
+            }
+          }
+        }
+      }
     }
 
     .toolbar {
@@ -69,13 +312,12 @@
         display: flex;
         gap: 1rem;
         margin-bottom: 3rem;
-        background-color: rgba(255, 255, 255, 0.1);
         padding: 1rem;
         border-radius: 1rem;
         align-items: center;
         justify-content: center;
         width: fit-content;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid transparent;
         overflow: auto;
         -webkit-overflow-scrolling: touch;
 
@@ -93,11 +335,6 @@
           padding: 0.5rem 1rem;
           border-radius: 1rem;
           font-weight: 600;
-
-          &.active {
-            background-color: #000;
-            color: #fff;
-          }
         }
       }
     }
@@ -119,15 +356,14 @@
         flex-direction: column;
         gap: 2rem;
         width: 100%;
-        background-color: rgba(255, 255, 255, 0.02);
         border-radius: 12px;
         overflow: hidden;
         height: 100%;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid transparent;
         transition: all 0.5s ease-in-out;
 
         &:hover {
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border: 1px solid transparent;
 
           .img {
             img {
@@ -164,7 +400,6 @@
             position: absolute;
             bottom: 1rem;
             right: 1rem;
-            background-color: rgba(0, 0, 0, 0.5);
             padding: 1rem;
             border-radius: 1rem;
 
@@ -236,9 +471,8 @@
             align-items: center;
             justify-content: space-between;
             padding: 1rem;
-            background-color: rgba(255, 255, 255, 0.02);
             border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid transparent;
 
             .category {
               padding: 0.5rem 1rem;
@@ -253,7 +487,6 @@
               span {
                 font-size: 1.2rem;
                 font-weight: 600;
-                color: $text-c;
                 letter-spacing: 2px;
 
                 @media (max-width: 768px) {
@@ -280,7 +513,7 @@
                 height: 60px;
                 border-radius: 50%;
                 object-fit: cover;
-                border: 1px solid rgba(255, 255, 255, 0.1);
+                border: 1px solid transparent;
                 order: 2;
               }
 
@@ -323,7 +556,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 5rem;
+      margin-bottom: 4rem;
 
       @media (max-width: 768px) {
         margin-bottom: 2rem;
@@ -354,12 +587,11 @@
       .searchContainer {
         display: flex;
         align-items: center;
-        background-color: rgba(255, 255, 255, 0.02);
         padding: 1rem;
         gap: 0.5rem;
         border-radius: 1rem;
         width: fit-content;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid transparent;
 
         @media (max-width: 480px) {
           width: 100%;
@@ -381,10 +613,6 @@
           @media (max-width: 480px) {
             font-size: 0.8rem;
           }
-
-          &::placeholder {
-            color: #fff;
-          }
         }
       }
     }
@@ -395,7 +623,6 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
       z-index: 1000;
       display: none;
       justify-content: center;
@@ -403,6 +630,8 @@
       overflow: hidden;
       backface-visibility: hidden;
       opacity: 0;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
 
       &.active {
         visibility: visible;
@@ -410,7 +639,6 @@
       }
 
       .modalContent {
-        background-color: $text-c;
         padding: 1rem;
         border-radius: 1rem;
         width: 50%;
@@ -438,10 +666,6 @@
           padding: 1rem;
           border-radius: 12px;
 
-          .searchIcon {
-            color: $text-c;
-          }
-
           input {
             width: 100%;
             background-color: transparent;
@@ -450,11 +674,6 @@
             font-size: 1.2rem;
             letter-spacing: 2px;
             line-height: 1.5;
-            color: $text-c;
-
-            &::placeholder {
-              color: $text-c;
-            }
           }
         }
 
@@ -475,15 +694,10 @@
             background-color: transparent;
             transition: all 0.3s ease-in-out;
 
-            &:hover {
-              background-color: rgba(0, 0, 0, 0.219);
-            }
-
             h3 {
               font-size: 1.2rem;
               font-weight: 600;
               letter-spacing: 2px;
-              color: $text-c;
 
               @media (max-width: 1280px) {
                 font-size: 1rem;
@@ -494,7 +708,6 @@
               font-size: 1.2rem;
               font-weight: 400;
               letter-spacing: 2px;
-              color: $text-c;
 
               @media (max-width: 1280px) {
                 font-size: 0.9rem;
@@ -626,6 +839,64 @@
 }
 
 .article__slug {
+  &.dark {
+    .article__container {
+      .top__heading {
+        span {
+          color: $text-c;
+          border: 1px solid var(--nav-bg);
+        }
+      }
+
+      .author {
+        img {
+          border: 1px solid var(--nav-bg);
+        }
+      }
+
+      .tags {
+        span {
+          color: $text-c;
+          border: 1px solid var(--nav-bg);
+
+          &:hover {
+            background-color: var(--nav-bg);
+            border: 1px solid var(--nav-bg);
+          }
+        }
+      }
+    }
+  }
+
+  &.light {
+    .article__container {
+      .top__heading {
+        span {
+          color: $black-c;
+          border: 1px solid var(--nav-bg);
+        }
+      }
+
+      .author {
+        img {
+          border: 1px solid var(--nav-bg);
+        }
+      }
+
+      .tags {
+        span {
+          color: $black-c;
+          border: 1px solid var(--nav-bg);
+
+          &:hover {
+            background-color: var(--nav-bg);
+            border: 1px solid var(--nav-bg);
+          }
+        }
+      }
+    }
+  }
+
   .article__container {
     max-width: 1400px;
     margin: 0 auto;
@@ -824,9 +1095,288 @@
 
 .comments {
   padding: 2rem;
-  background: rgba(255, 255, 255, 0.02);
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  &.dark {
+    background: var(--nav-bg);
+    border: 1px solid var(--nav-bg);
+
+    .comment_form,
+    .reply_form {
+      textarea {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: $text-c;
+        &:focus {
+          border-color: rgba(255, 255, 255, 0.3);
+        }
+      }
+
+      button {
+        background: $text-c;
+        color: $black-c;
+      }
+    }
+
+    .comment {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+
+      .comment_header {
+        .author_photo {
+          border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .comment_meta {
+          .author_name {
+            .admin_badge {
+              color: $text-c;
+            }
+          }
+
+          .comment_date {
+            color: rgba(255, 255, 255, 0.6);
+          }
+        }
+      }
+
+      .reply_button {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: $text-c;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+        }
+      }
+    }
+
+    .replies_container {
+      .reply {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+
+        .reply_header {
+          .author_photo {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+          }
+
+          .reply_meta {
+            .reply_date {
+              color: rgba(255, 255, 255, 0.6);
+            }
+          }
+        }
+      }
+    }
+
+    .login_prompt {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+
+      .login_button {
+        padding: 0.8rem 1.5rem;
+        background: $text-c;
+        color: $black-c;
+      }
+    }
+
+    .edit_form {
+      textarea {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: $text-c;
+
+        &:focus {
+          border-color: rgba(255, 255, 255, 0.3);
+        }
+      }
+
+      .edit_actions {
+        button {
+          &:first-child {
+            background: $text-c;
+            color: $black-c;
+          }
+
+          &:last-child {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: $text-c;
+          }
+        }
+      }
+    }
+
+    .show_more_button {
+      color: $text-c;
+
+      &:hover {
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+
+    .like_button {
+      color: $text-c;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .liked {
+        color: $text-c;
+      }
+    }
+  }
+
+  &.light {
+    background: $light-bg;
+    border: 1px solid var(--nav-bg);
+
+    .comment_form,
+    .reply_form {
+      textarea {
+        background: transparent;
+        border: 1px solid var(--nav-bg);
+        color: $black-c;
+
+        &:focus {
+          border-color: var(--nav-bg);
+        }
+      }
+
+      button {
+        background: $primary-c;
+        color: $text-c;
+      }
+    }
+
+    .comment {
+      background: $light-bg;
+      border: 1px solid var(--nav-bg);
+      .comment_header {
+        .author_photo {
+          border: 2px solid var(--nav-bg);
+        }
+
+        .comment_meta {
+          .author_name {
+            .admin_badge {
+              color: $black-c;
+            }
+          }
+
+          .comment_date {
+            color: rgba(0, 0, 0, 0.6);
+          }
+        }
+      }
+
+      .reply_button {
+        background: transparent;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        color: $black-c;
+        &:hover {
+          background: rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+
+    .replies_container {
+      .reply {
+        background: $light-bg;
+        border: 1px solid var(--nav-bg);
+        .reply_header {
+          .author_photo {
+            border: 1px solid var(--nav-bg);
+          }
+
+          .reply_meta {
+            .reply_date {
+              color: rgba(0, 0, 0, 0.6);
+            }
+          }
+        }
+      }
+    }
+
+    .reply_actions {
+      .cancel_button {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        color: $black-c;
+      }
+    }
+
+    .comment_actions,
+    .reply_actions {
+      .edit_button {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        color: $black-c;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+
+    .edit_form {
+      margin: 1rem 0;
+
+      textarea {
+        width: 100%;
+        min-height: 80px;
+        padding: 0.8rem;
+        background: transparent;
+        border: 1px solid var(--nav-bg);
+        border-radius: 8px;
+        color: $black-c;
+        font-size: 0.95rem;
+        margin-bottom: 0.8rem;
+        resize: none;
+
+        &:focus {
+          border-color: 1px solid var(--nav-bg);
+        }
+      }
+
+      .edit_actions {
+        button {
+          &:first-child {
+            background: $black-c;
+            color: $text-c;
+          }
+
+          &:last-child {
+            background: transparent;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            color: $black-c;
+          }
+        }
+      }
+    }
+
+    .edited_mark {
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    .show_more_button {
+      color: $black-c;
+
+      &:hover {
+        color: rgba(0, 0, 0, 0.8);
+      }
+    }
+
+    .like_button {
+      color: $black-c;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.1);
+      }
+
+      .liked {
+        color: $black-c;
+      }
+    }
+  }
 
   h2 {
     font-size: 1.8rem;
@@ -846,25 +1396,19 @@
       width: 100%;
       min-height: 100px;
       padding: 1rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 12px;
-      color: #fff;
       font-size: 1rem;
       margin-bottom: 1rem;
       resize: none;
       transition: all 0.3s ease;
 
       &:focus {
-        border-color: rgba(255, 255, 255, 0.3);
         outline: none;
       }
     }
 
     button {
       padding: 0.8rem 1.5rem;
-      background: $text-c;
-      color: $text-c;
       border: none;
       border-radius: 8px;
       font-weight: 600;
@@ -883,11 +1427,9 @@
   }
 
   .comment {
-    background: rgba(255, 255, 255, 0.03);
     border-radius: 12px;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
 
     .comment_header {
       display: flex;
@@ -897,7 +1439,6 @@
 
       .author_photo {
         border-radius: 50%;
-        border: 2px solid rgba(255, 255, 255, 0.1);
       }
 
       .comment_meta {
@@ -917,7 +1458,6 @@
 
         .comment_date {
           font-size: 0.9rem;
-          color: rgba(255, 255, 255, 0.6);
         }
       }
     }
@@ -929,17 +1469,11 @@
 
     .reply_button {
       background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
       padding: 0.5rem 1rem;
       border-radius: 6px;
       cursor: pointer;
       font-size: 0.9rem;
       transition: all 0.3s ease;
-
-      &:hover {
-        background: rgba(255, 255, 255, 0.1);
-      }
     }
   }
 
@@ -948,11 +1482,9 @@
     margin-top: 2rem;
 
     .reply {
-      background: rgba(255, 255, 255, 0.02);
       border-radius: 8px;
       padding: 1rem;
       margin-bottom: 1rem;
-      border: 1px solid rgba(255, 255, 255, 0.05);
 
       .reply_header {
         display: flex;
@@ -962,7 +1494,6 @@
 
         .author_photo {
           border-radius: 50%;
-          border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .reply_meta {
@@ -976,7 +1507,6 @@
 
           .reply_date {
             font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.6);
           }
         }
       }
@@ -991,9 +1521,7 @@
   .login_prompt {
     text-align: center;
     padding: 2rem;
-    background: rgba(255, 255, 255, 0.02);
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 2rem;
 
     p {
@@ -1003,8 +1531,6 @@
 
     .login_button {
       padding: 0.8rem 1.5rem;
-      background: $text-c;
-      color: $text-c;
       border: none;
       border-radius: 8px;
       font-weight: 600;
@@ -1024,8 +1550,6 @@
 
     .cancel_button {
       background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
     }
   }
 
@@ -1047,16 +1571,6 @@
       transition: all 0.3s ease;
     }
 
-    .edit_button {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
-
-      &:hover {
-        background: rgba(255, 255, 255, 0.1);
-      }
-    }
-
     .delete_button {
       background: rgba(255, 0, 0, 0.1);
       border: 1px solid rgba(255, 0, 0, 0.3);
@@ -1075,16 +1589,12 @@
       width: 100%;
       min-height: 80px;
       padding: 0.8rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 8px;
-      color: #fff;
       font-size: 0.95rem;
       margin-bottom: 0.8rem;
       resize: none;
 
       &:focus {
-        border-color: rgba(255, 255, 255, 0.3);
         outline: none;
       }
     }
@@ -1112,12 +1622,6 @@
 
         &:last-child {
           background: transparent;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #fff;
-
-          &:hover {
-            background: rgba(255, 255, 255, 0.1);
-          }
         }
       }
     }
@@ -1125,7 +1629,6 @@
 
   .edited_mark {
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.5);
     font-style: italic;
   }
 }
@@ -1133,16 +1636,11 @@
 .show_more_button {
   background: none;
   border: none;
-  color: $text-c;
   cursor: pointer;
   font-size: 0.9rem;
   margin-top: 8px;
   padding: 4px 8px;
   text-decoration: underline;
-
-  &:hover {
-    color: $text-c;
-  }
 }
 
 .comment_content_wrapper,
@@ -1165,345 +1663,17 @@
   gap: 0.5rem;
   background: none;
   border: none;
-  color: #fff;
   cursor: pointer;
   padding: 4px 8px;
   border-radius: 4px;
   transition: all 0.2s ease;
 
-  &:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
   svg {
     font-size: 1.2rem;
   }
 
-  .liked {
-    color: $text-c;
-  }
-
   span {
     font-size: 0.9rem;
-  }
-}
-
-.modal {
-  @include glass-effect;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: grid;
-  place-items: center;
-  z-index: 9999;
-  transition: all 0.3s ease-in-out;
-  transform: none;
-  overflow: hidden;
-  visibility: visible;
-  opacity: 0;
-  display: none;
-
-  &.open {
-    transform: none;
-    visibility: visible;
-    opacity: 1;
-    display: grid;
-  }
-
-  .modal__content {
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 1rem;
-    position: relative;
-    width: 30%;
-    height: 70%;
-    overflow-y: auto;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
-    @media only screen and (max-width: 992px) {
-      width: 80%;
-    }
-
-    @media only screen and (max-width: 480px) {
-      width: 100%;
-      height: 100%;
-      overflow-y: auto;
-      border-radius: 0;
-    }
-
-    .closeBtn {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background-color: transparent;
-      border: none;
-      font-size: 2rem;
-      cursor: pointer;
-    }
-
-    .formHeader {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      justify-content: center;
-
-      button {
-        background-color: transparent;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
-
-        &.active {
-          background-color: $primary-c;
-          color: $text-c;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-      }
-    }
-
-    .login {
-      padding: 1rem 2%;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-
-      @media only screen and (max-width: 480px) {
-        padding: 1rem 0;
-      }
-
-      h2 {
-        font-size: 2rem;
-        font-weight: 600;
-        text-align: center;
-        color: #000;
-
-        @media only screen and (max-width: 480px) {
-          font-size: 1.5rem;
-        }
-      }
-
-      .error-message {
-        color: red;
-        font-size: 1.2rem;
-        text-align: center;
-        line-height: 1.5;
-      }
-
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        width: 100%;
-        margin-top: 2rem;
-
-        .box {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-
-          label {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            margin-top: 0.5rem;
-            color: #000;
-          }
-
-          input {
-            padding: 1.3rem 1rem;
-            border-radius: 0.5rem;
-            border: 1px solid #ccc;
-            width: 100%;
-            font-size: 1.2rem;
-            outline: none;
-            transition: all 0.3s ease;
-
-            &:focus {
-              border-color: $primary-c;
-            }
-          }
-        }
-
-        .rememberForgot {
-          display: flex;
-          justify-content: space-between;
-          width: 100%;
-          align-items: center;
-
-          .remember {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            width: 100%;
-
-            input {
-              width: 1.5rem;
-              height: 1.5rem;
-              cursor: pointer;
-              color: $text-c;
-              accent-color: $primary-c;
-            }
-
-            label {
-              font-size: 1.2rem;
-              color: #000;
-            }
-          }
-
-          .forgot {
-            width: 42%;
-
-            div {
-              width: 100%;
-              padding: 1.3rem 1rem;
-              border: none;
-              font-size: 1.2rem;
-              color: $primary-c;
-              text-decoration: underline;
-              cursor: pointer;
-            }
-          }
-        }
-
-        button {
-          margin-top: 2rem;
-          padding: 1rem 2%;
-          border-radius: 0.5rem;
-          font-size: 1.2rem;
-          cursor: pointer;
-          background-color: $primary-c;
-          color: $text-c;
-          border: none;
-          transition: all 0.3s ease;
-
-          &:hover {
-            background-color: $primary-c;
-          }
-        }
-      }
-    }
-
-    .register {
-      padding: 1rem 2%;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      align-items: center;
-      justify-content: center;
-
-      .title {
-        font-size: 2rem;
-        font-weight: 600;
-        text-align: center;
-        color: #000;
-
-        @media only screen and (max-width: 480px) {
-          font-size: 1.5rem;
-        }
-      }
-
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        width: 100%;
-        margin-top: 2rem;
-
-        .formBox {
-          display: flex;
-          gap: 1rem;
-          width: 100%;
-
-          .box {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            width: 100%;
-
-            label {
-              font-size: 1.2rem;
-              margin-bottom: 0.5rem;
-              margin-top: 0.5rem;
-              color: #000;
-            }
-
-            input {
-              padding: 1.3rem 1rem;
-              border-radius: 0.5rem;
-              border: 1px solid #ccc;
-              width: 100%;
-              font-size: 1.2rem;
-              outline: none;
-              transition: all 0.3s ease;
-
-              &:focus {
-                border-color: $primary-c;
-              }
-            }
-          }
-        }
-
-        .singleBox {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-          width: 100%;
-          label {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            margin-top: 0.5rem;
-            color: #000;
-          }
-
-          input {
-            padding: 1.3rem 1rem;
-            border-radius: 0.5rem;
-            border: 1px solid #ccc;
-            width: 100%;
-            font-size: 1.2rem;
-            outline: none;
-            transition: all 0.3s ease;
-          }
-
-          .PhoneInputCountry {
-            padding: 1rem;
-            border-radius: 0.5rem;
-            border: 1px solid #ccc;
-            font-size: 1.2rem;
-            outline: none;
-            transition: all 0.3s ease;
-            color: #000;
-
-            &:focus {
-              border-color: $primary-c;
-            }
-          }
-        }
-
-        button {
-          margin-top: 2rem;
-          padding: 1rem 2%;
-          border-radius: 0.5rem;
-          font-size: 1.2rem;
-          cursor: pointer;
-          background-color: $primary-c;
-          color: $text-c;
-          border: none;
-          transition: all 0.3s ease;
-          width: 100%;
-          &:hover {
-            background-color: $primary-c;
-          }
-        }
-      }
-    }
   }
 }
 

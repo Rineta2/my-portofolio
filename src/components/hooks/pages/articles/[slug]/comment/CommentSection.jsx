@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+
 import { useAuthState } from "react-firebase-hooks/auth";
+
 import { auth, db } from "@/utils/firebase";
+
 import {
   collection,
   addDoc,
@@ -9,12 +12,20 @@ import {
   doc,
   serverTimestamp,
 } from "firebase/firestore";
+
 import { CommentForm } from "@/components/hooks/pages/articles/[slug]/comment/CommentForm";
+
 import { Comment } from "@/components/hooks/pages/articles/[slug]/comment/Comment";
+
 import { useComments } from "@/components/hooks/pages/articles/[slug]/comment/utils/ueComments";
+
 import { toast } from "react-hot-toast";
+
 import styles from "@/app/articles/Articles.module.scss";
+
 import AuthModal from "@/components/layout/header/auth/AuthModal";
+
+import { useTheme } from "@/utils/theme/ThemeContext";
 
 export default function CommentSection({ articleId }) {
   const [user] = useAuthState(auth);
@@ -37,10 +48,10 @@ export default function CommentSection({ articleId }) {
   const handleLikeComment = async (commentId, replyId = null) => {
     const docReference = replyId
       ? doc(
-          db,
-          `${process.env.NEXT_PUBLIC_API_COMMENTS}/${commentId}/${process.env.NEXT_PUBLIC_API_REPLIES}`,
-          replyId
-        )
+        db,
+        `${process.env.NEXT_PUBLIC_API_COMMENTS}/${commentId}/${process.env.NEXT_PUBLIC_API_REPLIES}`,
+        replyId
+      )
       : doc(db, `${process.env.NEXT_PUBLIC_API_COMMENTS}`, commentId);
 
     await handleLike(docReference);
@@ -187,8 +198,10 @@ export default function CommentSection({ articleId }) {
     }));
   };
 
+  const { isDarkMode } = useTheme();
+
   return (
-    <div className={styles.comments}>
+    <div className={`${styles.comments} ${isDarkMode ? styles.dark : styles.light}`}>
       <h2>Comments</h2>
 
       {user ? (

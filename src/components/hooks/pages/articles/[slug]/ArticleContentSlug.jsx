@@ -16,6 +16,8 @@ import ShareButton from "@/components/hooks/pages/articles/[slug]/ShareButton";
 
 import CommentSection from "@/components/hooks/pages/articles/[slug]/comment/CommentSection";
 
+import { useTheme } from "@/utils/theme/ThemeContext";
+
 export default function ArticleContentSlug({ article }) {
   const shareUrl = `${process.env.NEXT_PUBLIC_URL}/articles/${article.slug}`;
   const shareTitle = article.title;
@@ -24,9 +26,14 @@ export default function ArticleContentSlug({ article }) {
   const shareCategory = article.categoryName;
   const tags = article.tagNames;
 
+  const { isDarkMode } = useTheme();
+
   return (
-    <section className={styles.article__slug}>
-      <div className={styles.article__container}>
+    <section
+      className={`${styles.article__slug} ${isDarkMode ? styles.dark : styles.light
+        }`}
+    >
+      <div className={`${styles.article__container} container`}>
         <div className={styles.top__heading}>
           <span>{article.categoryName}</span>
 
