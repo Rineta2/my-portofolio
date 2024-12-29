@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import React from "react";
 
 import AchievementClient from "@/components/hooks/section/achievement/achievementClient";
