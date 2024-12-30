@@ -1,6 +1,7 @@
 @use "../../styling/variable.scss" as *;
 
 .about {
+  position: relative;
   &.dark {
     .content {
       .text {

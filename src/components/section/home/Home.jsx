@@ -22,6 +22,8 @@ import { useTheme } from "@/utils/theme/ThemeContext";
 
 import Rocket from "@/components/hooks/section/home/Rocket";
 
+import GridBackground from "@/components/hooks/animation/article/GridBackground";
+
 export default function Home() {
   const sectionRef = useRef(null);
 
@@ -47,6 +49,7 @@ export default function Home() {
 
   return (
     <section ref={sectionRef} className={`${styles.home} ${isDarkMode ? styles.dark : styles.light}`}>
+      <GridBackground isDarkMode={isDarkMode} />
       <div className={styles.overlay}></div>
       <div className={`${styles.home__container} container`}>
         <HomeContent home={home} homeImg={homeImg} imageRefs={imageRefs} homeBtn={homeBtn} />
