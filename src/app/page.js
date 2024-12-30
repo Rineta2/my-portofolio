@@ -16,6 +16,8 @@ import Articles from "@/components/section/article/Articles";
 
 import BackgroundTop from "@/components/hooks/section/home/BackgroundTop";
 
+import ScrollTop from "@/components/tools/scrollTop";
+
 import "@/components/styling/globals.scss";
 
 export default function page() {
@@ -29,6 +31,7 @@ export default function page() {
       <Achievement />
       <Portofolio />
       <Articles />
+      <ScrollTop />
     </Fragment>
   );
 }

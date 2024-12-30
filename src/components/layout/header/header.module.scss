@@ -733,3 +733,62 @@
     }
   }
 }
+
+.scrollTop {
+  position: fixed;
+  bottom: 3%;
+  right: 1%;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 1rem;
+  z-index: $z-index-medium;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: grid;
+  place-items: center;
+  transition: all 0.5s ease;
+  animation: fadeIn 2s infinite ease-in-out;
+
+  &.hide {
+    opacity: 0;
+    visibility: hidden;
+    transform: perspective(100px) translate(100px, 100px) rotate(-80deg);
+  }
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+
+    @keyframes fadeIn {
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(-5px);
+      }
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+
+  &.dark {
+    background-color: transparent;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--nav-bg);
+    svg {
+      color: $text-c;
+    }
+  }
+
+  &.light {
+    background-color: var(--nav-bg);
+    border: 1px solid var(--nav-bg);
+    svg {
+      color: $black-c;
+    }
+  }
+}
