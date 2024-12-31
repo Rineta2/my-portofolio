@@ -5,6 +5,7 @@ import * as THREE from "three";
 
 const Background = () => {
   const mountRef = useRef(null);
+  const frameRef = useRef();
 
   useEffect(() => {
     // Scene setup
@@ -72,7 +73,7 @@ const Background = () => {
 
     // Animation
     const animate = () => {
-      requestAnimationFrame(animate);
+      frameRef.current = requestAnimationFrame(animate);
 
       particlesMesh.rotation.x += 0.001;
       particlesMesh.rotation.y += 0.001;
@@ -96,6 +97,8 @@ const Background = () => {
 
     // Cleanup
     return () => {
+      cancelAnimationFrame(frameRef.current);
+
       if (
         currentMount &&
         renderer.domElement &&

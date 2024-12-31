@@ -204,36 +204,6 @@ section {
     font-size: 1.1rem;
     border-radius: 8px;
   }
-
-  // Tables
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 2rem 0;
-
-    th,
-    td {
-      padding: 0.75rem;
-      border: 1px solid #e2e8f0;
-    }
-
-    th {
-      background-color: #f7fafc;
-      font-weight: 600;
-    }
-
-    tr:nth-child(even) {
-      background-color: #f8fafc;
-    }
-  }
-
-  // Horizontal rule
-  hr {
-    margin: 2rem 0;
-    border: 0;
-    height: 1px;
-    background-color: #e2e8f0;
-  }
 }
 
 // Modern Loader styles
@@ -270,18 +240,54 @@ section {
     padding: 2rem;
     position: relative;
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
     .loader-title {
-      font-size: 2rem;
-      font-weight: 600;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      margin-bottom: 2rem;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        sans-serif;
-      color: white;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, sans-serif;
       opacity: 0;
-      text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+
+      &:first-child {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.8rem;
+        background: linear-gradient(to right, #fff, #a5a5a5);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-transform: none;
+        filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+      }
+
+      &:nth-child(2) {
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        font-weight: 300;
+        letter-spacing: 0.8em;
+        text-transform: uppercase;
+        margin-bottom: 2.5rem;
+        color: rgba(255, 255, 255, 0.8);
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: -10px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 50px;
+          height: 1px;
+          background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.8) 50%,
+            rgba(255, 255, 255, 0) 100%
+          );
+        }
+      }
     }
 
     .progress-container {
@@ -325,7 +331,7 @@ section {
         font-weight: 500;
         letter-spacing: 0.1em;
         color: rgba(255, 255, 255, 0.9);
-        font-family: monospace;
+        font-family: "Inter", monospace;
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
       }
     }
@@ -343,6 +349,7 @@ section {
 main {
   opacity: 1;
   transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
 
   &.loading {
     opacity: 0;
@@ -352,4 +359,15 @@ main {
 // Custom easing
 :root {
   --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+}
+// Animation helper
+.animate-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease-in-out;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
