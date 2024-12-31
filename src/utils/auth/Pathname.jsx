@@ -45,7 +45,7 @@ const Pathname = ({ children }) => {
           },
         }}
       />
-      <div className="content-wrapper">
+      <div className={`content-wrapper ${isLoading ? 'hidden' : 'visible'}`}>
         {!isDashboard && <Header />}
         <main className={isLoading ? "loading" : ""}>{children}</main>
         {!isDashboard && <Footer />}

@@ -89,41 +89,15 @@ const useLoader = (pathname) => {
           )}%`;
         }
       },
-    });
-
-    const loaderTl = gsap.timeline({
-      delay: 2.5,
       onComplete: () => {
         setIsLoading(false);
         setProgress(100);
       },
     });
 
-    loaderTl
-      .to([".loader-title:first-child", ".loader-title:nth-child(2)"], {
-        y: -20,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        filter: "blur(5px)",
-        ease: "power3.inOut",
-      })
-      .to(".loader-content", {
-        y: -15,
-        opacity: 0,
-        duration: 0.6,
-        ease: "power2.inOut",
-      })
-      .to(".loader", {
-        height: "0%",
-        duration: 1.2,
-        ease: "expo.inOut",
-      });
-
     return () => {
       textTl.kill();
       progressTl.kill();
-      loaderTl.kill();
     };
   }, [pathname]);
 
