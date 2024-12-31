@@ -104,24 +104,15 @@
         margin-top: 2rem;
 
         .text {
-          font-size: 2rem;
-          letter-spacing: 2px;
           position: relative;
+          perspective: 1000px;
+          transform-style: preserve-3d;
 
-          @media (max-width: 1366px) {
-            font-size: 1.8rem;
-          }
-
-          @media (max-width: 992px) {
-            font-size: 1.5rem;
-          }
-
-          @media (max-width: 768px) {
-            font-size: 1.4rem;
-          }
-
-          @media (max-width: 468px) {
-            font-size: 1.2rem;
+          .char {
+            display: inline-block;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+            padding: 0 1px;
           }
 
           &::before {
@@ -197,6 +188,35 @@
               }
             }
           }
+
+          h1 {
+            font-size: 2rem;
+            letter-spacing: 2px;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+            white-space: nowrap;
+            @media (max-width: 1366px) {
+              font-size: 1.8rem;
+            }
+
+            @media (max-width: 992px) {
+              font-size: 1.5rem;
+            }
+
+            @media (max-width: 768px) {
+              font-size: 1.4rem;
+            }
+
+            @media (max-width: 468px) {
+              font-size: 1.2rem;
+            }
+
+            span {
+              display: inline-block;
+              opacity: 1;
+              transition: opacity 0.1s ease-in-out;
+            }
+          }
         }
 
         .textItem {
@@ -253,6 +273,12 @@
           @media (max-width: 468px) {
             max-width: 100%;
             font-size: 1.1rem;
+          }
+
+          span {
+            display: inline-block;
+            opacity: 1;
+            transition: opacity 0.1s ease-in-out;
           }
         }
       }

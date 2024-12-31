@@ -2,11 +2,7 @@ import React, { Fragment, Suspense } from "react";
 
 import RegisterSW from "@/components/hooks/meta/RegisterSW";
 
-import BackgroundTop from "@/components/hooks/section/home/BackgroundTop";
-
 import Home from "@/components/section/home/Home";
-
-import Background from "@/components/hooks/section/home/Background";
 
 import About from "@/components/section/about/About";
 
@@ -23,9 +19,7 @@ export default function Route() {
     <Suspense>
       <Fragment>
         <RegisterSW />
-        <BackgroundTop />
         <Home />
-        <Background />
         <About />
         <Achievement />
         <Portofolio />
