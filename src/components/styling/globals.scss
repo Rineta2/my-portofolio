@@ -243,47 +243,21 @@ section {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    135deg,
-    #0f0f0f 0%,
-    #121212 25%,
-    #1a1a1a 50%,
-    #121212 75%,
-    #0f0f0f 100%
-  );
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+  background-color: #0a0a0a;
   z-index: 9999;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: height 0.8s var(--ease-out-expo);
+  overflow: hidden;
 
-  &::before {
-    content: "";
+  .three-bg {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(
-      circle at center,
-      transparent 0%,
-      rgba(0, 0, 0, 0.8) 100%
-    );
+    width: 100%;
+    height: 100%;
     z-index: 1;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    opacity: 0.03;
-    z-index: 2;
   }
 
   &.loading {
@@ -295,7 +269,7 @@ section {
     color: white;
     padding: 2rem;
     position: relative;
-    z-index: 3;
+    z-index: 2;
 
     .loader-title {
       font-size: 2rem;
@@ -307,7 +281,7 @@ section {
         sans-serif;
       color: white;
       opacity: 0;
-      text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
     }
 
     .progress-container {
@@ -358,18 +332,6 @@ section {
   }
 }
 
-@keyframes gradientBG {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
 // Content wrapper
 .content-wrapper {
   min-height: 100vh;
@@ -390,16 +352,4 @@ main {
 // Custom easing
 :root {
   --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-// Animation helper
-.animate-item {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.5s ease-in-out;
-
-  &.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }

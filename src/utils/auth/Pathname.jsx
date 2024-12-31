@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Header from "@/components/layout/header/Header";
 import Footer from "@/components/layout/footer/Footer";
+import Background from "@/components/hooks/animation/loading/Background";
 import { Toaster } from "react-hot-toast";
 import gsap from "gsap";
 
@@ -86,6 +87,7 @@ const Pathname = ({ children }) => {
   return (
     <>
       <div ref={loaderRef} className={`loader ${isLoading ? "loading" : ""}`}>
+        <Background />
         <div className="loader-content">
           <h2 className="loader-title">LOADING</h2>
           <div className="progress-container">
