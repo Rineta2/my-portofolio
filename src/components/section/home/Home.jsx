@@ -48,11 +48,19 @@ export default function Home() {
   const { isDarkMode } = useTheme();
 
   return (
-    <section ref={sectionRef} className={`${styles.home} ${isDarkMode ? styles.dark : styles.light}`}>
+    <section
+      ref={sectionRef}
+      className={`${styles.home} ${isDarkMode ? styles.dark : styles.light}`}
+    >
       <GridBackground isDarkMode={isDarkMode} />
       <div className={styles.overlay}></div>
       <div className={`${styles.home__container} container`}>
-        <HomeContent home={home} homeImg={homeImg} imageRefs={imageRefs} homeBtn={homeBtn} />
+        <HomeContent
+          home={home}
+          homeImg={homeImg}
+          imageRefs={imageRefs}
+          homeBtn={homeBtn}
+        />
         <HomeBottom icons={icons} />
         <Rocket rocketImg={rocketImg} />
       </div>
