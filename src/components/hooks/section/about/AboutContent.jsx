@@ -1,53 +1,26 @@
-import React from "react";
-
-import Image from "next/image";
+import React, { useEffect } from "react";
 
 import styles from "@/components/section/about/about.module.scss";
 
-import TextComponent from "@/components/hooks/animation/about/TextComponent";
+import { AboutImages } from "@/components/hooks/section/about/AboutImage";
 
-import TextComponentSecondary from "@/components/hooks/animation/about/TextComponentSecondary";
+import { AboutTexts } from "@/components/hooks/section/about/AboutTexts";
 
-import { useAboutAnimations } from "@/components/hooks/section/about/utils/useAboutAnimation";
+import { useAboutAnimations } from "@/components/hooks/animation/about/useAboutAnimation";
 
-import gsap from "gsap";
+import { initializeAnimations } from "@/components/hooks/animation/about/animationHelper";
 
 export default function AboutContent({ about }) {
-    const { imageRefs, titleRefs } = useAboutAnimations(about);
+  const { imageRefs, titleRefs } = useAboutAnimations(about);
 
-    return (
-        <div className={styles.content}>
-            {about?.map((image, index) => (
-                <div
-                    key={index}
-                    className={styles.img}
-                    ref={el => imageRefs.current[index] = el}
-                >
-                    <Image src={image?.imageUrl} style={{ cursor: "pointer" }} alt={image?.title} width={500} height={500} />
-                </div>
-            ))}
+  useEffect(() => {
+    initializeAnimations(about, imageRefs, titleRefs);
+  }, [about, imageRefs, titleRefs]);
 
-            {about?.map((text, index) => (
-                <div key={index} className={styles.text}>
-                    <h1 ref={el => titleRefs.current[index] = el}>{text?.title}</h1>
-                    <TextComponent
-                        desc={text?.description}
-                        onComplete={() => {
-                            if (titleRefs.current[index + 1]) {
-                                gsap.to(titleRefs.current[index + 1], {
-                                    opacity: 1,
-                                    duration: 1
-                                });
-                            }
-                        }}
-                    />
-                    {text?.description2 && (
-                        <div style={{ marginTop: '20px' }}>
-                            <TextComponentSecondary desc={text?.description2} />
-                        </div>
-                    )}
-                </div>
-            ))}
-        </div>
-    );
+  return (
+    <div className={styles.content}>
+      <AboutImages about={about} imageRefs={imageRefs} />
+      <AboutTexts about={about} titleRefs={titleRefs} />
+    </div>
+  );
 }
