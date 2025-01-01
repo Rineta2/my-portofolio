@@ -10,24 +10,12 @@ import Footer from "@/components/layout/footer/Footer";
 
 import { Toaster } from "react-hot-toast";
 
-import LoaderComponent from "@/components/hooks/animation/loading/LoaderComponent";
-
-import useLoader from "@/components/hooks/animation/loading/useLoader";
-
 const Pathname = ({ children }) => {
   const pathname = usePathname();
   const isDashboard = pathname.includes("dashboard");
-  const { isLoading, progress, progressTextRef, loaderRef } =
-    useLoader(pathname);
 
   return (
     <>
-      <LoaderComponent
-        loaderRef={loaderRef}
-        isLoading={isLoading}
-        progress={progress}
-        progressTextRef={progressTextRef}
-      />
       <Toaster
         position="top-center"
         toastOptions={{
@@ -45,11 +33,11 @@ const Pathname = ({ children }) => {
           },
         }}
       />
-      <div className={`content-wrapper ${isLoading ? 'hidden' : 'visible'}`}>
+      <main>
         {!isDashboard && <Header />}
-        <main className={isLoading ? "loading" : ""}>{children}</main>
+        {children}
         {!isDashboard && <Footer />}
-      </div>
+      </main>
     </>
   );
 };

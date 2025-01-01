@@ -16,6 +16,8 @@ import { useParticleSystem } from "@/components/hooks/animation/home/tre/usePart
 
 import { useHomeAnimation } from "@/components/hooks/animation/home/useHomeAnimation";
 
+import { useProfileAnimation } from "@/components/hooks/animation/home/useProfileAnimation";
+
 export default function HomeContent({
   home,
   homeImg,
@@ -25,6 +27,7 @@ export default function HomeContent({
 }) {
   const canvasRef = useParticleSystem(isDarkMode);
   const { textRef, descriptionRef, btnRefs } = useHomeAnimation();
+  useProfileAnimation(imageRefs);
 
   return (
     <div className={styles.content}>

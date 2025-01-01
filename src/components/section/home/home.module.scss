@@ -331,6 +331,14 @@
       justify-content: space-between;
       align-items: center;
       margin-top: 4rem;
+      position: relative;
+      z-index: 1;
+
+      .left,
+      .right {
+        position: relative;
+        will-change: transform, opacity;
+      }
 
       .left {
         display: flex;
