@@ -128,12 +128,16 @@
         font-family: $sec-f;
         letter-spacing: 2px;
 
-        @media (max-width: 992px) {
+        @media (max-width: 1366px) {
           font-size: 2.5rem;
         }
 
-        @media (max-width: 468px) {
+        @media (max-width: 992px) {
           font-size: 2rem;
+        }
+
+        @media (max-width: 468px) {
+          font-size: 1.5rem;
         }
       }
 
@@ -146,8 +150,16 @@
         align-items: center;
         gap: 0.5rem;
 
+        @media (max-width: 1366px) {
+          font-size: 1.3rem;
+        }
+
         @media (max-width: 992px) {
           font-size: 1.2rem;
+        }
+
+        @media (max-width: 480px) {
+          font-size: 1rem;
         }
 
         svg {
@@ -184,8 +196,9 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 3rem;
 
-        @media (max-width: 992px) {
+        @media (max-width: 1366px) {
           grid-template-columns: repeat(1, 1fr);
+          gap: 2rem;
         }
 
         .top__article {
@@ -204,10 +217,24 @@
             width: 100%;
             gap: 2rem;
 
+            @media (max-width: 1366px) {
+              flex-direction: row;
+              align-items: center;
+              justify-content: center;
+            }
+
+            @media (max-width: 992px) {
+              flex-direction: column;
+            }
+
             .img {
               width: 100%;
               border-radius: 12px;
               overflow: hidden;
+
+              @media (max-width: 1366px) {
+                width: 100%;
+              }
 
               img {
                 width: 100%;
@@ -282,10 +309,6 @@
                   padding: 0 1rem;
 
                   @media (max-width: 1366px) {
-                    font-size: 1.2rem;
-                  }
-
-                  @media (max-width: 992px) {
                     font-size: 1rem;
                   }
                 }
@@ -302,12 +325,21 @@
           padding: 1rem;
           height: 100%;
 
-          @media (max-width: 992px) {
+          @media (max-width: 1366px) {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
             padding: 0;
+            margin-top: 2rem;
+            row-gap: 3rem;
+          }
+
+          @media (max-width: 992px) {
+            grid-template-columns: repeat(2, 1fr);
           }
 
           @media (max-width: 468px) {
-            padding: 0;
+            grid-template-columns: repeat(1, 1fr);
           }
 
           .article__card {
@@ -318,7 +350,7 @@
             padding: 1rem;
 
             @media (max-width: 1366px) {
-              gap: 1.5rem;
+              grid-template-columns: repeat(1, 1fr);
             }
 
             @media (max-width: 992px) {
@@ -334,6 +366,14 @@
               width: 100%;
               border-radius: 12px;
               overflow: hidden;
+
+              @media (max-width: 1366px) {
+                height: 200px;
+              }
+
+              @media (max-width: 992px) {
+                height: 100%;
+              }
 
               img {
                 width: 100%;

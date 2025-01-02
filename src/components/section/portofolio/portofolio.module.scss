@@ -158,9 +158,23 @@
           gap: 1rem;
         }
 
+        @media (max-width: 768px) {
+          flex-direction: column;
+          align-items: unset;
+          justify-content: unset;
+        }
+
         .img {
           width: 50%;
           height: 100%;
+
+          @media (max-width: 992px) {
+            width: 80%;
+          }
+
+          @media (max-width: 768px) {
+            width: 100%;
+          }
 
           img {
             width: 100%;
@@ -182,6 +196,10 @@
             gap: 1rem;
           }
 
+          @media (max-width: 768px) {
+            width: 100%;
+          }
+
           h2 {
             font-size: 2.5rem;
             font-weight: bold;
@@ -189,6 +207,10 @@
 
             @media (max-width: 1366px) {
               font-size: 2rem;
+            }
+
+            @media (max-width: 992px) {
+              font-size: 1.5rem;
             }
           }
 
@@ -205,6 +227,10 @@
 
             @media (max-width: 1366px) {
               font-size: 1rem;
+            }
+
+            @media (max-width: 992px) {
+              font-size: 0.8rem;
             }
           }
 
@@ -224,6 +250,10 @@
 
               @media (max-width: 1366px) {
                 font-size: 1.2rem;
+              }
+
+              @media (max-width: 992px) {
+                font-size: 1rem;
               }
             }
 
@@ -260,6 +290,10 @@
               @media (max-width: 1366px) {
                 font-size: 1.2rem;
               }
+
+              @media (max-width: 992px) {
+                font-size: 1rem;
+              }
             }
 
             .teknologo__item {
@@ -271,12 +305,20 @@
                 gap: 0.5rem;
               }
 
+              @media (max-width: 992px) {
+                margin-top: 1rem;
+              }
+
               .img {
                 padding: 1rem;
                 border-radius: 12px;
                 width: fit-content;
                 display: grid;
                 place-items: center;
+
+                @media (max-width: 992px) {
+                  padding: 0.5rem;
+                }
 
                 img {
                   width: 30px;

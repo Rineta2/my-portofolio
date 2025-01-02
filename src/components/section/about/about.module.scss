@@ -134,12 +134,13 @@
       .img {
         display: grid;
         place-items: center;
+
         img {
           width: 400px;
           height: 400px;
           object-fit: cover;
 
-          @media (max-width: 992px) {
+          @media (max-width: 1366px) {
             width: 360px;
             height: 360px;
           }
@@ -174,7 +175,7 @@
           font-family: $sec-f;
 
           @media (max-width: 1366px) {
-            font-size: 3rem;
+            font-size: 2.5rem;
           }
 
           @media (max-width: 768px) {
@@ -191,7 +192,7 @@
           line-height: 1.5;
 
           @media (max-width: 1366px) {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
           }
 
           @media (max-width: 992px) {
@@ -226,6 +227,10 @@
         font-size: 2rem;
         text-align: center;
 
+        @media (max-width: 1366px) {
+          font-size: 1.5rem;
+        }
+
         @media (max-width: 480px) {
           font-size: 1.5rem;
         }
@@ -241,7 +246,7 @@
         margin-top: 3rem;
         perspective: 1000px;
 
-        @media (max-width: 992px) {
+        @media (max-width: 1366px) {
           gap: 1rem;
           row-gap: 1.5rem;
         }
@@ -396,11 +401,11 @@
             transition: all 0.3s ease-in-out;
             place-items: center;
 
-            @media (max-width: 920px) {
-              font-size: 1.5rem;
+            @media (max-width: 1366px) {
+              font-size: 1.3rem;
             }
 
-            @media (max-width: 768px) {
+            @media (max-width: 992px) {
               font-size: 1.2rem;
             }
 
@@ -413,15 +418,19 @@
             font-size: 1.5rem;
             transition: color 0.3s ease;
 
-            @media (max-width: 920px) {
+            @media (max-width: 1366px) {
               font-size: 1.2rem;
             }
 
-            @media (max-width: 768px) {
-              font-size: 1rem;
+            @media (max-width: 992px) {
+              font-size: 1.1rem;
             }
 
             @media (max-width: 480px) {
+              font-size: 1rem;
+            }
+
+            @media (max-width: 320px) {
               font-size: 0.8rem;
             }
           }
