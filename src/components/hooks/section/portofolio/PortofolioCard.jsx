@@ -6,6 +6,8 @@ import { useRef } from "react";
 
 import styles from "@/components/section/portofolio/portofolio.module.scss";
 
+import Link from "next/link";
+
 import {
   cardAnimation,
   imageAnimation,
@@ -14,11 +16,14 @@ import {
   getTransition,
 } from "@/components/hooks/animation/portofolio/animation";
 
+const MotionLink = motion(Link);
+
 export default function ProjectCard({ item, index }) {
   const cardRef = useRef(null);
 
   return (
-    <motion.div
+    <MotionLink
+      href={`/portofolio/${item.slug}`}
       ref={cardRef}
       className={styles.box}
       {...cardAnimation}
@@ -86,6 +91,6 @@ export default function ProjectCard({ item, index }) {
           </div>
         </motion.div>
       </motion.div>
-    </motion.div>
+    </MotionLink>
   );
 }
