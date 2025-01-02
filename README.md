@@ -13,11 +13,22 @@ Check out my portfolio at [my-portofolio-rizki-r.vercel.app](https://my-portofol
 This portfolio is built with:
 
 - Next.js 15
-- React
-- JavaScript
+- React 18
+- Three.js
+- Framer Motion
 - Firebase
-- Sass
-- gsap
+- GSAP
+- SWR
+- React Query
+- SASS
+- React Hot Toast
+- React Icons
+- Lucide React
+- React Paginate
+- React Quill
+- React Share
+- Swiper
+- Date-fns
 
 ## 🎯 Features
 
@@ -28,16 +39,14 @@ This portfolio is built with:
 - 🎬 Smooth Animations
 - 📊 Interactive Components
 - 🎮 3D Elements
-- 📝 Articles Section
-- 🔍 Project Section
+- 📝 Project Section
 - 📈 Skills
 - 📱 Social Media Integration
 - 📬 Contact Form with Validation
-- 📊 GitHub Projects Integration
 - 🎨 Custom CSS Animations
 - 🔄 Loading States/Transitions
 - 📱 PWA Support
-- 🔒 Protected Admin Dashboard
+- 🔒 Firebase Authentication
 
 ## 🛠️ Projects Showcase
 
