@@ -49,7 +49,11 @@ export default function PortofolioContent({ projects, categories }) {
   const { isDarkMode } = useTheme();
 
   return (
-    <div className={`${styles.portofolio__container} ${isDarkMode ? styles.dark : styles.light} container`}>
+    <div
+      className={`${styles.portofolio__container} ${
+        isDarkMode ? styles.dark : styles.light
+      } container`}
+    >
       <div ref={topProjectRef}>
         {topProjects?.map((project) => (
           <TopProject key={project.id} project={project} />

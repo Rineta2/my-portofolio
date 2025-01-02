@@ -1,37 +1,59 @@
-import { useEffect } from "react";
-
+import { useLayoutEffect } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import ScrollTrigger from "gsap/ScrollTrigger";
-
-export default function usePortfolioAnimation(toolbarRef, contentRef) {
-  useEffect(() => {
+export default function usePortfolioAnimation(containerRef, boxRefs) {
+  useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const ctx = gsap.context(() => {
-      if (!toolbarRef.current || !contentRef.current) return;
+    const container = containerRef.current;
+    const boxes = boxRefs.current;
 
-      const elements = [
-        toolbarRef.current,
-        ...contentRef.current.querySelectorAll("a"),
-      ];
-
-      gsap.from(elements, {
-        y: 50,
+    // Container animation
+    gsap.fromTo(
+      container,
+      {
         opacity: 0,
-        duration: 1,
-        stagger: {
-          amount: 0.8,
-          ease: "power2.out",
-        },
+        y: 50,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1.8,
+        ease: "power3.out",
         scrollTrigger: {
-          trigger: contentRef.current,
-          start: "top center+=100",
+          trigger: container,
+          start: "top bottom-=150",
           once: true,
         },
-      });
+      }
+    );
+
+    // Boxes animation
+    boxes.forEach((box, index) => {
+      gsap.fromTo(
+        box,
+        {
+          opacity: 0,
+          y: 100,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          delay: index * 0.3,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: box,
+            start: "top bottom-=100",
+            once: true,
+          },
+        }
+      );
     });
 
-    return () => ctx.revert();
-  }, [toolbarRef, contentRef]);
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, [containerRef, boxRefs]);
 }

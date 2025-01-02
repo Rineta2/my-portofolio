@@ -14,7 +14,8 @@ $z-index-medium: 100;
 $z-index-large: 200;
 
 @mixin glass-effect {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: transparent;
+  border: 1px solid var(--nav-bg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
