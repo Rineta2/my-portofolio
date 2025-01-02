@@ -4,7 +4,7 @@ import styles from "@/components/section/achievement/achievement.module.scss";
 
 import AchievementItem from "@/components/hooks/section/achievement/AvhievmentItem";
 
-export default function AchievementList({ achievements }) {
+export default function AchievementList({ achievements, onAchievementClick }) {
   const contentRef = useRef(null);
   const sortedAchievements = [...achievements].sort(
     (a, b) => new Date(b.date) - new Date(a.date)
@@ -21,6 +21,7 @@ export default function AchievementList({ achievements }) {
           achievement={achievement}
           isActive={index === 0}
           className="achievement__item"
+          onAchievementClick={onAchievementClick}
         />
       ))}
     </div>

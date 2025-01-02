@@ -7,8 +7,11 @@ export default function AchievementModal({ achievement, onClose }) {
   if (!achievement) return null;
 
   return (
-    <div className={styles.achievement__modal}>
-      <div className={styles.modal__content}>
+    <div className={styles.achievement__modal} onClick={onClose}>
+      <div
+        className={styles.modal__content}
+        onClick={(e) => e.stopPropagation()}
+      >
         <Image
           src={achievement.imageUrl}
           alt={achievement.title}

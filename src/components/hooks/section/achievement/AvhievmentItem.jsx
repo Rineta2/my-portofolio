@@ -8,7 +8,7 @@ export default function AchievementItem({
   achievement,
   isActive,
   className,
-  onClick,
+  onAchievementClick,
 }) {
   const { id, imageUrl, title, date } = achievement;
 
@@ -17,7 +17,7 @@ export default function AchievementItem({
       className={`${styles.achievement__item} ${className} ${
         isActive ? styles.active : ""
       }`}
-      onClick={() => onClick?.(achievement)}
+      onClick={() => onAchievementClick?.(achievement)}
     >
       <div className={styles.img}>
         <Image
@@ -31,7 +31,7 @@ export default function AchievementItem({
           <button
             onClick={(e) => {
               e.stopPropagation();
-              onClick?.(achievement);
+              onAchievementClick?.(achievement);
             }}
           >
             <Eye />
