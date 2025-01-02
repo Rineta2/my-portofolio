@@ -1,11 +1,17 @@
 "use client";
 
 import React from 'react'
+
 import styles from "@/components/section/article/article.module.scss"
+
 import Link from "next/link"
+
 import { useTheme } from "@/utils/theme/ThemeContext"
+
 import { ArrowRight } from 'lucide-react'
+
 import ArticlesGrid from "@/components/hooks/section/article/ArticleGrid"
+
 import { motion } from 'framer-motion'
 
 export default function ArticlesContent({ articles, heading }) {
