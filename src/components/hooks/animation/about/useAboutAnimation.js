@@ -23,8 +23,7 @@ export const initializeImageAnimation = (imageRef, index) => {
         trigger: imageRef,
         start: "top bottom-=150",
         end: "top center",
-        toggleActions: "play none none reverse",
-        scrub: 0.5,
+        toggleActions: "play none none none",
       },
     }
   );
@@ -49,8 +48,7 @@ export const initializeTextAnimation = (textRef, index) => {
         trigger: textRef,
         start: "top bottom-=150",
         end: "top center",
-        toggleActions: "play none none reverse",
-        scrub: 0.5,
+        toggleActions: "play none none none",
       },
     }
   );
