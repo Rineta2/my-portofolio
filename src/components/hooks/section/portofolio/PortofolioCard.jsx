@@ -1,11 +1,30 @@
 import Image from "next/image";
 
+import { motion } from "framer-motion";
+
+import { useRef } from "react";
+
 import styles from "@/components/section/portofolio/portofolio.module.scss";
 
-export default function ProjectCard({ item, ref }) {
+import {
+  cardAnimation,
+  imageAnimation,
+  textAnimation,
+  iconAnimation,
+  getTransition,
+} from "@/components/hooks/animation/portofolio/animation";
+
+export default function ProjectCard({ item, index }) {
+  const cardRef = useRef(null);
+
   return (
-    <div ref={ref} className={styles.box}>
-      <div className={styles.img}>
+    <motion.div
+      ref={cardRef}
+      className={styles.box}
+      {...cardAnimation}
+      transition={getTransition(index)}
+    >
+      <motion.div className={styles.img} {...imageAnimation}>
         <Image
           src={item.thumbnail}
           alt={item.title}
@@ -13,22 +32,48 @@ export default function ProjectCard({ item, ref }) {
           height={500}
           quality={100}
         />
-      </div>
+      </motion.div>
 
-      <div className={styles.text}>
-        <h2 className={styles.title}>{item.title}</h2>
-        <p className={styles.description}>{item.description}</p>
+      <motion.div className={styles.text}>
+        <motion.h2
+          className={styles.title}
+          {...textAnimation}
+          transition={getTransition(index, 0.4)}
+        >
+          {item.title}
+        </motion.h2>
 
-        <div className={styles.category}>
+        <motion.p
+          className={styles.description}
+          {...textAnimation}
+          transition={getTransition(index, 0.5)}
+        >
+          {item.description}
+        </motion.p>
+
+        <motion.div
+          className={styles.category}
+          {...textAnimation}
+          transition={getTransition(index, 0.6)}
+        >
           <span className={styles.category__title}>Category</span>
           <span className={styles.category__item}>{item.category}</span>
-        </div>
+        </motion.div>
 
-        <div className={styles.teknologo}>
+        <motion.div
+          className={styles.teknologo}
+          {...textAnimation}
+          transition={getTransition(index, 0.7)}
+        >
           <span className={styles.teknologo__title}>Technology</span>
           <div className={styles.teknologo__item}>
-            {item.icons.map((icon, index) => (
-              <div className={styles.img} key={index}>
+            {item.icons.map((icon, iconIndex) => (
+              <motion.div
+                className={styles.img}
+                key={iconIndex}
+                {...iconAnimation}
+                transition={getTransition(index, 0.8 + iconIndex * 0.1)}
+              >
                 <Image
                   src={icon}
                   alt={icon}
@@ -36,11 +81,11 @@ export default function ProjectCard({ item, ref }) {
                   height={500}
                   quality={100}
                 />
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 }
