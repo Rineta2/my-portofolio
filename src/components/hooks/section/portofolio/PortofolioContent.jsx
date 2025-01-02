@@ -10,6 +10,8 @@ import { useTheme } from "@/utils/theme/ThemeContext";
 
 import ProjectCard from "@/components/hooks/section/portofolio/PortofolioCard";
 
+import Image from "next/image";
+
 export default function PortofolioContent({ project, data }) {
   const { isDarkMode } = useTheme();
 
@@ -30,6 +32,16 @@ export default function PortofolioContent({ project, data }) {
               <ProjectCard key={item.id || index} item={item} index={index} />
             ))}
         </div>
+      </div>
+
+      <div className={styles.bg}>
+        <Image
+          src={data.img}
+          alt={data.title}
+          quality={100}
+          width={500}
+          height={500}
+        />
       </div>
     </section>
   );
