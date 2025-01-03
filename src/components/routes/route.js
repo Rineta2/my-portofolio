@@ -14,7 +14,17 @@ import Articles from "@/components/section/article/Articles";
 
 import ScrollTop from "@/components/tools/scrollTop";
 
-export default function Route() {
+import { fetchProjects } from "@/utils/lib/project/FetchProject";
+
+import { portofolioData } from "@/components/data/Portofolio";
+
+export const dynamic = "force-dynamic";
+
+export const revalidate = 10;
+
+export default async function Route() {
+  const projects = await fetchProjects();
+
   return (
     <Suspense>
       <Fragment>
@@ -22,7 +32,7 @@ export default function Route() {
         <Home />
         <About />
         <Achievement />
-        <Portofolio />
+        <Portofolio project={projects} data={portofolioData} />
         <Articles />
         <ScrollTop />
       </Fragment>
