@@ -8,58 +8,39 @@ import styles from "@/app/articles/Articles.module.scss";
 
 import { formatDate } from "@/components/tools/formatDate";
 
-import Link from "next/link";
-
-import { ChevronLeft } from "lucide-react";
+import { useTheme } from "@/utils/theme/ThemeContext";
 
 import ShareButton from "@/components/hooks/pages/articles/[slug]/ShareButton";
 
 import CommentSection from "@/components/hooks/pages/articles/[slug]/comment/CommentSection";
 
-import { useTheme } from "@/utils/theme/ThemeContext";
+import ArticleHeader from "@/components/hooks/pages/articles/[slug]/ArticleHeader";
+
+import ArticleAuthor from "@/components/hooks/pages/articles/[slug]/ArticleAuthor";
+
+import ArticleTags from "@/components/hooks/pages/articles/[slug]/ArticleTag";
 
 export default function ArticleContentSlug({ article }) {
   const shareUrl = `${process.env.NEXT_PUBLIC_URL}/articles/${article.slug}`;
-  const shareTitle = article.title;
-  const shareDescription = article.description;
-  const shareImage = article.imageUrl;
-  const shareCategory = article.categoryName;
-  const tags = article.tagNames;
-
   const { isDarkMode } = useTheme();
 
   return (
     <section
-      className={`${styles.article__slug} ${isDarkMode ? styles.dark : styles.light
-        }`}
+      className={`${styles.article__slug} ${
+        isDarkMode ? styles.dark : styles.light
+      }`}
     >
       <div className={`${styles.article__container} container`}>
-        <div className={styles.top__heading}>
-          <span>{article.categoryName}</span>
-
-          <Link href="/articles">
-            <ChevronLeft />
-            Back to Articles
-          </Link>
-        </div>
+        <ArticleHeader categoryName={article.categoryName} />
 
         <div className={styles.heading__center}>
           <h1>{article.title}</h1>
 
-          <div className={styles.author}>
-            <Image
-              src={article.authorPhoto}
-              width={500}
-              height={500}
-              alt={article.authorName}
-              quality={100}
-            />
-
-            <div className={styles.author__info}>
-              <span>{article.authorName}</span>
-              <span>{article.role}</span>
-            </div>
-          </div>
+          <ArticleAuthor
+            authorPhoto={article.authorPhoto}
+            authorName={article.authorName}
+            role={article.role}
+          />
 
           <Image
             src={article.imageUrl}
@@ -76,11 +57,11 @@ export default function ArticleContentSlug({ article }) {
 
             <ShareButton
               shareUrl={shareUrl}
-              shareTitle={shareTitle}
-              shareDescription={shareDescription}
-              shareCategory={shareCategory}
-              shareImage={shareImage}
-              tags={tags}
+              shareTitle={article.title}
+              shareDescription={article.description}
+              shareCategory={article.categoryName}
+              shareImage={article.imageUrl}
+              tags={article.tagNames}
             />
           </div>
         </div>
@@ -90,14 +71,7 @@ export default function ArticleContentSlug({ article }) {
           className="content__article"
         />
 
-        <div className={styles.buttons__share}>
-          <div className={styles.tags}>
-            <h3>Tags :</h3>
-            {article.tagNames.map((tag) => (
-              <span key={tag}>{tag}</span>
-            ))}
-          </div>
-        </div>
+        <ArticleTags tags={article.tagNames} />
 
         <CommentSection articleId={article.slug} />
       </div>
