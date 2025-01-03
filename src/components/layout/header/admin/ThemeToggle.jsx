@@ -15,12 +15,17 @@ export function ThemeToggle({ isOpen }) {
     <button
       onClick={toggleTheme}
       className={clsx(styles.themeToggle, isOpen && styles.open)}
-      aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
     >
       {isDarkMode ? (
-        <Moon size={20} className={styles.icon} />
+        <div className={styles.isDarkMode}>
+          <Moon size={20} className={styles.icon} />
+          {isOpen && <span>Dark</span>}
+        </div>
       ) : (
-        <Sun size={20} className={styles.icon} />
+        <div className={styles.isLightMode}>
+          <Sun size={20} className={styles.icon} />
+          {isOpen && <span>Light</span>}
+        </div>
       )}
     </button>
   );

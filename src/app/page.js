@@ -4,7 +4,7 @@ import "@/components/styling/globals.scss";
 
 import Route from "@/components/routes/route";
 
-export default function page() {
+export default async function Page() {
   return (
     <Fragment>
       <Route />

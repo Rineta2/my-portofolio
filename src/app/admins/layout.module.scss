@@ -18,24 +18,98 @@
     }
 
     &.light {
-      background-color: var(--nav-bg);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background-color: $light-bg;
+      border-right: 1px solid rgba($black-c, 0.1);
 
-      .navbarHeader {
-        .navbarProfile {
-          .profilePlaceholder {
-            background: var(--nav-bg);
-            color: $text-c;
-          }
-
-          .profileInfo {
-            .profileName {
-              color: $black-c;
+      .navbar {
+        .navbarHeader {
+          .navbarProfile {
+            .profilePlaceholder {
+              background: var(--nav-bg);
+              color: $text-c;
             }
 
-            .profileEmail {
+            .profileInfo {
+              .profileName {
+                color: $black-c;
+              }
+
+              .profileEmail {
+                color: $black-c;
+              }
+            }
+          }
+        }
+
+        .navbarToggle {
+          background-color: $light-bg;
+          color: $black-c;
+
+          &:hover {
+            background: $primary-c;
+            color: $text-c;
+          }
+        }
+
+        .navbarMenu {
+          .navbarItem {
+            .navbarLink {
               color: $black-c;
+
+              &:hover,
+              &.active {
+                background: $primary-c;
+                color: $text-c;
+              }
+
+              &.active {
+                .navbarName {
+                  color: $text-c;
+                }
+              }
+            }
+
+            .navbarSubmenu {
+              &::before {
+                background-color: $primary-c;
+              }
+
+              .navbarSubmenuItem {
+                .navbarSubmenuLink {
+                  color: $black-c;
+
+                  &:hover,
+                  &.active {
+                    color: $text-c;
+                    background: $primary-c;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .navbarActions {
+          .themeToggle {
+            background-color: $primary-c;
+            .isDarkMode {
+              span {
+                color: $text-c;
+              }
+
+              svg {
+                color: $text-c;
+              }
+            }
+
+            .isLightMode {
+              span {
+                color: $text-c;
+              }
+
+              svg {
+                color: $text-c;
+              }
             }
           }
         }
@@ -45,31 +119,93 @@
     &.dark {
       @include glass-effect;
 
-      .navbarHeader {
-        .navbarProfile {
-          .profilePlaceholder {
-            background: var(--nav-bg);
-            color: $text-c;
-          }
-
-          .profileInfo {
-            .profileName {
+      .navbar {
+        .navbarHeader {
+          .navbarProfile {
+            .profilePlaceholder {
+              background: var(--nav-bg);
               color: $text-c;
             }
 
-            .profileEmail {
-              color: $text-c;
+            .profileInfo {
+              .profileName {
+                color: $text-c;
+              }
+
+              .profileEmail {
+                color: $text-c;
+              }
             }
           }
         }
-      }
 
-      .navbarToggle {
-        @include glass-effect;
-        color: $text-c;
+        .navbarToggle {
+          @include glass-effect;
+          color: $text-c;
 
-        &:hover {
-          background: $primary-c;
+          &:hover {
+            background: $primary-c;
+          }
+        }
+
+        .navbarMenu {
+          .navbarItem {
+            .navbarLink {
+              color: $text-c;
+
+              &:hover,
+              &.active {
+                background: $primary-c;
+              }
+
+              .navbarName {
+                color: $text-c;
+              }
+            }
+
+            .navbarSubmenu {
+              &::before {
+                background-color: $primary-c;
+              }
+
+              .navbarSubmenuItem {
+                .navbarSubmenuLink {
+                  color: $text-c;
+
+                  &:hover,
+                  &.active {
+                    color: $primary-c;
+                    background: rgba($primary-c, 0.1);
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .navbarActions {
+          .themeToggle {
+            background-color: $primary-c;
+            .isDarkMode {
+              span {
+                color: $text-c;
+              }
+
+              svg {
+                color: $text-c;
+              }
+            }
+
+            .isLightMode {
+              span {
+                color: $text-c;
+              }
+
+              svg {
+                color: $text-c;
+              }
+            }
+          }
         }
       }
     }
@@ -92,6 +228,15 @@
       .navbar {
         .navbarMenu {
           padding: 1rem 2%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+
+          @media (max-width: 1366px) {
+            padding: 0.5rem 2%;
+            margin-top: 1rem;
+          }
         }
 
         .navbarToggle {
@@ -123,6 +268,10 @@
           gap: 1rem;
           padding: 0;
 
+          @media (max-width: 1366px) {
+            gap: 0.5rem;
+          }
+
           .navbarItem {
             width: 100%;
             display: flex;
@@ -132,13 +281,18 @@
               border-radius: 50%;
               display: grid;
               place-items: center;
-              width: 40px;
-              height: 40px;
+              width: 50px;
+              height: 50px;
               padding: 0;
 
               .navbarIcon {
-                width: 20px;
-                height: 20px;
+                width: 50px;
+                height: 50px;
+
+                @media (max-width: 1366px) {
+                  width: 40px;
+                  height: 40px;
+                }
               }
             }
           }
@@ -208,6 +362,13 @@
         overflow: auto;
         height: 100%;
         padding: 1rem 2%;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+
+        @media only screen and (max-width: 1366px) {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
 
         &::-webkit-scrollbar {
           display: none;
@@ -227,15 +388,9 @@
             padding: 1rem;
             border-radius: 0.5rem;
             text-decoration: none;
-            color: $text-c;
             transition: all 0.3s ease;
             cursor: pointer;
             width: 100%;
-
-            &:hover,
-            &.active {
-              background: $primary-c;
-            }
 
             .navbarIcon {
               min-width: 20px;
@@ -248,7 +403,6 @@
             .navbarName {
               margin-left: 0.75rem;
               font-size: 1.2rem;
-              color: $text-c;
             }
 
             .submenu {
@@ -261,7 +415,7 @@
 
           .navbarSubmenu {
             list-style: none;
-            padding-left: 3.25rem;
+            padding-left: 2rem;
             margin-top: 0.5rem;
             position: relative;
 
@@ -272,7 +426,6 @@
               top: 0;
               width: 2px;
               height: 100%;
-              background-color: $primary-c;
               animation: blink 1s ease-in-out;
             }
 
@@ -280,19 +433,12 @@
               margin-bottom: 0.5rem;
 
               .navbarSubmenuLink {
-                color: $text-c;
                 text-decoration: none;
                 transition: color 0.3s ease;
                 padding: 0.5rem;
                 display: block;
                 font-size: 1.2rem;
                 border-radius: 0.5rem;
-
-                &:hover,
-                &.active {
-                  color: $primary-c;
-                  background: rgba($primary-c, 0.1);
-                }
               }
             }
           }
@@ -317,35 +463,48 @@
         justify-content: center;
         align-items: center;
         gap: 1rem;
+        width: 80%;
 
         .themeToggle {
-          background: none;
-          border: none;
-          padding: 8px;
-          border-radius: 50%;
-          cursor: pointer;
-          transition: all 0.2s ease;
+          width: 100%;
           display: flex;
-          align-items: center;
           justify-content: center;
-          color: #fff;
+          align-items: center;
+          gap: 1rem;
+          height: 50px;
+          border: none;
+          border-radius: 12px;
+          cursor: pointer;
 
-          &:hover {
-            background-color: rgba(0, 0, 0, 0.1);
+          .isDarkMode {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
 
-            .icon {
-              transform: rotate(15deg);
+            span {
+              font-size: 1.1rem;
+            }
+
+            svg {
+              width: 20px;
+              height: 20px;
             }
           }
 
-          .icon {
-            transition: transform 0.2s ease;
-            color: var(--text-color);
-          }
+          .isLightMode {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
 
-          [data-theme="dark"] & {
-            &:hover {
-              background-color: rgba(255, 255, 255, 0.1);
+            span {
+              font-size: 1.1rem;
+            }
+
+            svg {
+              width: 20px;
+              height: 20px;
             }
           }
         }
