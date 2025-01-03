@@ -23,7 +23,7 @@ export default function ProjectCard({ item, index }) {
 
   return (
     <MotionLink
-      href={`/portofolio/${item.slug}`}
+      href={`/portofolio/${item?.slug}`}
       ref={cardRef}
       className={styles.box}
       {...cardAnimation}
@@ -31,8 +31,8 @@ export default function ProjectCard({ item, index }) {
     >
       <motion.div className={styles.img} {...imageAnimation}>
         <Image
-          src={item.thumbnail}
-          alt={item.title}
+          src={item?.thumbnail}
+          alt={item?.title}
           width={500}
           height={500}
           quality={100}
@@ -45,7 +45,7 @@ export default function ProjectCard({ item, index }) {
           {...textAnimation}
           transition={getTransition(index, 0.4)}
         >
-          {item.title}
+          {item?.title}
         </motion.h2>
 
         <motion.p
@@ -53,7 +53,7 @@ export default function ProjectCard({ item, index }) {
           {...textAnimation}
           transition={getTransition(index, 0.5)}
         >
-          {item.description}
+          {item?.description}
         </motion.p>
 
         <motion.div
@@ -62,7 +62,7 @@ export default function ProjectCard({ item, index }) {
           transition={getTransition(index, 0.6)}
         >
           <span className={styles.category__title}>Category</span>
-          <span className={styles.category__item}>{item.category}</span>
+          <span className={styles.category__item}>{item?.category}</span>
         </motion.div>
 
         <motion.div
@@ -72,7 +72,7 @@ export default function ProjectCard({ item, index }) {
         >
           <span className={styles.teknologo__title}>Technology</span>
           <div className={styles.teknologo__item}>
-            {item.icons.map((icon, iconIndex) => (
+            {item?.icons?.map((icon, iconIndex) => (
               <motion.div
                 className={styles.img}
                 key={iconIndex}

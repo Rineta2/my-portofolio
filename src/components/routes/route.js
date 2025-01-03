@@ -14,13 +14,7 @@ import Articles from "@/components/section/article/Articles";
 
 import ScrollTop from "@/components/tools/scrollTop";
 
-import { fetchProjects } from "@/utils/lib/project/FetchProject";
-
-import { portofolioData } from "@/components/data/Portofolio";
-
 export default async function Route() {
-  const projects = await fetchProjects();
-
   return (
     <Suspense>
       <Fragment>
@@ -28,7 +22,7 @@ export default async function Route() {
         <Home />
         <About />
         <Achievement />
-        <Portofolio project={projects} data={portofolioData} />
+        <Portofolio />
         <Articles />
         <ScrollTop />
       </Fragment>

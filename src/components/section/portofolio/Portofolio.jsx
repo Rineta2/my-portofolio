@@ -2,6 +2,12 @@ import React from "react";
 
 import PortofolioContent from "@/components/hooks/section/portofolio/PortofolioContent";
 
-export default async function Portofolio({ project, data }) {
-  return <PortofolioContent project={project} data={data} />;
+import { fetchProjects } from "@/utils/lib/project/FetchProject";
+
+import { portofolioData } from "@/components/data/Portofolio";
+
+export default async function Portofolio() {
+  const projects = await fetchProjects();
+
+  return <PortofolioContent project={projects} data={portofolioData} />;
 }
