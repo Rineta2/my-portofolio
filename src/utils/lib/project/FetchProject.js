@@ -6,7 +6,7 @@ export const fetchProjects = async () => {
   try {
     const querySnapshot = await getDocs(
       collection(db, process.env.NEXT_PUBLIC_API_PROJECT),
-      { next: { revalidate: 30 } }
+      { next: { revalidate: 0 } }
     );
     const data = querySnapshot.docs.map((doc) => ({
       id: doc.id,
@@ -22,7 +22,7 @@ export const fetchProjectBySlug = async (slug) => {
   try {
     const projectsRef = collection(db, process.env.NEXT_PUBLIC_API_PROJECT);
     const q = query(projectsRef, where("slug", "==", slug));
-    const querySnapshot = await getDocs(q, { next: { revalidate: 30 } });
+    const querySnapshot = await getDocs(q, { next: { revalidate: 0 } });
 
     if (querySnapshot.empty) {
       return null;
