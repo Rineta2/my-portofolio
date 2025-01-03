@@ -18,10 +18,6 @@ import { fetchProjects } from "@/utils/lib/project/FetchProject";
 
 import { portofolioData } from "@/components/data/Portofolio";
 
-export const dynamic = "force-dynamic";
-
-export const revalidate = 10;
-
 export default async function Route() {
   const projects = await fetchProjects();
 
