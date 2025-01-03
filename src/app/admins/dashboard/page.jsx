@@ -8,5 +8,5 @@ export async function generateMetadata() {
 }
 
 export default function page() {
-  return <div>page</div>;
+  return <section>page</section>;
 }

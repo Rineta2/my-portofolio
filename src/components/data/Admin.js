@@ -17,34 +17,34 @@ export const navbar = [
     id: 1,
     name: "Dashboard",
     path: "/admins/dashboard",
-    icon: <LayoutDashboard size={32} />,
+    icon: <LayoutDashboard />,
   },
 
   {
     id: 2,
     name: "About",
-    icon: <CircleUserRound size={32} />,
+    icon: <CircleUserRound />,
     path: "/admins/dashboard/about",
   },
 
   {
     id: 3,
     name: "Achievement",
-    icon: <Award size={32} />,
+    icon: <Award />,
     path: "/admins/dashboard/achievement",
   },
 
   {
     id: 4,
     name: "Skills",
-    icon: <SiSkillshare size={32} />,
+    icon: <SiSkillshare />,
     path: "/admins/dashboard/skills",
   },
 
   {
     id: 5,
     name: "Project",
-    icon: <Briefcase size={32} />,
+    icon: <Briefcase />,
     submenu: [
       {
         id: 1,
@@ -69,7 +69,7 @@ export const navbar = [
   {
     id: 6,
     name: "Article",
-    icon: <Newspaper size={32} />,
+    icon: <Newspaper />,
     submenu: [
       {
         id: 1,
@@ -94,7 +94,7 @@ export const navbar = [
   {
     id: 7,
     name: "Users",
-    icon: <Users size={32} />,
+    icon: <Users />,
     submenu: [
       {
         id: 1,
@@ -113,21 +113,21 @@ export const navbar = [
   {
     id: 8,
     name: "Contact",
-    icon: <Mail size={32} />,
+    icon: <Mail />,
     path: "/admins/dashboard/contact",
   },
 
   {
     id: 9,
     name: "Settings",
-    icon: <Settings size={32} />,
+    icon: <Settings />,
     path: "/admins/dashboard/settings",
   },
 
   {
     id: 10,
     name: "Homepage",
-    icon: <Home size={32} />,
+    icon: <Home />,
     path: "/",
   },
 ];

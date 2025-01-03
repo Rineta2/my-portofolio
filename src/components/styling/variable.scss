@@ -25,6 +25,18 @@ $z-index-large: 200;
   align-items: center;
 }
 
+@mixin flex-justify-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin c-c-c {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 @mixin justify-flex-center {
   display: flex;
   justify-content: space-between;

@@ -4,10 +4,12 @@ export async function generateMetadata({ searchParams }) {
   const id = searchParams?.id;
   return {
     title: id ? "Edit About" : "Add About",
-    description: id ? "Edit existing about section" : "Create new about section",
+    description: id
+      ? "Edit existing about section"
+      : "Create new about section",
   };
 }
 
-export default function AboutForm() {
+export default async function AboutForm() {
   return <AboutFormClient />;
 }

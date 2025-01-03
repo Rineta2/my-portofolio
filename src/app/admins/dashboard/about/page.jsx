@@ -1,4 +1,5 @@
 import React from "react";
+
 import AboutContent from "@/components/hooks/admin/about/AboutContent";
 
 export async function generateMetadata() {
@@ -8,6 +9,6 @@ export async function generateMetadata() {
   };
 }
 
-export default function About() {
+export default async function About() {
   return <AboutContent />;
 }
