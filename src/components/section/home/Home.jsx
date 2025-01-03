@@ -22,7 +22,7 @@ import { useTheme } from "@/utils/theme/ThemeContext";
 
 import Rocket from "@/components/hooks/section/home/Rocket";
 
-import GridBackground from "@/components/hooks/animation/article/GridBackground";
+import GridBackground from "@/components/hooks/animation/trejs/GridBackground";
 
 export default function Home() {
   const sectionRef = useRef(null);
