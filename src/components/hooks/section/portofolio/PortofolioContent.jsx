@@ -26,9 +26,9 @@ export default function PortofolioContent({ project, data }) {
 
         <div className={styles.content}>
           {project
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .slice(0, 3)
-            .map((item, index) => (
+            ?.sort((a, b) => new Date(b.date) - new Date(a.date))
+            ?.slice(0, 3)
+            ?.map((item, index) => (
               <ProjectCard key={item.id || index} item={item} index={index} />
             ))}
         </div>
@@ -36,8 +36,8 @@ export default function PortofolioContent({ project, data }) {
 
       <div className={styles.bg}>
         <Image
-          src={data.img}
-          alt={data.title}
+          src={data?.img}
+          alt={data?.title}
           quality={100}
           width={500}
           height={500}

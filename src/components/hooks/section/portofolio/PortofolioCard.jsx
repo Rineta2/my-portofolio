@@ -72,7 +72,7 @@ export default function ProjectCard({ item, index }) {
         >
           <span className={styles.teknologo__title}>Technology</span>
           <div className={styles.teknologo__item}>
-            {item?.icons?.map((icon, iconIndex) => (
+            {item.icons?.map((icon, iconIndex) => (
               <motion.div
                 className={styles.img}
                 key={iconIndex}
