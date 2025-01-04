@@ -1,13 +1,15 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 
 import { db } from "@/utils/firebase";
 
 export const fetchAbout = async () => {
   try {
-    const querySnapshot = await getDocs(
-      collection(db, process.env.NEXT_PUBLIC_API_ABOUT),
-      { next: { revalidate: 30 } }
-    );
+    const aboutRef = collection(db, process.env.NEXT_PUBLIC_API_ABOUT);
+
+    const aboutQuery = query(aboutRef, orderBy("title"));
+
+    const querySnapshot = await getDocs(aboutQuery);
+
     const data = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -17,5 +19,3 @@ export const fetchAbout = async () => {
     return [];
   }
 };
-
-export default fetchAbout;

@@ -1,5 +1,7 @@
 import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
+
 import { db } from "@/utils/firebase";
+
 import { cache } from "react";
 
 export const fetchProjects = cache(async () => {
@@ -15,7 +17,6 @@ export const fetchProjects = cache(async () => {
 
     return data;
   } catch (error) {
-    console.error("Error fetching projects:", error);
     return [];
   }
 });

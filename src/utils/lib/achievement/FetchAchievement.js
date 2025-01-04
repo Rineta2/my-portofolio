@@ -1,13 +1,18 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 
 import { db } from "@/utils/firebase";
 
 export const fetchAchievement = async () => {
   try {
-    const querySnapshot = await getDocs(
-      collection(db, process.env.NEXT_PUBLIC_API_ACHIEVEMENT),
-      { next: { revalidate: 30 } }
+    const achievementRef = collection(
+      db,
+      process.env.NEXT_PUBLIC_API_ACHIEVEMENT
     );
+
+    const achievementQuery = query(achievementRef, orderBy("date"));
+
+    const querySnapshot = await getDocs(achievementQuery);
+
     const data = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -17,5 +22,3 @@ export const fetchAchievement = async () => {
     return [];
   }
 };
-
-export default fetchAchievement;
