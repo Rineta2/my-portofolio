@@ -12,8 +12,10 @@ import ProjectCard from "@/components/hooks/section/portofolio/PortofolioCard";
 
 import Image from "next/image";
 
-export default function PortofolioContent({ project, data }) {
+export default function PortofolioContent({ project, data, revalidate }) {
   const { isDarkMode } = useTheme();
+
+  React.useEffect(() => {}, [revalidate]);
 
   return (
     <section

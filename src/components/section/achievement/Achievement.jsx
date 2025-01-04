@@ -18,6 +18,6 @@ export default async function Achievement() {
     }));
 
     return (
-        <AchievementContent achievements={achievements} heading={achievementHeading} />
+        <AchievementContent achievements={achievements} heading={achievementHeading} revalidate={revalidate} />
     )
 }
