@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 import { motion } from "framer-motion";
@@ -6,7 +8,7 @@ import { useRef } from "react";
 
 import styles from "@/components/section/portofolio/portofolio.module.scss";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import {
   cardAnimation,
@@ -16,14 +18,18 @@ import {
   getTransition,
 } from "@/components/hooks/animation/portofolio/animation";
 
-const MotionLink = motion(Link);
-
 export default function ProjectCard({ item, index }) {
+  const router = useRouter();
   const cardRef = useRef(null);
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    router.push(`/portofolio/${item?.slug}`);
+  };
+
   return (
-    <MotionLink
-      href={`/portofolio/${item?.slug}`}
+    <motion.div
+      onClick={handleClick}
       ref={cardRef}
       className={styles.box}
       {...cardAnimation}
@@ -91,6 +97,6 @@ export default function ProjectCard({ item, index }) {
           </div>
         </motion.div>
       </motion.div>
-    </MotionLink>
+    </motion.div>
   );
 }
