@@ -32,6 +32,7 @@ export default function ProjectCard({ item, index }) {
       onClick={handleClick}
       ref={cardRef}
       className={styles.box}
+      style={{ cursor: "pointer" }}
       {...cardAnimation}
       transition={getTransition(index)}
     >

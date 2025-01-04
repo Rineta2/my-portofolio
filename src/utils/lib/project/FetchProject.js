@@ -1,8 +1,8 @@
 import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
-
 import { db } from "@/utils/firebase";
+import { cache } from "react";
 
-export const fetchProjects = async () => {
+export const fetchProjects = cache(async () => {
   try {
     const projectsRef = collection(db, process.env.NEXT_PUBLIC_API_PROJECT);
     const projectsQuery = query(projectsRef, orderBy("createdAt", "desc"));
@@ -18,7 +18,7 @@ export const fetchProjects = async () => {
     console.error("Error fetching projects:", error);
     return [];
   }
-};
+});
 
 export const fetchProjectBySlug = async (slug) => {
   try {
