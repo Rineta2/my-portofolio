@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import PortfolioHeader from "@/components/hooks/section/portofolio/PortofolioHeader";
 
@@ -12,8 +12,18 @@ import ProjectCard from "@/components/hooks/section/portofolio/PortofolioCard";
 
 import Image from "next/image";
 
-export default function PortofolioContent({ project, data, revalidate }) {
+export default function PortofolioContent({ project, data }) {
   const { isDarkMode } = useTheme();
+  const [sortedProjects, setSortedProjects] = useState([]);
+
+  useEffect(() => {
+    if (project) {
+      const sorted = [...project]
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .slice(0, 3);
+      setSortedProjects(sorted);
+    }
+  }, [project]);
 
   return (
     <section
@@ -25,12 +35,9 @@ export default function PortofolioContent({ project, data, revalidate }) {
         <PortfolioHeader data={data} />
 
         <div className={styles.content}>
-          {project
-            ?.sort((a, b) => new Date(b.date) - new Date(a.date))
-            ?.slice(0, 3)
-            ?.map((item, index) => (
-              <ProjectCard key={item.id || index} item={item} index={index} />
-            ))}
+          {sortedProjects.map((item, index) => (
+            <ProjectCard key={item.id} item={item} index={index} />
+          ))}
         </div>
       </div>
 
