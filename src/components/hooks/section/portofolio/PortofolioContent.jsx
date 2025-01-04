@@ -15,8 +15,6 @@ import Image from "next/image";
 export default function PortofolioContent({ project, data, revalidate }) {
   const { isDarkMode } = useTheme();
 
-  React.useEffect(() => {}, [revalidate]);
-
   return (
     <section
       className={`${styles.portofolio} ${
