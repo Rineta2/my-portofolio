@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense } from "react";
+import React, { Fragment } from "react";
 
 import RegisterSW from "@/components/hooks/meta/RegisterSW";
 
@@ -16,16 +16,14 @@ import ScrollTop from "@/components/tools/scrollTop";
 
 export default async function Route() {
   return (
-    <Suspense>
-      <Fragment>
-        <RegisterSW />
-        <Home />
-        <About />
-        <Achievement />
-        <Portofolio />
-        <Articles />
-        <ScrollTop />
-      </Fragment>
-    </Suspense>
+    <Fragment>
+      <RegisterSW />
+      <Home />
+      <About />
+      <Achievement />
+      <Portofolio />
+      <Articles />
+      <ScrollTop />
+    </Fragment>
   );
 }

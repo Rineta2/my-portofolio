@@ -7,6 +7,8 @@ import AchievementContent from "@/components/hooks/section/achievement/Achievmen
 import { unstable_noStore as noStore } from "next/cache";
 
 export default async function Achievement() {
+  noStore();
+
   const rawAchievements = await fetchAchievement();
 
   const achievements = rawAchievements.map((achievement) => ({
@@ -15,8 +17,6 @@ export default async function Achievement() {
       ? achievement.date.toDate().toISOString()
       : new Date(achievement.date).toISOString(),
   }));
-
-  noStore();
 
   return (
     <AchievementContent
