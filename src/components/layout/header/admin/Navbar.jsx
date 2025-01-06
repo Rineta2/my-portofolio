@@ -2,15 +2,15 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 
-import { User } from "lucide-react";
+import { User, ChevronsRight, ChevronDown, X } from "lucide-react";
 
 import Image from "next/image";
+
+import Link from "next/link";
 
 import { useAuth } from "@/utils/auth/AuthContext";
 
 import { navbar } from "@/components/data/Admin";
-
-import Link from "next/link";
 
 import styles from "@/app/admins/layout.module.scss";
 
@@ -18,13 +18,11 @@ import { usePathname } from "next/navigation";
 
 import { useTheme } from "@/utils/theme/ThemeContext";
 
-import { ChevronsRight, ChevronDown } from "lucide-react";
-
 import clsx from "clsx";
 
 import { ThemeToggle } from "@/components/layout/header/admin/ThemeToggle";
 
-export default function Navbar() {
+export default function Navbar({ isOpen, toggleSidebar }) {
   const { user } = useAuth();
 
   const [openSubmenu, setOpenSubmenu] = useState(null);
@@ -33,39 +31,20 @@ export default function Navbar() {
 
   const { isDarkMode } = useTheme();
 
-  const [isOpen, setIsOpen] = useState(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("sidebarOpen");
-      return saved ? JSON.parse(saved) : false;
-    }
-    return false;
-  });
-
   useEffect(() => {
-    const savedState = localStorage.getItem("sidebarOpen");
-    setIsOpen(savedState ? JSON.parse(savedState) : false);
-  }, []);
-
-  const toggleSubmenu = (itemId) => {
-    setOpenSubmenu(openSubmenu === itemId ? null : itemId);
-  };
-
-  const toggleSidebar = useCallback(() => {
-    setIsOpen((prev) => {
-      const newState = !prev;
-      localStorage.setItem("sidebarOpen", JSON.stringify(newState));
-      return newState;
-    });
-  }, []);
+    setOpenSubmenu(null);
+  }, [pathname]);
 
   const handleLinkClick = useCallback(() => {
-    setIsOpen(false);
-  }, []);
+    if (window.innerWidth <= 768) {
+      toggleSidebar();
+    }
+  }, [toggleSidebar]);
 
   return (
-    <header
+    <div
       className={clsx(
-        styles.header,
+        styles.nav,
         isDarkMode ? styles.dark : styles.light,
         isOpen ? styles.open : styles.close
       )}
@@ -76,7 +55,7 @@ export default function Navbar() {
             {user?.photoURL ? (
               <Image
                 src={user.photoURL}
-                alt="Profile"
+                alt={user?.displayName || "Profile Picture"}
                 width={40}
                 height={40}
                 className={styles.profileImage}
@@ -92,7 +71,9 @@ export default function Navbar() {
                 <span className={styles.profileName}>
                   {user?.displayName || user?.email || "Admin"}
                 </span>
-                <span className={styles.profileRole}>{user.role}</span>
+                <span className={styles.profileRole}>
+                  {user?.role || "User"}
+                </span>
               </div>
             )}
           </div>
@@ -105,13 +86,12 @@ export default function Navbar() {
                 <>
                   <div
                     onClick={() => toggleSubmenu(item.id)}
-                    className={`${styles.navbarLink} ${
-                      openSubmenu === item.id ? styles.active : ""
-                    } ${
-                      item.submenu.some((sub) => sub.path === pathname)
-                        ? styles.active
-                        : ""
-                    }`}
+                    className={clsx(
+                      styles.navbarLink,
+                      openSubmenu === item.id && styles.active,
+                      item.submenu.some((sub) => sub.path === pathname) &&
+                        styles.active
+                    )}
                   >
                     <div className={styles.navbarIcon}>{item.icon}</div>
                     {isOpen && (
@@ -131,9 +111,10 @@ export default function Navbar() {
                         >
                           <Link
                             href={subItem.path}
-                            className={`${styles.navbarSubmenuLink} ${
-                              pathname === subItem.path ? styles.active : ""
-                            }`}
+                            className={clsx(
+                              styles.navbarSubmenuLink,
+                              pathname === subItem.path && styles.active
+                            )}
                             onClick={handleLinkClick}
                           >
                             {subItem.name}
@@ -146,9 +127,10 @@ export default function Navbar() {
               ) : (
                 <Link
                   href={item.path}
-                  className={`${styles.navbarLink} ${
-                    pathname === item.path ? styles.active : ""
-                  }`}
+                  className={clsx(
+                    styles.navbarLink,
+                    pathname === item.path && styles.active
+                  )}
                   onClick={handleLinkClick}
                 >
                   <span className={styles.navbarIcon}>{item.icon}</span>
@@ -165,13 +147,21 @@ export default function Navbar() {
           className={clsx(styles.navbarToggle, isOpen && styles.rotate)}
           onClick={toggleSidebar}
         >
-          <ChevronsRight size={20} />
+          {window.innerWidth <= 768 ? (
+            isOpen ? (
+              <X size={20} />
+            ) : (
+              <ChevronsRight size={20} />
+            )
+          ) : (
+            <ChevronsRight size={20} />
+          )}
         </button>
 
         <div className={styles.navbarActions}>
           <ThemeToggle />
         </div>
       </nav>
-    </header>
+    </div>
   );
 }

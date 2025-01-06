@@ -4,294 +4,462 @@
   display: flex;
   gap: 2rem;
 
-  .header {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 15%;
-    height: 100vh;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+  @media only screen and (max-width: 758px) {
+    flex-direction: column;
+  }
 
-    @media only screen and (max-width: 1280px) {
-      width: 20%;
-    }
-
-    &.light {
-      background-color: $light-bg;
-      border-right: 1px solid rgba($black-c, 0.1);
-
-      .navbar {
-        .navbarHeader {
-          .navbarProfile {
-            .profilePlaceholder {
-              background: var(--nav-bg);
-              color: $text-c;
-            }
-
-            .profileInfo {
-              .profileName {
-                color: $black-c;
-              }
-
-              .profileEmail {
-                color: $black-c;
-              }
-            }
-          }
-        }
-
-        .navbarToggle {
-          background-color: $light-bg;
-          color: $black-c;
-
-          &:hover {
-            background: $primary-c;
-            color: $text-c;
-          }
-        }
-
-        .navbarMenu {
-          .navbarItem {
-            .navbarLink {
-              color: $black-c;
-
-              &:hover,
-              &.active {
-                background: $primary-c;
-                color: $text-c;
-              }
-
-              &.active {
-                .navbarName {
-                  color: $text-c;
-                }
-              }
-            }
-
-            .navbarSubmenu {
-              &::before {
-                background-color: $primary-c;
-              }
-
-              .navbarSubmenuItem {
-                .navbarSubmenuLink {
-                  color: $black-c;
-
-                  &:hover,
-                  &.active {
-                    color: $text-c;
-                    background: $primary-c;
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        .navbarActions {
-          .themeToggle {
-            background-color: $primary-c;
-            .isDarkMode {
-              span {
-                color: $text-c;
-              }
-
-              svg {
-                color: $text-c;
-              }
-            }
-
-            .isLightMode {
-              span {
-                color: $text-c;
-              }
-
-              svg {
-                color: $text-c;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    &.dark {
-      @include glass-effect;
-
-      .navbar {
-        .navbarHeader {
-          .navbarProfile {
-            .profilePlaceholder {
-              background: var(--nav-bg);
-              color: $text-c;
-            }
-
-            .profileInfo {
-              .profileName {
-                color: $text-c;
-              }
-
-              .profileEmail {
-                color: $text-c;
-              }
-            }
-          }
-        }
-
-        .navbarToggle {
-          @include glass-effect;
-          color: $text-c;
-
-          &:hover {
-            background: $primary-c;
-          }
-        }
-
-        .navbarMenu {
-          .navbarItem {
-            .navbarLink {
-              color: $text-c;
-
-              &:hover,
-              &.active {
-                background: $primary-c;
-              }
-
-              .navbarName {
-                color: $text-c;
-              }
-            }
-
-            .navbarSubmenu {
-              &::before {
-                background-color: $primary-c;
-              }
-
-              .navbarSubmenuItem {
-                .navbarSubmenuLink {
-                  color: $text-c;
-
-                  &:hover,
-                  &.active {
-                    color: $primary-c;
-                    background: rgba($primary-c, 0.1);
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        .navbarActions {
-          .themeToggle {
-            background-color: $primary-c;
-            .isDarkMode {
-              span {
-                color: $text-c;
-              }
-
-              svg {
-                color: $text-c;
-              }
-            }
-
-            .isLightMode {
-              span {
-                color: $text-c;
-              }
-
-              svg {
-                color: $text-c;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    &.open {
+  .sidebar {
+    .nav {
+      position: fixed;
+      left: 0;
+      top: 0;
       width: 15%;
+      height: 100vh;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
 
       @media only screen and (max-width: 1280px) {
         width: 20%;
       }
 
-      @media (max-width: 992px) {
-        width: 40%;
+      @media only screen and (max-width: 768px) {
+        z-index: 1000;
+
+        &.mobileOpen {
+          left: 0;
+          visibility: visible;
+          transform: translateX(0);
+        }
+
+        &.close {
+          visibility: hidden;
+          transform: translateX(-100%);
+        }
       }
 
-      @media (max-width: 768px) {
-        width: 100%;
+      &.light {
+        background-color: $light-bg;
+        border-right: 1px solid rgba($black-c, 0.1);
+
+        .navbar {
+          .navbarHeader {
+            .navbarProfile {
+              .profilePlaceholder {
+                background: var(--nav-bg);
+                color: $text-c;
+              }
+
+              .profileInfo {
+                .profileName {
+                  color: $black-c;
+                }
+
+                .profileEmail {
+                  color: $black-c;
+                }
+              }
+            }
+          }
+
+          .navbarToggle {
+            background-color: $light-bg;
+            color: $black-c;
+
+            &:hover {
+              background: $primary-c;
+              color: $text-c;
+            }
+          }
+
+          .navbarMenu {
+            .navbarItem {
+              .navbarLink {
+                color: $black-c;
+
+                &:hover,
+                &.active {
+                  background: $primary-c;
+                  color: $text-c;
+                }
+
+                &.active {
+                  .navbarName {
+                    color: $text-c;
+                  }
+                }
+              }
+
+              .navbarSubmenu {
+                &::before {
+                  background-color: $primary-c;
+                }
+
+                .navbarSubmenuItem {
+                  .navbarSubmenuLink {
+                    color: $black-c;
+
+                    &:hover,
+                    &.active {
+                      color: $text-c;
+                      background: $primary-c;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .navbarActions {
+            .themeToggle {
+              background-color: $primary-c;
+              .isDarkMode {
+                span {
+                  color: $text-c;
+                }
+
+                svg {
+                  color: $text-c;
+                }
+              }
+
+              .isLightMode {
+                span {
+                  color: $text-c;
+                }
+
+                svg {
+                  color: $text-c;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &.dark {
+        @include glass-effect;
+
+        .navbar {
+          .navbarHeader {
+            .navbarProfile {
+              .profilePlaceholder {
+                background: var(--nav-bg);
+                color: $text-c;
+              }
+
+              .profileInfo {
+                .profileName {
+                  color: $text-c;
+                }
+
+                .profileEmail {
+                  color: $text-c;
+                }
+              }
+            }
+          }
+
+          .navbarToggle {
+            @include glass-effect;
+            color: $text-c;
+
+            &:hover {
+              background: $primary-c;
+            }
+          }
+
+          .navbarMenu {
+            .navbarItem {
+              .navbarLink {
+                color: $text-c;
+
+                &:hover,
+                &.active {
+                  background: $primary-c;
+                }
+
+                .navbarName {
+                  color: $text-c;
+                }
+              }
+
+              .navbarSubmenu {
+                &::before {
+                  background-color: $primary-c;
+                }
+
+                .navbarSubmenuItem {
+                  .navbarSubmenuLink {
+                    color: $text-c;
+
+                    &:hover,
+                    &.active {
+                      color: $primary-c;
+                      background: rgba($primary-c, 0.1);
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .navbarActions {
+            .themeToggle {
+              background-color: $primary-c;
+              .isDarkMode {
+                span {
+                  color: $text-c;
+                }
+
+                svg {
+                  color: $text-c;
+                }
+              }
+
+              .isLightMode {
+                span {
+                  color: $text-c;
+                }
+
+                svg {
+                  color: $text-c;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &.open {
+        width: 15%;
+        visibility: visible;
+        transform: translateX(0);
+
+        @media only screen and (max-width: 1280px) {
+          width: 20%;
+        }
+
+        @media (max-width: 992px) {
+          width: 40%;
+        }
+
+        @media (max-width: 768px) {
+          width: 100%;
+        }
+
+        .navbar {
+          .navbarMenu {
+            padding: 1rem 2%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+
+            @media (max-width: 1366px) {
+              padding: 0.5rem 2%;
+              margin-top: 1rem;
+            }
+          }
+
+          .navbarToggle {
+            transform: rotate(180deg);
+          }
+        }
+      }
+
+      &.close {
+        width: 7%;
+        padding: 1rem 0.5rem;
+
+        @media only screen and (max-width: 1280px) {
+          width: 10%;
+        }
+
+        @media (max-width: 768px) {
+          visibility: hidden;
+          transform: translateX(-100%);
+        }
+
+        .navbar {
+          .navbarMenu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 0;
+
+            @media (max-width: 1366px) {
+              gap: 0.5rem;
+            }
+
+            .navbarItem {
+              width: 100%;
+              display: flex;
+              justify-content: center;
+
+              .navbarLink {
+                border-radius: 50%;
+                display: grid;
+                place-items: center;
+                width: 50px;
+                height: 50px;
+                padding: 0;
+
+                .navbarIcon {
+                  width: 50px;
+                  height: 50px;
+
+                  @media (max-width: 1366px) {
+                    width: 40px;
+                    height: 40px;
+                  }
+                }
+              }
+            }
+          }
+
+          .navbarToggle {
+            transform: rotate(0deg);
+          }
+        }
       }
 
       .navbar {
-        .navbarMenu {
-          padding: 1rem 2%;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        height: 100%;
+        justify-content: space-between;
+        align-items: center;
 
-          @media (max-width: 1366px) {
-            padding: 0.5rem 2%;
-            margin-top: 1rem;
+        .navbarHeader {
+          height: auto;
+          display: grid;
+          place-items: center;
+
+          .navbarProfile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            @media only screen and (max-width: 1280px) {
+              @include c-c-c;
+            }
+
+            .profileImage {
+              border-radius: 50%;
+              width: 50px;
+              height: 50px;
+            }
+
+            .profilePlaceholder {
+              width: 50px;
+              height: 50px;
+              border-radius: 50%;
+              @include flex-justify-center;
+            }
+
+            .profileInfo {
+              display: flex;
+              flex-direction: column;
+              gap: 0.5rem;
+
+              .profileName {
+                font-size: 1.2rem;
+              }
+
+              .profileRole {
+                font-size: 1rem;
+                text-transform: capitalize;
+              }
+            }
           }
         }
 
-        .navbarToggle {
-          transform: rotate(180deg);
-        }
-      }
-    }
-
-    &.close {
-      width: 7%;
-      padding: 1rem 0.5rem;
-
-      @media only screen and (max-width: 1280px) {
-        width: 10%;
-      }
-
-      @media (max-width: 992px) {
-        width: 0;
-        padding: 0;
-        overflow: hidden;
-      }
-
-      .navbar {
         .navbarMenu {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 1rem;
-          padding: 0;
+          width: 100%;
+          overflow: auto;
+          height: 100%;
+          padding: 1rem 2%;
+          margin-top: 2rem;
+          margin-bottom: 2rem;
 
-          @media (max-width: 1366px) {
-            gap: 0.5rem;
+          @media only screen and (max-width: 1366px) {
+            margin-top: 0;
+            margin-bottom: 0;
+          }
+
+          &::-webkit-scrollbar {
+            display: none;
+          }
+
+          @media only screen and (max-width: 1280px) {
+            margin-top: 5rem;
           }
 
           .navbarItem {
+            margin-bottom: 1rem;
             width: 100%;
-            display: flex;
-            justify-content: center;
 
             .navbarLink {
-              border-radius: 50%;
-              display: grid;
-              place-items: center;
-              width: 50px;
-              height: 50px;
-              padding: 0;
+              display: flex;
+              align-items: center;
+              padding: 1rem;
+              border-radius: 0.5rem;
+              text-decoration: none;
+              transition: all 0.3s ease;
+              cursor: pointer;
+              width: 100%;
 
               .navbarIcon {
-                width: 50px;
-                height: 50px;
+                min-width: 20px;
+                height: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
 
-                @media (max-width: 1366px) {
-                  width: 40px;
-                  height: 40px;
+              .navbarName {
+                margin-left: 0.75rem;
+                font-size: 1.2rem;
+              }
+
+              .submenu {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex: 1;
+              }
+            }
+
+            .navbarSubmenu {
+              list-style: none;
+              padding-left: 2rem;
+              margin-top: 0.5rem;
+              position: relative;
+
+              &::before {
+                content: "";
+                position: absolute;
+                left: 1rem;
+                top: 0;
+                width: 2px;
+                height: 100%;
+                animation: blink 1s ease-in-out;
+              }
+
+              .navbarSubmenuItem {
+                margin-bottom: 0.5rem;
+
+                .navbarSubmenuLink {
+                  text-decoration: none;
+                  transition: color 0.3s ease;
+                  padding: 0.5rem;
+                  display: block;
+                  font-size: 1.2rem;
+                  border-radius: 0.5rem;
                 }
               }
             }
@@ -299,45 +467,139 @@
         }
 
         .navbarToggle {
-          transform: rotate(0deg);
+          position: absolute;
+          cursor: pointer;
+          padding: 1rem;
+          border: none;
+          display: grid;
+          place-items: center;
+          border-radius: 50%;
+          transition: all 0.3s ease-in-out;
+          top: 10px;
+          right: -30px;
+
+          @media only screen and (max-width: 768px) {
+            right: 10px;
+          }
+        }
+
+        .navbarActions {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+          width: 80%;
+
+          .themeToggle {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            height: 50px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+
+            .isDarkMode {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 0.5rem;
+
+              span {
+                font-size: 1.1rem;
+              }
+
+              svg {
+                width: 20px;
+                height: 20px;
+              }
+            }
+
+            .isLightMode {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 0.5rem;
+
+              span {
+                font-size: 1.1rem;
+              }
+
+              svg {
+                width: 20px;
+                height: 20px;
+              }
+            }
+          }
         }
       }
     }
 
-    .navbar {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+    header {
+      position: fixed;
+      top: 0;
+      right: 0;
       width: 100%;
-      height: 100%;
-      justify-content: space-between;
-      align-items: center;
+      z-index: $z-index-large;
+      padding: 1rem 2%;
+      display: none;
 
-      .navbarHeader {
-        height: auto;
-        display: grid;
-        place-items: center;
+      @media only screen and (max-width: 768px) {
+        display: block;
 
-        .navbarProfile {
+        .mobileMenu {
           display: flex;
           align-items: center;
-          gap: 1rem;
+          justify-content: center;
+          z-index: 1001;
+        }
+      }
 
-          @media only screen and (max-width: 1280px) {
-            @include c-c-c;
+      &.dark {
+        @include glass-effect;
+
+        .adminHeaderContainer {
+          .navActions {
+            .searchBox {
+              background-color: $light-bg;
+              border: 1px solid rgba($black-c, 0.1);
+
+              svg {
+                color: $black-c;
+              }
+            }
           }
+        }
+      }
 
-          .profileImage {
-            border-radius: 50%;
+      &.light {
+        background-color: $light-bg;
+        border-right: 1px solid rgba($black-c, 0.1);
+      }
+
+      .adminHeaderContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .profile {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          width: 70%;
+
+          img {
             width: 50px;
             height: 50px;
-          }
-
-          .profilePlaceholder {
-            width: 50px;
-            height: 50px;
             border-radius: 50%;
-            @include flex-justify-center;
+            object-fit: cover;
+
+            @media only screen and (max-width: 468px) {
+              width: 60px;
+              height: 60px;
+            }
           }
 
           .profileInfo {
@@ -345,166 +607,51 @@
             flex-direction: column;
             gap: 0.5rem;
 
-            .profileName {
-              font-size: 1.2rem;
-            }
-
-            .profileRole {
+            span {
               font-size: 1rem;
-              text-transform: capitalize;
             }
           }
         }
-      }
 
-      .navbarMenu {
-        width: 100%;
-        overflow: auto;
-        height: 100%;
-        padding: 1rem 2%;
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-
-        @media only screen and (max-width: 1366px) {
-          margin-top: 0;
-          margin-bottom: 0;
-        }
-
-        &::-webkit-scrollbar {
-          display: none;
-        }
-
-        @media only screen and (max-width: 1280px) {
-          margin-top: 5rem;
-        }
-
-        .navbarItem {
-          margin-bottom: 1rem;
-          width: 100%;
-
-          .navbarLink {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            width: 100%;
-
-            .navbarIcon {
-              min-width: 20px;
-              height: 20px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            }
-
-            .navbarName {
-              margin-left: 0.75rem;
-              font-size: 1.2rem;
-            }
-
-            .submenu {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              flex: 1;
-            }
-          }
-
-          .navbarSubmenu {
-            list-style: none;
-            padding-left: 2rem;
-            margin-top: 0.5rem;
-            position: relative;
-
-            &::before {
-              content: "";
-              position: absolute;
-              left: 1rem;
-              top: 0;
-              width: 2px;
-              height: 100%;
-              animation: blink 1s ease-in-out;
-            }
-
-            .navbarSubmenuItem {
-              margin-bottom: 0.5rem;
-
-              .navbarSubmenuLink {
-                text-decoration: none;
-                transition: color 0.3s ease;
-                padding: 0.5rem;
-                display: block;
-                font-size: 1.2rem;
-                border-radius: 0.5rem;
-              }
-            }
-          }
-        }
-      }
-
-      .navbarToggle {
-        position: absolute;
-        cursor: pointer;
-        padding: 1rem;
-        border: none;
-        display: grid;
-        place-items: center;
-        border-radius: 50%;
-        transition: all 0.3s ease-in-out;
-        top: 10px;
-        right: -30px;
-      }
-
-      .navbarActions {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-        width: 80%;
-
-        .themeToggle {
-          width: 100%;
+        .navActions {
           display: flex;
-          justify-content: center;
-          align-items: center;
           gap: 1rem;
-          height: 50px;
-          border: none;
-          border-radius: 12px;
-          cursor: pointer;
 
-          .isDarkMode {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+          @media only screen and (max-width: 468px) {
             gap: 0.5rem;
+          }
 
-            span {
-              font-size: 1.1rem;
+          .searchBox {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            border-radius: 12px;
+            padding: 0.5rem;
+
+            @media only screen and (max-width: 468px) {
+              width: 100%;
             }
 
-            svg {
-              width: 20px;
-              height: 20px;
+            input {
+              padding: 1rem;
+              outline: none;
+              border: none;
+              font-size: 1.2rem;
+              width: 100%;
             }
           }
 
-          .isLightMode {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
-
-            span {
-              font-size: 1.1rem;
-            }
+          .mobileMenu {
+            padding: 1rem;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            background-color: $primary-c;
+            color: $text-c;
 
             svg {
-              width: 20px;
-              height: 20px;
+              width: 26px;
+              height: 26px;
             }
           }
         }

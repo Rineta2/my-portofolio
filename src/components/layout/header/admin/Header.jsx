@@ -1,50 +1,62 @@
-// "use client";
+"use client";
 
-// import React from "react";
+import React from "react";
 
-// import { getAuth, signOut } from "firebase/auth";
+import { Search, Menu, User } from "lucide-react";
 
-// import { LogOut, Search, Menu } from "lucide-react";
+import { useAuth } from "@/utils/auth/AuthContext";
 
-// import { useRouter } from "next/navigation";
+import styles from "@/app/admins/layout.module.scss";
 
-// import { useAuth } from "@/utils/auth/AuthContext";
+import Image from "next/image";
 
-// import styles from "@/app/admins/layout.module.scss";
+import { useTheme } from "@/utils/theme/ThemeContext";
 
-// export default function Header({ toggleSidebar }) {
-//   const { user } = useAuth();
-//   const router = useRouter();
+import clsx from "clsx";
 
-//   const handleLogout = async () => {
-//     try {
-//       const auth = getAuth();
-//       await signOut(auth);
-//       router.push("/");
-//     } catch (error) {
-//       console.error("Error signing out:", error);
-//     }
-//   };
+export default function Header({ toggleSidebar }) {
+  const { user } = useAuth();
+  const { isDarkMode } = useTheme();
 
-//   return (
-//     <header className={styles.adminHeader}>
-//       <div className={styles.adminHeaderContainer}>
-//         <button className={styles.mobileMenu} onClick={toggleSidebar}>
-//           <Menu size={24} />
-//         </button>
+  return (
+    <header
+      className={clsx(styles.header, isDarkMode ? styles.dark : styles.light)}
+    >
+      <div className={`${styles.adminHeaderContainer} container`}>
+        <div className={styles.profile}>
+          {user?.photoURL ? (
+            <Image
+              src={user.photoURL}
+              alt={user?.displayName || "Profile Picture"}
+              width={40}
+              height={40}
+              className={styles.profileImage}
+            />
+          ) : (
+            <div className={styles.profilePlaceholder}>
+              <User size={20} />
+            </div>
+          )}
 
-//         <div className={styles.searchBox}>
-//           <Search size={20} />
-//           <input type="text" placeholder="Search..." />
-//         </div>
+          <div className={styles.profileInfo}>
+            <span className={styles.profileName}>
+              {user?.displayName || user?.email || "Admin"}
+            </span>
+            <span className={styles.profileRole}>{user?.role || "User"}</span>
+          </div>
+        </div>
 
-//         <div className={styles.headerActions}>
-//           <button className={styles.logoutButton} onClick={handleLogout}>
-//             <LogOut size={20} />
-//             <span>Logout</span>
-//           </button>
-//         </div>
-//       </div>
-//     </header>
-//   );
-// }
+        <div className={styles.navActions}>
+          <div className={styles.searchBox}>
+            <Search size={20} />
+            <input type="text" placeholder="Search..." />
+          </div>
+
+          <button className={styles.mobileMenu} onClick={toggleSidebar}>
+            <Menu size={24} />
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+}
