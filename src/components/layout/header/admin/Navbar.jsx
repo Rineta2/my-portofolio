@@ -35,10 +35,13 @@ export default function Navbar({ isOpen, toggleSidebar }) {
     setOpenSubmenu(null);
   }, [pathname]);
 
+  const toggleSubmenu = (id) => {
+    setOpenSubmenu(openSubmenu === id ? null : id);
+  };
+
   const handleLinkClick = useCallback(() => {
-    if (window.innerWidth <= 768) {
-      toggleSidebar();
-    }
+    toggleSidebar();
+    setOpenSubmenu(null);
   }, [toggleSidebar]);
 
   return (

@@ -16,6 +16,7 @@ import clsx from "clsx";
 
 export default function Header({ toggleSidebar }) {
   const { user } = useAuth();
+
   const { isDarkMode } = useTheme();
 
   return (
