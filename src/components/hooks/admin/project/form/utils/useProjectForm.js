@@ -13,7 +13,7 @@ import {
   deleteProject,
 } from "@/components/hooks/admin/project/utils/useProject";
 
-import { getCategories } from "@/components/hooks/admin/project/category/utils/category";
+import { getCategories } from "@/components/hooks/admin/project/category/utils/CategoryFetch";
 
 import { useIcons } from "@/components/hooks/admin/project/techstack/utils/useIcons";
 
