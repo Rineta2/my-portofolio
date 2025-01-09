@@ -40,9 +40,11 @@ export default function Navbar({ isOpen, toggleSidebar }) {
   };
 
   const handleLinkClick = useCallback(() => {
-    toggleSidebar();
+    if (isOpen) {
+      toggleSidebar();
+    }
     setOpenSubmenu(null);
-  }, [toggleSidebar]);
+  }, [toggleSidebar, isOpen]);
 
   return (
     <div

@@ -13,90 +13,100 @@ import { FormField } from "@/components/hooks/admin/about/form/FormField";
 
 import { ImagePreview } from "@/components/hooks/admin/about/form/ImagePriview";
 
+import { useTheme } from "@/utils/theme/ThemeContext";
+
 export default function FormAbout() {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const id = searchParams.get("id");
+  const router = useRouter();
 
-    const {
-        formData,
-        isLoading,
-        handleSubmit,
-        handleInputChange,
-        handleImageChange,
-        previewUrl,
-        currentImageUrl,
-    } = useAboutForm(id, router);
+  const searchParams = useSearchParams();
 
-    return (
-        <section className={styles.about__form}>
-            <Toaster position="top-center" />
+  const id = searchParams.get("id");
 
-            <div className={`${styles.about__container} ${styles.container}`}>
-                <div className={styles.toolbar}>
-                    <h1>{id ? "Edit" : "Add"} About</h1>
+  const { isDarkMode } = useTheme();
 
-                    <button onClick={() => router.back()}>Back</button>
-                </div>
+  const {
+    formData,
+    isLoading,
+    handleSubmit,
+    handleInputChange,
+    handleImageChange,
+    previewUrl,
+    currentImageUrl,
+  } = useAboutForm(id, router);
 
-                <form onSubmit={handleSubmit} className={styles.form}>
-                    <FormField
-                        label="Title"
-                        name="title"
-                        value={formData.title}
-                        onChange={handleInputChange}
-                        required
-                    />
+  return (
+    <section
+      className={`${styles.about__form} ${
+        isDarkMode ? styles.dark : styles.light
+      }`}
+    >
+      <Toaster position="top-center" />
 
-                    <div className={styles.form__group}>
-                        <FormField
-                            label="Description"
-                            name="description"
-                            value={formData.description}
-                            onChange={handleInputChange}
-                            isTextArea
-                            required
-                        />
+      <div className={`${styles.about__container} container`}>
+        <div className={styles.toolbar}>
+          <h1>{id ? "Edit" : "Add"} About</h1>
 
-                        <FormField
-                            label="Description 2"
-                            name="description2"
-                            value={formData.description2}
-                            onChange={handleInputChange}
-                            isTextArea
-                            required
-                        />
-                    </div>
+          <button onClick={() => router.back()}>Back</button>
+        </div>
 
-                    <div className={styles.form__group}>
-                        <FormField
-                            label="Image"
-                            type="file"
-                            onChange={handleImageChange}
-                            accept="image/*"
-                        />
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <FormField
+            label="Title"
+            name="title"
+            value={formData.title}
+            onChange={handleInputChange}
+            required
+          />
 
-                        <ImagePreview
-                            currentImageUrl={currentImageUrl}
-                            previewUrl={previewUrl}
-                        />
-                    </div>
+          <div className={styles.form__group}>
+            <FormField
+              label="Description"
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+              isTextArea
+              required
+            />
 
-                    <button
-                        type="submit"
-                        className={styles.form__submit}
-                        disabled={isLoading}
-                    >
-                        {isLoading
-                            ? id
-                                ? "Updating..."
-                                : "Submitting..."
-                            : id
-                                ? "Update"
-                                : "Submit"}
-                    </button>
-                </form>
-            </div>
-        </section>
-    );
+            <FormField
+              label="Description 2"
+              name="description2"
+              value={formData.description2}
+              onChange={handleInputChange}
+              isTextArea
+              required
+            />
+          </div>
+
+          <div className={styles.form__group}>
+            <FormField
+              label="Image"
+              type="file"
+              onChange={handleImageChange}
+              accept="image/*"
+            />
+
+            <ImagePreview
+              currentImageUrl={currentImageUrl}
+              previewUrl={previewUrl}
+            />
+          </div>
+
+          <button
+            type="submit"
+            className={styles.form__submit}
+            disabled={isLoading}
+          >
+            {isLoading
+              ? id
+                ? "Updating..."
+                : "Submitting..."
+              : id
+              ? "Update"
+              : "Submit"}
+          </button>
+        </form>
+      </div>
+    </section>
+  );
 }

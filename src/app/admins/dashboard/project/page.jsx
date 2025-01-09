@@ -1,6 +1,7 @@
-import React from 'react'
-
+import React from "react";
 import styles from "@/app/admins/layout.module.scss";
+import { fetchProjects } from "@/components/hooks/admin/project/utils/useProject";
+import ProjectContent from "@/components/hooks/admin/project/ProjectContent";
 
 export async function generateMetadata() {
   return {
@@ -9,12 +10,11 @@ export async function generateMetadata() {
   };
 }
 
-import ProjectContent from "@/components/hooks/admin/project/ProjectContent";
-
 export default async function Project() {
+  const initialProjects = await fetchProjects();
   return (
     <section className={styles.project}>
-      <ProjectContent />
+      <ProjectContent initialProjects={initialProjects} />
     </section>
-  )
+  );
 }

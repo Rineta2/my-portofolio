@@ -6,19 +6,21 @@ import AboutTable from "@/components/hooks/admin/about/AboutTable";
 
 import AboutToolbar from "@/components/hooks/admin/about/AboutToolbar";
 
-import useAbout from "@/components/hooks/admin/about/utils/useAbout";
-
 import styles from "@/app/admins/layout.module.scss";
 
-export default function AboutContent() {
-    const { aboutList, handleDelete } = useAbout();
+import { useTheme } from "@/utils/theme/ThemeContext";
 
-    return (
-        <section className={styles.about}>
-            <div className={`${styles.about__container} ${styles.container}`}>
-                <AboutToolbar />
-                <AboutTable aboutList={aboutList} onDelete={handleDelete} />
-            </div>
-        </section>
-    );
+export default function AboutContent({ aboutList, handleDelete }) {
+  const { isDarkMode } = useTheme();
+  return (
+    <section
+      className={`${styles.about} ${isDarkMode ? styles.dark : styles.light}`}
+    >
+      <div className={`${styles.about__container} ${styles.container}`}>
+        <AboutToolbar />
+
+        <AboutTable aboutList={aboutList} handleDelete={handleDelete} />
+      </div>
+    </section>
+  );
 }

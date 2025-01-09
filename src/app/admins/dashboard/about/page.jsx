@@ -2,6 +2,11 @@ import React from "react";
 
 import AboutContent from "@/components/hooks/admin/about/AboutContent";
 
+import {
+  fetchAbout,
+  handleDelete,
+} from "@/components/hooks/admin/about/utils/FetchAbout";
+
 export async function generateMetadata() {
   return {
     title: `About Management`,
@@ -10,5 +15,6 @@ export async function generateMetadata() {
 }
 
 export default async function About() {
-  return <AboutContent />;
+  const aboutList = await fetchAbout();
+  return <AboutContent aboutList={aboutList} handleDelete={handleDelete} />;
 }

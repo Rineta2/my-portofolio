@@ -1,51 +1,52 @@
-'use client';
-import { useEffect, useState } from 'react';
+"use client";
+import { useState } from "react";
+
 import SkillsTable from "@/components/hooks/admin/skills/SkillsTable";
+
 import Toolbar from "@/components/hooks/admin/skills/Toolbar";
-import { fetchSkills, deleteSkill } from "@/components/hooks/admin/skills/utils/skillsService";
+
+import { deleteSkill } from "@/components/hooks/admin/skills/utils/handeDelete";
+
 import styles from "@/app/admins/layout.module.scss";
 
-export default function SkillsContent() {
-    const [skills, setSkills] = useState([]);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
+import { useTheme } from "@/utils/theme/ThemeContext";
 
-    useEffect(() => {
-        const loadSkills = async () => {
-            const skillsData = await fetchSkills();
-            setSkills(skillsData);
-        };
-        loadSkills();
-    }, []);
+export default function SkillsContent({ skills }) {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [skillsList, setSkillsList] = useState(skills);
+  const itemsPerPage = 10;
 
-    const handleDelete = async (id) => {
-        if (confirm('Apakah Anda yakin ingin menghapus skill ini?')) {
-            await deleteSkill(id);
-            setSkills(skills.filter(skill => skill.id !== id));
-        }
-    };
+  const handleDelete = async (id) => {
+    if (confirm("Apakah Anda yakin ingin menghapus skill ini?")) {
+      const success = await deleteSkill(id);
+      if (success) {
+        setSkillsList(skillsList.filter((skill) => skill.id !== id));
+      }
+    }
+  };
 
-    const filteredSkills = skills.filter(skill =>
-        skill.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+  const filteredSkills = skillsList.filter((skill) =>
+    skill.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
-    return (
-        <section className={styles.skills}>
-            <div className={styles.skills__container}>
-                <Toolbar
-                    searchQuery={searchQuery}
-                    setSearchQuery={setSearchQuery}
-                />
+  const { isDarkMode } = useTheme();
 
-                <SkillsTable
-                    skills={filteredSkills}
-                    currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
-                    itemsPerPage={itemsPerPage}
-                    onDelete={handleDelete}
-                />
-            </div>
-        </section>
-    );
+  return (
+    <section
+      className={`${styles.skills} ${isDarkMode ? styles.dark : styles.light}`}
+    >
+      <div className={styles.skills__container}>
+        <Toolbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+
+        <SkillsTable
+          skills={filteredSkills}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          itemsPerPage={itemsPerPage}
+          onDelete={handleDelete}
+        />
+      </div>
+    </section>
+  );
 }

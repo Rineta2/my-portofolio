@@ -10,7 +10,7 @@ import Header from "@/components/layout/header/admin/Header";
 export default function AdminLayout({ children }) {
   const { user, loading } = useAuth();
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(window.innerWidth > 768);
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);

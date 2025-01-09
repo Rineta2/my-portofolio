@@ -1,19 +1,32 @@
 import { useState, useEffect } from "react";
+
 import { useRouter, useSearchParams } from "next/navigation";
+
 import { toast } from "react-hot-toast";
+
 import imageCompression from "browser-image-compression";
-import useProject from "@/components/hooks/admin/project/utils/useProject";
+
+import {
+  fetchProjects,
+  createProject,
+  updateProject,
+  deleteProject,
+} from "@/components/hooks/admin/project/utils/useProject";
+
 import { getCategories } from "@/components/hooks/admin/project/category/utils/category";
+
 import { useIcons } from "@/components/hooks/admin/project/techstack/utils/useIcons";
+
 import { createSlug } from "@/components/tools/stringSlug";
 
 export default function useProjectForm() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const router = useRouter();
-  const { handleCreate, handleUpdate, loading, projectList } = useProject();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [projectList, setProjectList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -32,6 +45,15 @@ export default function useProjectForm() {
   const [imagesPreview, setImagesPreview] = useState([]);
   const [categories, setCategories] = useState([]);
   const { icons } = useIcons();
+
+  // Fetch initial project list
+  useEffect(() => {
+    const loadProjects = async () => {
+      const projects = await fetchProjects();
+      setProjectList(projects);
+    };
+    loadProjects();
+  }, []);
 
   // Kompres gambar menggunakan browser-image-compression
   const compressImage = async (file) => {
@@ -81,13 +103,13 @@ export default function useProjectForm() {
 
   // Handle thumbnail change dengan kompresi
   const handleThumbnailChange = async (file) => {
-    const loadingToast = toast.loading('Compressing thumbnail...');
+    const loadingToast = toast.loading("Compressing thumbnail...");
     try {
       const compressedFile = await compressImage(file);
       setThumbnail(compressedFile);
       const objectUrl = URL.createObjectURL(compressedFile);
       setThumbnailPreview(objectUrl);
-      toast.success('Thumbnail compressed successfully');
+      toast.success("Thumbnail compressed successfully");
       return () => URL.revokeObjectURL(objectUrl);
     } catch (error) {
       toast.error("Error compressing thumbnail");
@@ -102,7 +124,7 @@ export default function useProjectForm() {
     const files = Array.from(e.target.files);
     setUploadProgress(0);
 
-    const loadingToast = toast.loading('Compressing images...');
+    const loadingToast = toast.loading("Compressing images...");
 
     try {
       const compressedFiles = await Promise.all(
@@ -118,7 +140,7 @@ export default function useProjectForm() {
       );
 
       setImagesPreview(newImagePreviews);
-      toast.success('Images compressed successfully');
+      toast.success("Images compressed successfully");
     } catch (error) {
       toast.error("Error compressing images");
       console.error(error);
@@ -159,14 +181,16 @@ export default function useProjectForm() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const loadingToast = toast.loading(id ? 'Updating project...' : 'Creating project...');
+    const loadingToast = toast.loading(
+      id ? "Updating project..." : "Creating project..."
+    );
 
     try {
       if (id) {
-        await handleUpdate(id, formData, thumbnail, images);
+        await updateProject(id, formData, thumbnail, images);
         toast.success("Project updated successfully!");
       } else {
-        await handleCreate(formData, thumbnail, images);
+        await createProject(formData, thumbnail, images);
         toast.success("Project created successfully!");
       }
       router.push("/admins/dashboard/project");
@@ -203,7 +227,7 @@ export default function useProjectForm() {
     const newImages = [...images];
 
     // Hapus URL dari blob jika ada
-    if (newImagesPreview[index]?.startsWith('blob:')) {
+    if (newImagesPreview[index]?.startsWith("blob:")) {
       URL.revokeObjectURL(newImagesPreview[index]);
     }
 
@@ -214,6 +238,25 @@ export default function useProjectForm() {
     // Update state
     setImagesPreview(newImagesPreview);
     setImages(newImages);
+  };
+
+  const handleDelete = async () => {
+    if (!id) return;
+
+    const loadingToast = toast.loading("Deleting project...");
+
+    try {
+      await deleteProject(id);
+      toast.success("Project deleted successfully!");
+      router.push("/admins/dashboard/project");
+    } catch (error) {
+      console.error("Error deleting project:", error);
+      toast.error(
+        error.message || "An error occurred while deleting the project"
+      );
+    } finally {
+      toast.dismiss(loadingToast);
+    }
   };
 
   return {
@@ -235,5 +278,6 @@ export default function useProjectForm() {
     categories,
     icons,
     id,
+    handleDelete,
   };
 }
