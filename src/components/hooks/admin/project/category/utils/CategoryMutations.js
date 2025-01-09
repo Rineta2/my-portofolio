@@ -1,8 +1,8 @@
 import { db } from "@/utils/firebase";
+
 import {
   collection,
   addDoc,
-  getDocs,
   updateDoc,
   deleteDoc,
   doc,
@@ -18,20 +18,6 @@ export const createCategory = async (categoryData) => {
     return { success: true, id: docRef.id };
   } catch (error) {
     console.error("Error creating category:", error);
-    return { success: false, error: error.message };
-  }
-};
-
-export const getCategories = async () => {
-  try {
-    const querySnapshot = await getDocs(collection(db, COLLECTION_NAME));
-    const categories = [];
-    querySnapshot.forEach((doc) => {
-      categories.push({ id: doc.id, ...doc.data() });
-    });
-    return { success: true, data: categories };
-  } catch (error) {
-    console.error("Error fetching categories:", error);
     return { success: false, error: error.message };
   }
 };

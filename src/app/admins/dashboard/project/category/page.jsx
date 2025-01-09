@@ -2,7 +2,7 @@ import React from "react";
 
 import CategoryContent from "@/components/hooks/admin/project/category/CategoryContent";
 
-import styles from "@/app/admins/layout.module.scss";
+import { getCategories } from "@/components/hooks/admin/project/category/utils/CategoryFetch";
 
 export async function generateMetadata() {
   return {
@@ -12,9 +12,8 @@ export async function generateMetadata() {
 }
 
 export default async function Category() {
-  return (
-    <section className={styles.project__category}>
-      <CategoryContent />
-    </section>
-  );
+  const result = await getCategories();
+  const categories = result.success ? result.data : [];
+
+  return <CategoryContent categories={categories} />;
 }

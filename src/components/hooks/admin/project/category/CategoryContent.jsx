@@ -14,7 +14,9 @@ import Pagination from "@/components/hooks/admin/project/category/Pagination";
 
 import { useCategory } from "@/components/hooks/admin/project/category/utils/useCategory";
 
-export default function CategoryContent() {
+import { useTheme } from "@/utils/theme/ThemeContext";
+
+export default function CategoryContent({ categories: initialCategories }) {
   const {
     categories,
     newCategory,
@@ -33,7 +35,7 @@ export default function CategoryContent() {
     setEditingCategory,
     setEditedCategoryName,
     setNewCategory,
-  } = useCategory();
+  } = useCategory(initialCategories);
 
   const filteredCategories = categories.filter((category) =>
     category.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -47,40 +49,49 @@ export default function CategoryContent() {
   );
   const totalPages = Math.ceil(filteredCategories.length / itemsPerPage);
 
+  const { isDarkMode } = useTheme();
+
   return (
-    <div className={`${styles.category__container} ${styles.container}`}>
-      <CategoryToolbar
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        setIsModalOpen={setIsModalOpen}
-      />
+    <section
+      className={`${styles.project__category} ${
+        isDarkMode ? styles.dark : styles.light
+      }`}
+    >
+      <div className={`${styles.category__container} container`}>
+        <CategoryToolbar
+          categories={categories}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          setIsModalOpen={setIsModalOpen}
+        />
 
-      <CategoryModal
-        isModalOpen={isModalOpen}
-        editingCategory={editingCategory}
-        editedCategoryName={editedCategoryName}
-        newCategory={newCategory}
-        setEditedCategoryName={setEditedCategoryName}
-        setNewCategory={setNewCategory}
-        handleAddCategory={handleAddCategory}
-        handleUpdateCategory={handleUpdateCategory}
-        setIsModalOpen={setIsModalOpen}
-        setEditingCategory={setEditingCategory}
-      />
+        <CategoryModal
+          isModalOpen={isModalOpen}
+          editingCategory={editingCategory}
+          editedCategoryName={editedCategoryName}
+          newCategory={newCategory}
+          setEditedCategoryName={setEditedCategoryName}
+          setNewCategory={setNewCategory}
+          handleAddCategory={handleAddCategory}
+          handleUpdateCategory={handleUpdateCategory}
+          setIsModalOpen={setIsModalOpen}
+          setEditingCategory={setEditingCategory}
+        />
 
-      <CategoryList
-        currentItems={currentItems}
-        setEditingCategory={setEditingCategory}
-        setEditedCategoryName={setEditedCategoryName}
-        setIsModalOpen={setIsModalOpen}
-        handleDeleteCategory={handleDeleteCategory}
-      />
+        <CategoryList
+          currentItems={currentItems}
+          setEditingCategory={setEditingCategory}
+          setEditedCategoryName={setEditedCategoryName}
+          setIsModalOpen={setIsModalOpen}
+          handleDeleteCategory={handleDeleteCategory}
+        />
 
-      <Pagination
-        totalPages={totalPages}
-        currentPage={currentPage}
-        handlePageChange={handlePageChange}
-      />
-    </div>
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          handlePageChange={handlePageChange}
+        />
+      </div>
+    </section>
   );
 }
