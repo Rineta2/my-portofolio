@@ -1,20 +1,18 @@
-import React from 'react'
+import React from "react";
 
-import TechStackContent from '@/components/hooks/admin/project/techstack/TechStackContent';
+import TechStackContent from "@/components/hooks/admin/project/techstack/TechStackContent";
 
-import styles from "@/app/admins/layout.module.scss";
+import { getIcons } from "@/components/hooks/admin/project/techstack/utils/useFetchTech";
 
 export async function generateMetadata() {
-    return {
-        title: `Tech Stack Management`,
-        description: `Manage tech stack section content and settings`,
-    };
+  return {
+    title: `Tech Stack Management`,
+    description: `Manage tech stack section content and settings`,
+  };
 }
 
-export default function TechStack() {
-    return (
-        <section className={styles.project__techStack}>
-            <TechStackContent />
-        </section>
-    )
+export default async function TechStack() {
+  const icons = await getIcons();
+
+  return <TechStackContent icons={icons} />;
 }

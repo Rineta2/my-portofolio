@@ -1,54 +1,38 @@
+"use client";
+
 import { useState, useEffect } from "react";
-import { db } from "@/utils/firebase";
-import imagekit from "@/utils/imagekit";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
+
 import toast from "react-hot-toast";
+
+import {
+  getIcons,
+  createIcon,
+  deleteIcon as deleteIconService,
+} from "@/components/hooks/admin/project/techstack/utils/useFetchTech";
 
 export const useIcons = () => {
   const [icons, setIcons] = useState([]);
 
   const fetchIcons = async () => {
-    try {
-      const querySnapshot = await getDocs(
-        collection(db, process.env.NEXT_PUBLIC_API_ICONS)
-      );
-      const iconsList = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setIcons(iconsList);
-    } catch (error) {
+    const result = await getIcons();
+    if (result.success) {
+      setIcons(result.data);
+    } else {
       toast.error("Gagal mengambil data icons");
     }
   };
 
   const addIcon = async (iconFile) => {
     const loadingToast = toast.loading("Menambahkan icon...");
-    try {
-      // Upload ke ImageKit
-      const uploadResponse = await imagekit.upload({
-        file: iconFile,
-        fileName: `${Date.now()}_${iconFile.name}`,
-        folder: "/icons",
-      });
+    const result = await createIcon(iconFile);
 
-      // Simpan hanya URL ke Firestore
-      await addDoc(collection(db, process.env.NEXT_PUBLIC_API_ICONS), {
-        url: uploadResponse.url,
-      });
-
+    if (result.success) {
       await fetchIcons();
       toast.success("Icon berhasil ditambahkan!", {
         id: loadingToast,
       });
       return true;
-    } catch (error) {
+    } else {
       toast.error("Gagal menambahkan icon", {
         id: loadingToast,
       });
@@ -58,14 +42,14 @@ export const useIcons = () => {
 
   const deleteIcon = async (id) => {
     const loadingToast = toast.loading("Menghapus icon...");
-    try {
-      // Hapus dari Firestore
-      await deleteDoc(doc(db, process.env.NEXT_PUBLIC_API_ICONS, id));
+    const result = await deleteIconService(id);
+
+    if (result.success) {
       await fetchIcons();
       toast.success("Icon berhasil dihapus!", {
         id: loadingToast,
       });
-    } catch (error) {
+    } else {
       toast.error("Gagal menghapus icon", {
         id: loadingToast,
       });
@@ -76,5 +60,9 @@ export const useIcons = () => {
     fetchIcons();
   }, []);
 
-  return { icons, addIcon, deleteIcon };
+  return {
+    icons,
+    addIcon,
+    deleteIcon,
+  };
 };
