@@ -1,89 +1,96 @@
-import { useState, useEffect } from 'react'
+import { useState } from "react";
 
-import styles from "@/app/admins/layout.module.scss"
+import styles from "@/app/admins/layout.module.scss";
 
-export default function TagFormModal({ onAddTag, onUpdateTag, onClose, editingTag = null, categories }) {
-    const [tagName, setTagName] = useState('')
-    const [selectedCategory, setSelectedCategory] = useState('')
-    const isEditing = !!editingTag
+import { X } from "lucide-react";
 
-    useEffect(() => {
-        if (editingTag) {
-            setTagName(editingTag.name)
-            setSelectedCategory(editingTag.categoryId || '')
-        }
-    }, [editingTag])
+export default function TagFormModal({
+  onAddTag,
+  onUpdateTag,
+  onClose,
+  editingTag,
+  categories,
+}) {
+  const [tagName, setTagName] = useState(editingTag ? editingTag.name : "");
+  const [selectedCategory, setSelectedCategory] = useState(
+    editingTag ? editingTag.categoryId : ""
+  );
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        let success
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-        if (isEditing) {
-            success = await onUpdateTag(editingTag.id, tagName, selectedCategory)
-        } else {
-            success = await onAddTag(tagName, selectedCategory)
-        }
-
+    try {
+      if (editingTag) {
+        await onUpdateTag(editingTag.id, tagName);
+      } else {
+        const success = await onAddTag(tagName, selectedCategory);
         if (success) {
-            setTagName('')
-            setSelectedCategory('')
-            onClose()
+          onClose();
         }
+      }
+    } finally {
+      setIsSubmitting(false);
     }
+  };
 
-    return (
-        <div className={styles.modal__overlay}>
-            <div className={styles.modal}>
-                <div className={styles.modal__header}>
-                    <h2>{isEditing ? 'Edit Tag' : 'Add New Tag'}</h2>
+  return (
+    <div className={styles.modal__overlay}>
+      <div className={styles.modal}>
+        <div className={styles.modal__header}>
+          <h2>{editingTag ? "Edit Tag" : "Add New T ag"}</h2>
 
-                    <button
-                        onClick={onClose}
-                        className={styles.modal__close}
-                    >
-                        ×
-                    </button>
-                </div>
-
-                <form onSubmit={handleSubmit} className={styles.add__new__tag__form}>
-                    <div className={styles.add__new__tag__form__container}>
-                        <div className={styles.form__group}>
-                            <label>Category</label>
-                            <select
-                                value={selectedCategory}
-                                onChange={(e) => setSelectedCategory(e.target.value)}
-                                required
-                            >
-                                <option value="">Select Category</option>
-                                {categories.map(category => (
-                                    <option key={category.id} value={category.id}>
-                                        {category.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <div className={styles.form__group}>
-                            <label>Tag Name</label>
-                            <input
-                                type="text"
-                                value={tagName}
-                                onChange={(e) => setTagName(e.target.value)}
-                                placeholder="Enter tag name"
-                                required
-                            />
-                        </div>
-
-                        <div className={styles.modal__actions}>
-                            <button type="submit">
-                                {isEditing ? 'Save Changes' : 'Add Tag'}
-                            </button>
-
-                            <button type="button" onClick={onClose}>Cancel</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+          <button onClick={onClose} className={styles.modal__close}>
+            <X />
+          </button>
         </div>
-    )
+
+        <form onSubmit={handleSubmit} className={styles.add__new__tag__form}>
+          <div className={styles.form__group}>
+            <label htmlFor="tagName">Tag Name:</label>
+            <input
+              type="text"
+              id="tagName"
+              value={tagName}
+              onChange={(e) => setTagName(e.target.value)}
+              required
+            />
+          </div>
+
+          {!editingTag && (
+            <div className={styles.form__group}>
+              <label htmlFor="category">Category:</label>
+              <select
+                id="category"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                required
+              >
+                <option value="">Select a category</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          <div className={styles.modal__actions}>
+            <button type="button" onClick={onClose} disabled={isSubmitting}>
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={isSubmitting ? styles.loading : ""}
+            >
+              {isSubmitting ? "Saving..." : editingTag ? "Update" : "Add"}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }

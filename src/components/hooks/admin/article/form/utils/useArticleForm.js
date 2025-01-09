@@ -2,7 +2,15 @@ import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { format, parseISO } from "date-fns";
 import { toast } from "react-hot-toast";
-import { articleService } from "@/components/hooks/admin/article/form/utils/ArticleService";
+import {
+  createArticle,
+  updateArticle,
+  getArticle,
+  getCategories,
+  getTagsByCategory,
+  getAdminUsers,
+  getAdminById,
+} from "@/components/hooks/admin/article/form/utils/ArticleService";
 import imageCompression from "browser-image-compression";
 
 export function useArticleForm() {
@@ -36,12 +44,12 @@ export function useArticleForm() {
     const loadArticle = async () => {
       if (id) {
         try {
-          const article = await articleService.getArticle(id);
+          const article = await getArticle(id);
 
           let authorData = {};
           if (article.authorId) {
             try {
-              authorData = await articleService.getAdminById(article.authorId);
+              authorData = await getAdminById(article.authorId);
             } catch (error) {
               console.error("Failed to load admin data:", error);
             }
@@ -87,7 +95,7 @@ export function useArticleForm() {
 
   const loadCategories = async () => {
     try {
-      const categoriesData = await articleService.getCategories();
+      const categoriesData = await getCategories();
       setCategories(categoriesData);
     } catch (error) {
       toast.error("Failed to load categories");
@@ -96,7 +104,7 @@ export function useArticleForm() {
 
   const loadTagsByCategory = async (categoryId) => {
     try {
-      const tagsData = await articleService.getTagsByCategory(categoryId);
+      const tagsData = await getTagsByCategory(categoryId);
       setAvailableTags(tagsData);
     } catch (error) {
       toast.error("Failed to load tags");
@@ -105,7 +113,7 @@ export function useArticleForm() {
 
   const loadAdminUsers = async () => {
     try {
-      const admins = await articleService.getAdminUsers();
+      const admins = await getAdminUsers();
       setAdminUsers(admins);
     } catch (error) {
       toast.error("Failed to load admin users");
@@ -214,11 +222,13 @@ export function useArticleForm() {
         })),
       };
 
-      if (id) {
-        await articleService.updateArticle(id, dataToSubmit, imageFile);
+      const articleId = searchParams.get("id");
+
+      if (articleId) {
+        await updateArticle(articleId, dataToSubmit, imageFile);
         toast.success("Article updated successfully");
       } else {
-        await articleService.createArticle(dataToSubmit, imageFile);
+        await createArticle(dataToSubmit, imageFile);
         toast.success("Article created successfully");
       }
       router.push("/admins/dashboard/article");
