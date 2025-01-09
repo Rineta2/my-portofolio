@@ -1,76 +1,86 @@
-import { useState } from 'react'
-import { db } from '@/utils/firebase'
-import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from 'firebase/firestore'
+"use client";
 
-export function useCategoryOperations() {
-    const [categories, setCategories] = useState([])
-    const [newCategory, setNewCategory] = useState('')
-    const [editingCategory, setEditingCategory] = useState(null)
+import { useState, useEffect } from "react";
 
-    const fetchCategories = async () => {
-        try {
-            const querySnapshot = await getDocs(collection(db, process.env.NEXT_PUBLIC_API_ARTICLE_CATEGORY))
-            const categoriesData = querySnapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            }))
-            setCategories(categoriesData)
-        } catch (error) {
-            console.error('Error fetching categories:', error)
-        }
+import {
+  fetchCategories,
+  addCategory,
+  deleteCategory,
+  updateCategory,
+} from "@/components/hooks/admin/article/category/utils/FetchCategory";
+
+export function useCategory(initialCategories = []) {
+  const [categories, setCategories] = useState(initialCategories);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  const loadCategories = async () => {
+    try {
+      const data = await fetchCategories();
+      setCategories(data);
+    } catch (error) {
+      console.error("Error loading categories:", error);
     }
+  };
 
-    const handleAddCategory = async (e) => {
-        e.preventDefault()
-        if (!newCategory.trim()) return
-
-        try {
-            await addDoc(collection(db, process.env.NEXT_PUBLIC_API_ARTICLE_CATEGORY), {
-                name: newCategory,
-            })
-            setNewCategory('')
-            fetchCategories()
-        } catch (error) {
-            console.error('Error adding category:', error)
-        }
+  const handleAddCategory = async (newCategory) => {
+    setIsLoading(true);
+    try {
+      const success = await addCategory(newCategory);
+      if (success) {
+        await loadCategories();
+      }
+      return success;
+    } finally {
+      setIsLoading(false);
     }
+  };
 
-    const handleEditCategory = async (e) => {
-        e.preventDefault()
-        if (!editingCategory || !editingCategory.name.trim()) return
+  const handleDeleteCategory = async (categoryId) => {
+    if (!window.confirm("Are you sure you want to delete this category?"))
+      return false;
 
-        try {
-            const categoryRef = doc(db, process.env.NEXT_PUBLIC_API_ARTICLE_CATEGORY, editingCategory.id)
-            await updateDoc(categoryRef, {
-                name: editingCategory.name,
-            })
-            fetchCategories()
-            setEditingCategory(null)
-        } catch (error) {
-            console.error('Error updating category:', error)
-        }
+    setIsLoading(true);
+    try {
+      const success = await deleteCategory(categoryId);
+      if (success) {
+        await loadCategories();
+      }
+      return success;
+    } finally {
+      setIsLoading(false);
     }
+  };
 
-    const handleDeleteCategory = async (id) => {
-        if (!window.confirm('Are you sure you want to delete this category?')) return
-
-        try {
-            await deleteDoc(doc(db, process.env.NEXT_PUBLIC_API_ARTICLE_CATEGORY, id))
-            fetchCategories()
-        } catch (error) {
-            console.error('Error deleting category:', error)
-        }
+  const handleUpdateCategory = async (categoryId, newName) => {
+    setIsLoading(true);
+    try {
+      const success = await updateCategory(categoryId, newName);
+      if (success) {
+        await loadCategories();
+      }
+      return success;
+    } finally {
+      setIsLoading(false);
     }
+  };
 
-    return {
-        categories,
-        newCategory,
-        editingCategory,
-        handleAddCategory,
-        handleEditCategory,
-        handleDeleteCategory,
-        setNewCategory,
-        setEditingCategory,
-        fetchCategories
-    }
+  const filteredCategories = categories.filter((category) =>
+    category.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  return {
+    categories,
+    filteredCategories,
+    searchQuery,
+    setSearchQuery,
+    isLoading,
+    addCategory: handleAddCategory,
+    deleteCategory: handleDeleteCategory,
+    updateCategory: handleUpdateCategory,
+  };
 }

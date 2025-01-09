@@ -94,8 +94,8 @@ export default function ArticleContent({ articles }) {
                 <th>Title</th>
                 <th>Category</th>
                 <th>Publish Date</th>
-                <th>Description</th>
                 <th>Tags</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -115,12 +115,18 @@ export default function ArticleContent({ articles }) {
                   <td>{article.category?.name || "Uncategorized"}</td>
                   <td>{formatDate(article.publishDate)}</td>
                   <td>
-                    {article.tags &&
-                      article.tags.map((tag) => (
-                        <span key={tag.id} className={styles.tag}>
-                          {tag.name}
-                        </span>
-                      ))}
+                    {article.tags && (
+                      <>
+                        {article.tags.slice(0, 5).map((tag) => (
+                          <span key={tag.id} className={styles.tag}>
+                            {tag.name}
+                          </span>
+                        ))}
+                        {article.tags.length > 5 && (
+                          <span className={styles.tag}>...</span>
+                        )}
+                      </>
+                    )}
                   </td>
                   <td>
                     <div className={styles.table_actions}>
