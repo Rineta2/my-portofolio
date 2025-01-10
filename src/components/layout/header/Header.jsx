@@ -133,7 +133,7 @@ export default function Testing() {
         </div>
       </div>
 
-      {showProfileMenu && (
+      {showProfileMenu && user && (
         <ProfileMenu
           user={user}
           logout={logout}

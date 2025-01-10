@@ -2,41 +2,48 @@ import Link from "next/link";
 
 import { LayoutDashboard, LogOut, X } from "lucide-react";
 
-import styles from '@/components/layout/header/header.module.scss';
+import styles from "@/components/layout/header/header.module.scss";
 
 export default function ProfileMenu({ user, logout, setShowProfileMenu }) {
-    const handleLogout = async () => {
-        try {
-            await logout();
-        } catch (error) {
-            console.error("Error during logout:", error);
-        } finally {
-            setShowProfileMenu(false);
-        }
-    };
+  if (!user) return null;
 
-    return (
-        <div className={styles.headerProfileMenu}>
-            <div className={styles.profileInfo}>
-                <h1>{user.displayName || user.email}</h1>
-            </div>
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error("Error during logout:", error);
+    } finally {
+      setShowProfileMenu(false);
+    }
+  };
 
-            <Link
-                href={`/${user.role}/dashboard`}
-                className={styles.dashboardLink}
-                onClick={() => setShowProfileMenu(false)}
-            >
-                <LayoutDashboard size={24} /> Dashboard
-            </Link>
+  return (
+    <div className={styles.headerProfileMenu}>
+      <div className={styles.profileInfo}>
+        <span className={styles.name}>
+          {user.displayName || "User" || "Authors"}
+        </span>
+      </div>
 
-            <div className={styles.logoutButton} onClick={handleLogout}>
-                <LogOut size={16} />
-                <span>Logout</span>
-            </div>
+      <Link
+        href={`/${user.role}/dashboard`}
+        className={styles.dashboardLink}
+        onClick={() => setShowProfileMenu(false)}
+      >
+        <LayoutDashboard size={24} /> Dashboard
+      </Link>
 
-            <div className={styles.closeButton} onClick={() => setShowProfileMenu(false)}>
-                <X size={24} />
-            </div>
-        </div>
-    );
+      <div className={styles.logoutButton} onClick={handleLogout}>
+        <LogOut size={16} />
+        <span>Logout</span>
+      </div>
+
+      <div
+        className={styles.closeButton}
+        onClick={() => setShowProfileMenu(false)}
+      >
+        <X size={24} />
+      </div>
+    </div>
+  );
 }

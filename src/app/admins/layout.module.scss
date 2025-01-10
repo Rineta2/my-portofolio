@@ -18,6 +18,8 @@
       height: 100vh;
       padding-top: 2rem;
       padding-bottom: 2rem;
+      z-index: 100;
+      transition: all 0.3s ease-in-out;
 
       @media only screen and (max-width: 1280px) {
         width: 20%;

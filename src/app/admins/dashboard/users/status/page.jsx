@@ -1,5 +1,9 @@
 import React from "react";
 
+import StatusContent from "@/components/hooks/admin/users/status/StatusContent";
+
+import { fetchUsers } from "@/components/hooks/admin/users/utils/Fetchusers";
+
 export async function generateMetadata() {
   return {
     title: `Users Status Management`,
@@ -8,5 +12,6 @@ export async function generateMetadata() {
 }
 
 export default async function page() {
-  return <div>page</div>;
+  const users = await fetchUsers();
+  return <StatusContent users={users} />;
 }

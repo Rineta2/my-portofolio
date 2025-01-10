@@ -6,7 +6,7 @@ export const fetchUsers = async () => {
   try {
     const q = query(
       collection(db, "users"),
-      where("role", "in", ["users", "author"])
+      where("role", "in", ["users", "authors"])
     );
     const querySnapshot = await getDocs(q);
 

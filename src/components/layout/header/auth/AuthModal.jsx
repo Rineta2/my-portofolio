@@ -6,11 +6,14 @@ import AuthModalHeader from "@/components/hooks/layout/auth/AuthModalHeader";
 
 import AuthModalContent from "@/components/hooks/layout/auth/AuthModalContent";
 
-import styles from '@/components/layout/header/header.module.scss';
+import styles from "@/components/layout/header/header.module.scss";
 
 import useModalEffects from "@/components/tools/useModalEffect";
 
-import { openModalAnimation, closeModalAnimation } from "@/components/hooks/animation/header/authModalAnimation";
+import {
+  openModalAnimation,
+  closeModalAnimation,
+} from "@/components/hooks/animation/header/authModalAnimation";
 
 export default function AuthModal({ isOpen, onClose, activeTab, onTabChange }) {
   const { user } = useAuth();

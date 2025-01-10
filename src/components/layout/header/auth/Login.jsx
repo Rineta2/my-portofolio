@@ -10,7 +10,7 @@ import {
   browserSessionPersistence,
 } from "firebase/auth";
 
-import styles from '@/components/layout/header/header.module.scss';
+import styles from "@/components/layout/header/header.module.scss";
 
 import { toast } from "react-hot-toast";
 
@@ -74,7 +74,9 @@ export default function Login({ onClose }) {
         handleCredentials(formData.rememberMe);
         await setPersistence(
           auth,
-          formData.rememberMe ? browserLocalPersistence : browserSessionPersistence
+          formData.rememberMe
+            ? browserLocalPersistence
+            : browserSessionPersistence
         );
         onClose();
       }
@@ -94,18 +96,25 @@ export default function Login({ onClose }) {
     setIsLoading(true);
     try {
       await sendPasswordResetEmail(auth, resetEmail);
-      toast.success("Email reset password telah dikirim. Silakan periksa inbox Anda.");
+      toast.success(
+        "Email reset password telah dikirim. Silakan periksa inbox Anda."
+      );
       setResetEmail("");
       setShowForgotPassword(false);
     } catch (error) {
       const errorMessages = {
-        'auth/user-not-found': "Email tidak terdaftar",
-        'auth/invalid-email': "Format email tidak valid",
-        'auth/too-many-requests': "Terlalu banyak permintaan. Silakan coba beberapa saat lagi",
-        'auth/network-request-failed': "Gagal terhubung ke server. Periksa koneksi internet Anda"
+        "auth/user-not-found": "Email tidak terdaftar",
+        "auth/invalid-email": "Format email tidak valid",
+        "auth/too-many-requests":
+          "Terlalu banyak permintaan. Silakan coba beberapa saat lagi",
+        "auth/network-request-failed":
+          "Gagal terhubung ke server. Periksa koneksi internet Anda",
       };
 
-      toast.error(errorMessages[error.code] || "Terjadi kesalahan. Silakan coba lagi nanti");
+      toast.error(
+        errorMessages[error.code] ||
+          "Terjadi kesalahan. Silakan coba lagi nanti"
+      );
     } finally {
       setIsLoading(false);
     }

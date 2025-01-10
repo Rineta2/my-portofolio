@@ -30,7 +30,7 @@ export function AuthContextProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       try {
-        if (user?.emailVerified) {
+        if (user) {
           const userDoc = await getDoc(
             doc(db, process.env.NEXT_PUBLIC_API_USER, user.uid)
           );
@@ -41,40 +41,42 @@ export function AuthContextProvider({ children }) {
             const lastLoginDate = localStorage.getItem("lastLoginDate");
             const today = new Date().toDateString();
 
+            const displayName = userData.displayName || "User";
+
             const updatedUser = {
               ...user,
               ...userData,
-              displayName:
-                userData.displayName ||
-                `${userData.firstName} ${userData.lastName}`,
+              displayName,
               isAdmin: userData.role === process.env.NEXT_PUBLIC_ROLE_ADMINS,
+              isAuthor: userData.role === process.env.NEXT_PUBLIC_ROLE_AUTHORS,
               role: userData.role,
             };
 
             setUser(updatedUser);
-            Cookies.set("authToken", user.accessToken, {
+
+            const cookieOptions = {
               expires: 7,
               secure: true,
               sameSite: "Strict",
-            });
+            };
+
+            Cookies.set("authToken", user.accessToken, cookieOptions);
+            Cookies.set(
+              "lastLoginTime",
+              new Date().toISOString(),
+              cookieOptions
+            );
 
             if (isNewRegistration) {
               toast.success("Selamat datang di aplikasi kami!");
               Cookies.remove("isNewRegistration");
-              localStorage.setItem("lastLoginDate", today);
+            } else if (userData.role === process.env.NEXT_PUBLIC_ROLE_AUTHORS) {
+              toast.success(`Selamat datang, Author ${displayName}!`);
             } else if (!lastLoginDate || lastLoginDate !== today) {
-              const displayName =
-                userData.displayName ||
-                `${userData.firstName} ${userData.lastName}`;
               toast.success(`Selamat datang kembali, ${displayName}!`);
-              localStorage.setItem("lastLoginDate", today);
             }
 
-            Cookies.set("lastLoginTime", new Date().toISOString(), {
-              expires: 7,
-              secure: true,
-              sameSite: "Strict",
-            });
+            localStorage.setItem("lastLoginDate", today);
           }
         } else {
           setUser(null);
@@ -108,16 +110,45 @@ export function AuthContextProvider({ children }) {
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
 
-      if (!result.user.emailVerified) {
-        toast.error("Silakan verifikasi email Anda terlebih dahulu");
-        await signOut(auth);
-        return null;
+      // Get user role from Firestore
+      const userDoc = await getDoc(
+        doc(db, process.env.NEXT_PUBLIC_API_USER, result.user.uid)
+      );
+
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        console.log("User Role:", userData.role); // Debug log
+
+        // Jika role adalah authors, langsung return
+        if (userData.role === "authors") {
+          // Set user role in cookies
+          Cookies.set("userRole", userData.role, {
+            expires: 7,
+            secure: true,
+            sameSite: "Strict",
+          });
+          return result;
+        }
+
+        // Untuk role selain authors, cek verifikasi email
+        if (!result.user.emailVerified) {
+          await signOut(auth);
+          toast.error("Silakan verifikasi email Anda terlebih dahulu");
+          return null;
+        }
+
+        // Set user role in cookies
+        Cookies.set("userRole", userData.role, {
+          expires: 7,
+          secure: true,
+          sameSite: "Strict",
+        });
       }
 
       localStorage.removeItem("lastLoginDate");
-
       return result;
     } catch (error) {
+      console.error("Login error:", error);
       handleAuthError(error);
       throw error;
     }
