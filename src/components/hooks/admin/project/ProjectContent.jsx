@@ -1,11 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
-import styles from "@/app/admins/layout.module.scss";
+
+import styles from "@/components/hooks/admin/project/project.module.scss";
+
 import { deleteProject } from "@/components/hooks/admin/project/utils/useProject";
+
 import ProjectToolbar from "@/components/hooks/admin/project/ProjectToolbar";
+
 import ProjectTable from "@/components/hooks/admin/project/ProjectTable";
+
 import ProjectPagination from "@/components/hooks/admin/project/ProjectPagination";
+
 import { toast } from "react-hot-toast";
 
 export default function ProjectContent({ initialProjects }) {
@@ -70,55 +76,60 @@ export default function ProjectContent({ initialProjects }) {
   };
 
   return (
-    <div className={`${styles.container} ${styles.project__container}`}>
-      <ProjectToolbar />
+    <section className={styles.project}>
+      <div className={`${styles.container} ${styles.project__container}`}>
+        <ProjectToolbar />
 
-      <div className={styles.search__container}>
-        <input
-          type="text"
-          placeholder="Search projects..."
-          value={searchTerm}
-          onChange={handleSearch}
-          className={styles.search__input}
+        <div className={styles.search__container}>
+          <input
+            type="text"
+            placeholder="Search projects..."
+            value={searchTerm}
+            onChange={handleSearch}
+            className={styles.search__input}
+          />
+        </div>
+
+        <ProjectTable
+          currentItems={currentItems}
+          onDeleteClick={onDeleteClick}
         />
-      </div>
 
-      <ProjectTable currentItems={currentItems} onDeleteClick={onDeleteClick} />
+        <ProjectPagination
+          pageCount={Math.ceil(filteredProjects.length / itemsPerPage)}
+          handlePageChange={handlePageChange}
+        />
 
-      <ProjectPagination
-        pageCount={Math.ceil(filteredProjects.length / itemsPerPage)}
-        handlePageChange={handlePageChange}
-      />
-
-      {showModal && (
-        <div className={styles.modal__overlay}>
-          <div className={styles.modal}>
-            <h3>Confirm Delete</h3>
-            <p>
-              Are you sure you want to delete{" "}
-              <strong>{projectToDelete?.title}</strong>?
-            </p>
-            <div className={styles.modal__actions}>
-              <button
-                onClick={closeModal}
-                className={styles.btn__cancel}
-                disabled={isLoading}
-              >
-                Cancel
-              </button>
-              <button
-                onClick={onConfirmDelete}
-                className={`${styles.btn__confirm} ${
-                  isLoading ? styles.loading : ""
-                }`}
-                disabled={isLoading}
-              >
-                {isLoading ? "Deleting..." : "Delete"}
-              </button>
+        {showModal && (
+          <div className={styles.modal__overlay}>
+            <div className={styles.modal}>
+              <h3>Confirm Delete</h3>
+              <p>
+                Are you sure you want to delete{" "}
+                <strong>{projectToDelete?.title}</strong>?
+              </p>
+              <div className={styles.modal__actions}>
+                <button
+                  onClick={closeModal}
+                  className={styles.btn__cancel}
+                  disabled={isLoading}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={onConfirmDelete}
+                  className={`${styles.btn__confirm} ${
+                    isLoading ? styles.loading : ""
+                  }`}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Deleting..." : "Delete"}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </section>
   );
 }

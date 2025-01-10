@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import styles from "@/app/admins/layout.module.scss";
+import styles from "@/components/hooks/admin/article/article.module.scss";
 
 import { X } from "lucide-react";
 

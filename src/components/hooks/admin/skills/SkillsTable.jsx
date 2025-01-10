@@ -1,9 +1,14 @@
 import Link from "next/link";
+
 import { AiOutlineEdit } from "react-icons/ai";
+
 import { BsTrash } from "react-icons/bs";
+
 import { getIconComponent } from "@/components/hooks/admin/skills/utils/iconUtils";
+
 import Pagination from "@/components/hooks/admin/skills/Pagination";
-import styles from "@/app/admins/layout.module.scss";
+
+import styles from "@/components/hooks/admin/skills/skills.module.scss";
 
 export default function SkillsTable({
   skills,

@@ -1,0 +1,408 @@
+@use "../../../styling/variable.scss" as *;
+
+.about {
+  &.light {
+    &__container {
+      .toolbar {
+        a {
+          color: $text-c;
+        }
+      }
+    }
+  }
+
+  &.dark {
+    &__container {
+      .toolbar {
+        a {
+          color: $text-c;
+        }
+      }
+    }
+  }
+
+  &__container {
+    padding: 1rem 2%;
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3rem;
+
+      h1 {
+        font-size: 2rem;
+        letter-spacing: 2px;
+      }
+
+      a {
+        padding: 1rem 1rem;
+        border-radius: 0.5rem;
+        background: $primary-c;
+        text-decoration: none;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    }
+
+    .listItem {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+
+      @include md-l {
+        flex-direction: column;
+      }
+
+      .listItem__image {
+        border-radius: 12px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 500px;
+          object-fit: contain;
+
+          @include md-l {
+            width: 100%;
+            height: 300px;
+          }
+        }
+      }
+
+      .listItem__content {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        h1 {
+          font-size: 2rem;
+        }
+
+        p {
+          font-size: 1.2rem;
+          line-height: 1.5;
+        }
+
+        .listItem__actions {
+          display: flex;
+          gap: 1rem;
+          margin-top: 2rem;
+
+          .btn__edit,
+          .btn__delete {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.2s;
+            white-space: nowrap;
+            cursor: pointer;
+          }
+
+          .btn__edit {
+            background-color: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border: none;
+          }
+
+          .btn__edit:hover {
+            background-color: #2563eb;
+          }
+
+          .btn__delete {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+          }
+
+          .btn__delete:hover {
+            background-color: #dc2626;
+          }
+        }
+      }
+    }
+  }
+}
+
+.about__form {
+  &.light {
+    .about__container {
+      .toolbar {
+        background-color: #262d4a;
+
+        button {
+          background: $text-c;
+          color: $black-c;
+        }
+
+        h1 {
+          color: $text-c;
+        }
+      }
+
+      .form {
+        background: $text-c;
+        box-shadow: 0 4px 20px var(--background);
+        background-color: #262d4a;
+
+        .formField {
+          label {
+            color: $text-c;
+          }
+
+          input {
+            border: 2px solid #e2e8f0;
+
+            &[type="file"] {
+              background-color: #e2e8f0;
+            }
+
+            &:focus {
+              border-color: #4299e1;
+              box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+            }
+
+            &::placeholder {
+              color: #a0aec0;
+            }
+          }
+
+          textarea {
+            border: 2px solid #e2e8f0;
+          }
+        }
+
+        .imagePreview {
+          span {
+            color: $text-c;
+          }
+        }
+
+        .form__submit {
+          background: $text-c;
+          color: $black-c;
+
+          &:disabled {
+            background: #e2e8f0;
+            color: #a0aec0;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+
+  &.dark {
+    .about__container {
+      .toolbar {
+        background-color: #262d4a;
+
+        button {
+          background: $text-c;
+          color: $black-c;
+        }
+
+        h1 {
+          color: $text-c;
+        }
+      }
+
+      .form {
+        background: $text-c;
+        box-shadow: 0 4px 20px var(--background);
+        background-color: #262d4a;
+
+        .formField {
+          label {
+            color: $text-c;
+          }
+
+          input {
+            border: 2px solid #e2e8f0;
+
+            &[type="file"] {
+              background-color: #e2e8f0;
+            }
+
+            &:focus {
+              border-color: #4299e1;
+              box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+            }
+
+            &::placeholder {
+              color: #a0aec0;
+            }
+          }
+
+          textarea {
+            border: 2px solid #e2e8f0;
+          }
+        }
+
+        .imagePreview {
+          span {
+            color: $text-c;
+          }
+        }
+
+        .form__submit {
+          background: $text-c;
+          color: $black-c;
+
+          &:disabled {
+            background: #e2e8f0;
+            color: #a0aec0;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+  .about__container {
+    padding: 1rem 2%;
+
+    @include md-l {
+      padding: 1rem 0;
+    }
+
+    .toolbar {
+      padding: 1rem 2%;
+      border-radius: 12px;
+
+      button {
+        padding: 1rem 1rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-size: 1.2rem;
+        border: none;
+        cursor: pointer;
+
+        @include md-sm {
+          padding: 0.5rem 0.5rem;
+          font-size: 1rem;
+        }
+      }
+
+      h1 {
+        @include md-sm {
+          font-size: 1.3rem;
+        }
+      }
+    }
+
+    .form {
+      background: $text-c;
+      padding: 2rem;
+      border-radius: 16px;
+
+      @include md-sm {
+        padding: 1rem;
+      }
+
+      .formField {
+        margin-bottom: 1.5rem;
+
+        @include md-l {
+          margin-bottom: 1rem;
+        }
+
+        label {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-weight: 500;
+          color: $text-c;
+        }
+
+        input {
+          width: 100%;
+          padding: 0.75rem 1rem;
+          border-radius: 8px;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+
+          @include md-sm {
+            padding: 1rem 1rem;
+          }
+
+          &[type="file"] {
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+          }
+
+          &:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+          }
+
+          &::placeholder {
+            color: #a0aec0;
+          }
+        }
+
+        textarea {
+          width: 100%;
+          padding: 0.75rem 1rem;
+          border-radius: 8px;
+          font-size: 1rem;
+          height: 100px;
+          border: none;
+          resize: none;
+
+          &:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+          }
+        }
+      }
+
+      .form__group {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+
+        @include md-l {
+          grid-template-columns: repeat(1, 1fr);
+          gap: 1rem;
+        }
+      }
+
+      .imagePreview {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+
+        span {
+          font-size: 1.2rem;
+          font-weight: 500;
+        }
+      }
+
+      .form__submit {
+        margin-top: 2rem;
+        width: 100%;
+        padding: 1rem 1rem;
+        height: 60px;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-size: 1.2rem;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:disabled {
+          background: #e2e8f0;
+          color: #a0aec0;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}

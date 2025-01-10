@@ -1,6 +1,8 @@
 import React from "react";
+
 import Image from "next/image";
-import styles from "@/app/admins/layout.module.scss";
+
+import styles from "@/components/hooks/admin/article/article.module.scss";
 
 export default function ArticleImage({
   imageUrl,

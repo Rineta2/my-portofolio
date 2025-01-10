@@ -6,7 +6,7 @@ import AboutTable from "@/components/hooks/admin/about/AboutTable";
 
 import AboutToolbar from "@/components/hooks/admin/about/AboutToolbar";
 
-import styles from "@/app/admins/layout.module.scss";
+import styles from "@/components/hooks/admin/about/about.module.scss";
 
 import { useTheme } from "@/utils/theme/ThemeContext";
 

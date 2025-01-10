@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import styles from "@/app/admins/layout.module.scss";
+import styles from "@/components/hooks/admin/article/article.module.scss";
 
 import ArticleBasicInfo from "@/components/hooks/admin/article/form/ArticleBasicInfo";
 

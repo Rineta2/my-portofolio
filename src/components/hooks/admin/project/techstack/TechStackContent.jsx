@@ -8,7 +8,7 @@ import IconForm from "@/components/hooks/admin/project/techstack/IconForm";
 
 import IconGrid from "@/components/hooks/admin/project/techstack/IconGrid";
 
-import styles from "@/app/admins/layout.module.scss";
+import styles from "@/components/hooks/admin/project/project.module.scss";
 
 import { useIcons } from "@/components/hooks/admin/project/techstack/utils/useIcons";
 

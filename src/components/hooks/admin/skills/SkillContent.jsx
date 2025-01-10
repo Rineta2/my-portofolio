@@ -7,7 +7,7 @@ import Toolbar from "@/components/hooks/admin/skills/Toolbar";
 
 import { deleteSkill } from "@/components/hooks/admin/skills/utils/handeDelete";
 
-import styles from "@/app/admins/layout.module.scss";
+import styles from "@/components/hooks/admin/skills/skills.module.scss";
 
 import { useTheme } from "@/utils/theme/ThemeContext";
 

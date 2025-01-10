@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-import styles from "@/app/admins/layout.module.scss";
+import styles from "@/components/hooks/admin/achievement/achievement.module.scss";
 
 import Link from "next/link";
 

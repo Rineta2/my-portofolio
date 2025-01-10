@@ -3,7 +3,7 @@ import React from "react";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-import styles from "@/app/admins/layout.module.scss";
+import styles from "@/components/hooks/admin/about/about.module.scss";
 
 import { Toaster } from "react-hot-toast";
 

@@ -6,7 +6,7 @@ import ReactPaginate from "react-paginate";
 
 import toast from "react-hot-toast";
 
-import styles from "@/app/admins/layout.module.scss";
+import styles from "@/components/hooks/admin/article/article.module.scss";
 
 import Link from "next/link";
 

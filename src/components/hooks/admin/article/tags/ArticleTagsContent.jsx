@@ -9,7 +9,7 @@ import TagFormModal from "@/components/hooks/admin/article/tags/TagFormModal";
 
 import TagList from "@/components/hooks/admin/article/tags/TagList";
 
-import styles from "@/app/admins/layout.module.scss";
+import styles from "@/components/hooks/admin/article/article.module.scss";
 
 import { useTheme } from "@/utils/theme/ThemeContext";
 

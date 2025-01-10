@@ -1,10 +1,11 @@
-import React from "react";
 import dynamic from "next/dynamic";
+
 import {
   modules,
   formats,
 } from "@/components/hooks/admin/article/form/utils/QuillConfig";
-import styles from "@/app/admins/layout.module.scss";
+
+import styles from "@/components/hooks/admin/article/article.module.scss";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), {
   ssr: false,

@@ -1,11 +1,14 @@
 import { User } from "lucide-react";
+
 import Image from "next/image";
+
 import { useEffect, useRef } from "react";
+
 import { format } from "date-fns";
 
 import { initUserCardBackground } from "@/components/hooks/animation/admin/users/UserCardBackground";
 
-import styles from "@/app/admins/dashboard/users/user.module.scss";
+import styles from "@/components/hooks/admin/users/user.module.scss";
 
 export default function UserCard({ user, onDeleteClick }) {
   const bgRef = useRef(null);

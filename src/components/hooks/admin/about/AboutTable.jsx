@@ -1,7 +1,10 @@
 import React from "react";
+
 import Image from "next/image";
+
 import Link from "next/link";
-import styles from "@/app/admins/layout.module.scss";
+
+import styles from "@/components/hooks/admin/about/about.module.scss";
 
 export default function AboutTable({ aboutList, onDelete }) {
   return (

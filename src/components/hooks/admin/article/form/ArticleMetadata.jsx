@@ -1,7 +1,8 @@
-import React from "react";
 import Image from "next/image";
+
 import { format } from "date-fns";
-import styles from "@/app/admins/layout.module.scss";
+
+import styles from "@/components/hooks/admin/article/article.module.scss";
 
 export default function ArticleMetadata({
   formData,

@@ -1,0 +1,294 @@
+@use "../../../styling/variable.scss" as *;
+
+.achievement {
+  &.light {
+    &__container {
+      .pagination {
+        .pagination__controls {
+          button {
+            &:disabled {
+              background: $primary-c;
+              color: $text-c;
+              cursor: not-allowed;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.dark {
+    &__container {
+      .pagination {
+        .pagination__controls {
+          button {
+            &:disabled {
+              background: $primary-c;
+              color: $text-c;
+              cursor: not-allowed;
+            }
+          }
+        }
+      }
+    }
+  }
+  &__container {
+    padding: 1rem 2%;
+
+    @include md-sm {
+      padding: 1rem 0;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5rem;
+
+      @include md-xs {
+        margin-bottom: 3rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+        letter-spacing: 2px;
+      }
+
+      a {
+        padding: 1rem 1rem;
+        border-radius: 0.5rem;
+        background: $primary-c;
+        color: $text-c;
+        text-decoration: none;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        color: $text-c;
+        gap: 0.5rem;
+
+        @include md-xs {
+          margin-bottom: 0.5rem 0.5rem;
+        }
+      }
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+
+      .card {
+        width: 100%;
+        padding: 1rem;
+        border-radius: 12px;
+        background-color: #262d4a;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        .card__image {
+          width: 100%;
+          height: 200px;
+          border-radius: 12px;
+          overflow: hidden;
+
+          @media screen and (max-width: 768px) {
+            height: 150px;
+          }
+
+          @media screen and (max-width: 480px) {
+            height: 100%;
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .card__content {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+
+          h3 {
+            font-size: 1.5rem;
+            line-height: 1.5;
+            color: $text-c;
+          }
+
+          .card__actions {
+            display: flex;
+            gap: 2rem;
+
+            a,
+            button {
+              padding: 0.5rem 1rem;
+              border-radius: 0.5rem;
+              background: $primary-c;
+              color: $text-c;
+              text-decoration: none;
+              font-size: 1.2rem;
+              transition: all 0.3s ease;
+              border: none;
+              cursor: pointer;
+              display: grid;
+              place-items: center;
+            }
+
+            button {
+              background: hwb(351 3% 7%);
+              color: $text-c;
+            }
+          }
+        }
+      }
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem;
+      margin-top: 2rem;
+
+      span {
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+        font-weight: 500;
+      }
+
+      .btn__group {
+        display: flex;
+        gap: 1rem;
+
+        button {
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          background: $primary-c;
+          color: $text-c;
+          text-decoration: none;
+          font-size: 1.2rem;
+          transition: all 0.3s ease;
+          border: none;
+          cursor: pointer;
+
+          &:disabled {
+            background: #e2e8f0;
+            color: #a0aec0;
+            cursor: not-allowed;
+          }
+
+          &:hover {
+            background: #3182ce;
+          }
+        }
+      }
+    }
+  }
+}
+
+.achievement__form {
+  &.dark {
+    .achievement__container {
+      form {
+        .form__group {
+          label {
+            color: $text-c;
+          }
+
+          input {
+            border: 1.5px solid #e2e8f0;
+          }
+        }
+      }
+    }
+  }
+
+  &.light {
+    .achievement__container {
+      form {
+        .form__group {
+          label {
+            color: $black-c;
+          }
+
+          input {
+            border: 1.5px solid $black-c;
+          }
+        }
+      }
+    }
+  }
+
+  .achievement__container {
+    padding: 1rem 2%;
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      .form__group {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        label {
+          font-size: 1.2rem;
+          font-weight: 500;
+          color: $text-c;
+        }
+
+        input {
+          width: 100%;
+          padding: 1rem 1rem;
+          border: 1.5px solid #e2e8f0;
+          border-radius: 8px;
+          font-size: 1rem;
+
+          &:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+          }
+
+          &[type="file"] {
+            padding: 1rem;
+            background-color: #202542;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+          }
+        }
+
+        img {
+          width: 100%;
+          max-height: 500px;
+          object-fit: contain;
+
+          @include md-xs {
+            min-height: 100%;
+          }
+        }
+      }
+
+      button {
+        padding: 0.875rem 1.5rem;
+        background: #4299e1;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+    }
+  }
+}

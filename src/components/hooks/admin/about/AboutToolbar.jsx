@@ -2,7 +2,7 @@ import React from "react";
 
 import Link from "next/link";
 
-import styles from "@/app/admins/layout.module.scss";
+import styles from "@/components/hooks/admin/about/about.module.scss";
 
 import { Plus } from "lucide-react";
 

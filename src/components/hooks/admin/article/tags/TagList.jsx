@@ -1,4 +1,4 @@
-import styles from "@/app/admins/layout.module.scss";
+import styles from "@/components/hooks/admin/article/article.module.scss";
 
 export default function TagList({ tags, onEditTag, onDeleteTag }) {
   const handleDelete = async (tagId) => {

@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import styles from "@/app/admins/dashboard/users/user.module.scss";
+import styles from "@/components/hooks/admin/users/user.module.scss";
 
 import { useTheme } from "@/utils/theme/ThemeContext";
 

@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import styles from "@/app/admins/layout.module.scss";
+import styles from "@/components/hooks/admin/project/project.module.scss";
 
 import CategoryToolbar from "@/components/hooks/admin/project/category/CategoryToolbar";
 

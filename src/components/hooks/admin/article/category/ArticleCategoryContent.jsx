@@ -11,7 +11,7 @@ import CategoryPagination from "@/components/hooks/admin/article/category/Catego
 
 import { useCategory } from "@/components/hooks/admin/article/category/utils/useCategory";
 
-import styles from "@/app/admins/layout.module.scss";
+import styles from "@/components/hooks/admin/article/article.module.scss";
 
 import { useTheme } from "@/utils/theme/ThemeContext";
 

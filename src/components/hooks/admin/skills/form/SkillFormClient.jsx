@@ -1,12 +1,17 @@
 "use client";
 import { useState, useEffect } from "react";
+
 import { useRouter, useSearchParams } from "next/navigation";
+
 import {
   fetchSkillById,
   saveSkill,
 } from "@/components/hooks/admin/skills/form/utils/skillService";
+
 import SkillFormComponent from "@/components/hooks/admin/skills/form/SkillFormComponents";
-import styles from "@/app/admins/layout.module.scss";
+
+import styles from "@/components/hooks/admin/skills/skills.module.scss";
+
 import Link from "next/link";
 
 export default function SkillsForm() {

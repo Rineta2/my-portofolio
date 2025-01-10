@@ -3,7 +3,7 @@ import React from "react";
 
 import { Toaster } from "react-hot-toast";
 
-import styles from "@/app/admins/layout.module.scss";
+import styles from "@/components/hooks/admin/project/project.module.scss";
 
 import useProjectForm from "@/components/hooks/admin/project/form/utils/useProjectForm";
 
@@ -40,86 +40,88 @@ export default function ProjectForm() {
   } = useProjectForm();
 
   return (
-    <div className={`${styles.container} ${styles.project__form__container}`}>
-      <Toaster
-        position="top-center"
-        toastOptions={{
-          duration: 4000,
-          style: {
-            background: "#333",
-            color: "#fff",
-          },
-          success: {
+    <section className={styles.project__form}>
+      <div className={`${styles.project__form__container} container`}>
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            duration: 4000,
             style: {
-              background: "green",
+              background: "#333",
+              color: "#fff",
             },
-          },
-          error: {
-            style: {
-              background: "red",
+            success: {
+              style: {
+                background: "green",
+              },
             },
-          },
-        }}
-      />
-      <h1>{id ? "Edit Project" : "Add New Project"}</h1>
+            error: {
+              style: {
+                background: "red",
+              },
+            },
+          }}
+        />
+        <h1>{id ? "Edit Project" : "Add New Project"}</h1>
 
-      {uploadProgress > 0 && uploadProgress < 100 && (
-        <div className={styles.progress}>
-          <div
-            className={styles.progress__bar}
-            style={{ width: `${uploadProgress}%` }}
+        {uploadProgress > 0 && uploadProgress < 100 && (
+          <div className={styles.progress}>
+            <div
+              className={styles.progress__bar}
+              style={{ width: `${uploadProgress}%` }}
+            />
+            <span>{uploadProgress}%</span>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit}>
+          <ProjectBasicInfo formData={formData} handleChange={handleChange} />
+
+          <ProjectMedia
+            thumbnail={thumbnail}
+            setThumbnail={setThumbnail}
+            thumbnailPreview={thumbnailPreview}
+            imagesPreview={imagesPreview}
+            handleImageChange={handleImageChange}
+            handleThumbnailChange={handleThumbnailChange}
+            handleImageReorder={handleImageReorder}
+            handleDeleteImage={handleDeleteImage}
+            id={id}
           />
-          <span>{uploadProgress}%</span>
-        </div>
-      )}
 
-      <form onSubmit={handleSubmit}>
-        <ProjectBasicInfo formData={formData} handleChange={handleChange} />
+          <ProjectDetails
+            formData={formData}
+            handleChange={handleChange}
+            categories={categories}
+          />
 
-        <ProjectMedia
-          thumbnail={thumbnail}
-          setThumbnail={setThumbnail}
-          thumbnailPreview={thumbnailPreview}
-          imagesPreview={imagesPreview}
-          handleImageChange={handleImageChange}
-          handleThumbnailChange={handleThumbnailChange}
-          handleImageReorder={handleImageReorder}
-          handleDeleteImage={handleDeleteImage}
-          id={id}
-        />
+          <TechStack
+            icons={icons}
+            formData={formData}
+            handleIconToggle={handleIconToggle}
+          />
 
-        <ProjectDetails
-          formData={formData}
-          handleChange={handleChange}
-          categories={categories}
-        />
+          <ContentEditor formData={formData} setFormData={setFormData} />
 
-        <TechStack
-          icons={icons}
-          formData={formData}
-          handleIconToggle={handleIconToggle}
-        />
-
-        <ContentEditor formData={formData} setFormData={setFormData} />
-
-        <button
-          type="submit"
-          className={styles.form__button}
-          disabled={loading}
-        >
-          {loading ? (
-            <span>
-              {uploadProgress > 0
-                ? `Uploading... ${uploadProgress}%`
-                : "Processing..."}
-            </span>
-          ) : id ? (
-            "Update Project"
-          ) : (
-            "Save Project"
-          )}
-        </button>
-      </form>
-    </div>
+          <button
+            type="submit"
+            className={styles.form__button}
+            disabled={loading}
+          >
+            {loading ? (
+              <span>
+                {uploadProgress > 0
+                  ? `Uploading... ${uploadProgress}%`
+                  : "Processing..."}
+              </span>
+            ) : id ? (
+              "Update Project"
+            ) : (
+              "Save Project"
+            )}
+          </button>
+        </form>
+      </div>
+    </section>
   );
 }

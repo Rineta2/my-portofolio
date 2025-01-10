@@ -1,6 +1,8 @@
 import { User } from "lucide-react";
+
 import Image from "next/image";
-import styles from "@/app/admins/dashboard/users/user.module.scss";
+
+import styles from "@/components/hooks/admin/users/user.module.scss";
 
 export default function DeleteUserModal({
   showModal,

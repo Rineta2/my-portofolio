@@ -1,5 +1,6 @@
-import styles from "@/app/admins/layout.module.scss";
 import { useState, useEffect } from "react";
+
+import styles from "@/components/hooks/admin/article/article.module.scss";
 
 export default function CategoryModal({
   isOpen,

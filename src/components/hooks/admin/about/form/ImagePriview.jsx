@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import styles from "@/app/admins/layout.module.scss";
+import styles from "@/components/hooks/admin/about/about.module.scss";
 
 export const ImagePreview = ({ currentImageUrl, previewUrl }) => {
   if (!currentImageUrl && !previewUrl) return null;

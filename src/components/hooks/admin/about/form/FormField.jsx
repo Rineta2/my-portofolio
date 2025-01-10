@@ -1,4 +1,4 @@
-import styles from "@/app/admins/layout.module.scss";
+import styles from "@/components/hooks/admin/about/about.module.scss";
 
 export const FormField = ({
   label,
