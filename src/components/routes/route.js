@@ -1,7 +1,5 @@
 import React, { Fragment } from "react";
 
-import RegisterSW from "@/components/hooks/meta/RegisterSW";
-
 import Home from "@/components/section/home/Home";
 
 import About from "@/components/section/about/About";
@@ -17,7 +15,6 @@ import ScrollTop from "@/components/tools/scrollTop";
 export default async function Route() {
   return (
     <Fragment>
-      <RegisterSW />
       <Home />
       <About />
       <Achievement />
