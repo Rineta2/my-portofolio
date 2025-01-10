@@ -1,0 +1,471 @@
+@use "../../../../components/styling/variable.scss" as *;
+
+.users {
+  &.dark {
+    .delete__user__modal {
+      background-color: var(--nav-bg);
+    }
+  }
+
+  .user__container {
+    padding: 1rem 2%;
+
+    @include md-xl {
+      padding: 1rem 0;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5rem;
+
+      @include md-xs {
+        margin-bottom: 3rem;
+      }
+
+      @include md-sm {
+        margin-bottom: 2rem;
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: flex-start;
+      }
+
+      .heading {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 30%;
+
+        @include md-xl {
+          width: 50%;
+        }
+
+        @include md-sm {
+          width: 100%;
+        }
+
+        h1 {
+          font-size: 2rem;
+          letter-spacing: 2px;
+          font-weight: 600;
+        }
+
+        input {
+          width: 100%;
+          padding: 1rem;
+          outline: none;
+          border: none;
+          border-radius: 12px;
+          font-size: 1.2rem;
+
+          &::placeholder {
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+          }
+        }
+      }
+
+      .add__users {
+        @include md-sm {
+          width: 100%;
+        }
+
+        button {
+          padding: 1rem 2rem;
+          border-radius: 12px;
+          border: none;
+          outline: none;
+          background-color: $primary-c;
+          color: $text-c;
+          cursor: pointer;
+
+          @include md-sm {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+
+      @include md-xl {
+        gap: 1rem;
+      }
+
+      @include md-xs {
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 2rem;
+      }
+
+      @include md-sm {
+        grid-template-columns: repeat(1, 1fr);
+        row-gap: 1rem;
+      }
+
+      .user__card {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        @include glass-effect;
+        border-radius: 12px;
+
+        .user__header {
+          display: flex;
+          gap: 1.5rem;
+          align-items: center;
+          height: 200px;
+          padding-left: 1rem;
+          position: relative;
+          border-bottom: 1px solid var(--nav-bg);
+
+          @include md-l {
+            gap: 1rem;
+          }
+
+          @include md-xs {
+            height: 150px;
+          }
+
+          .img {
+            img {
+              width: 100%;
+              max-height: 100px;
+              object-fit: contain;
+            }
+          }
+
+          .info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            width: 100%;
+
+            h3 {
+              font-size: 1.5rem;
+              font-weight: 600;
+            }
+
+            span {
+              font-size: 1.2rem;
+              font-weight: 500;
+            }
+          }
+
+          .bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+
+            canvas {
+              width: 100% !important;
+              height: 100% !important;
+            }
+          }
+        }
+
+        .user__card__details {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          margin-bottom: 0.5rem;
+          padding: 1rem;
+
+          p {
+            font-size: 1.1rem;
+            font-weight: 500;
+          }
+        }
+
+        button {
+          padding: 1rem 2rem;
+          border-radius: 12px;
+          border: none;
+          outline: none;
+          background-color: $primary-c;
+          color: $text-c;
+          cursor: pointer;
+          margin-bottom: 1rem;
+          margin-left: 0.5rem;
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+
+  .delete__user__modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: grid;
+    place-items: center;
+
+    .delete__user__modal__content {
+      width: 50%;
+      max-width: 500px;
+      @include glass-effect;
+      border-radius: 12px;
+      padding: 1rem;
+      display: grid;
+      place-items: center;
+      gap: 1rem;
+
+      @include md-xs {
+        width: 90%;
+      }
+
+      @include md-l {
+        width: 70%;
+      }
+
+      @include md-sm {
+        width: 90%;
+      }
+
+      .box {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+
+        .profile {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          width: 100%;
+          margin-bottom: 2rem;
+          margin-top: 2rem;
+
+          .img {
+            img {
+              width: 100%;
+              max-height: 100px;
+              border-radius: 6px;
+              object-fit: contain;
+            }
+
+            svg {
+              width: 30px;
+              height: 30px;
+            }
+          }
+
+          .info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            h3 {
+              font-size: 1.3rem;
+              letter-spacing: 2px;
+            }
+
+            span {
+              font-size: 1.2rem;
+              font-weight: 500;
+            }
+          }
+        }
+
+        p {
+          font-size: 1.2rem;
+          font-weight: 500;
+          line-height: 1.5;
+        }
+      }
+
+      .actions {
+        display: flex;
+        gap: 1rem;
+        width: 100%;
+
+        .button_secondary {
+          background-color: $primary-c;
+          color: $text-c;
+          padding: 1rem 1rem;
+          width: 100%;
+          border: none;
+          border-radius: 12px;
+          cursor: pointer;
+        }
+
+        .delete {
+          background-color: #ff0000;
+          color: $text-c;
+          padding: 1rem 1rem;
+          width: 100%;
+          border: none;
+          border-radius: 12px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .add__user__modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: grid;
+    place-items: center;
+
+    .add__user__modal__content {
+      width: 50%;
+      max-width: 700px;
+      @include glass-effect;
+      border-radius: 12px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+
+      @include md-l {
+        width: 70%;
+      }
+
+      @include md-xs {
+        width: 90%;
+      }
+
+      @include md-sm {
+        width: 95%;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        @include md-sm {
+          gap: 1.5rem;
+        }
+
+        .form__group {
+          display: flex;
+          gap: 1rem;
+          width: 100%;
+
+          @include md-sm {
+            flex-direction: column;
+          }
+
+          .form__group__item {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+
+            label {
+              font-size: 1.2rem;
+              font-weight: 500;
+            }
+
+            input {
+              width: 100%;
+              padding: 1rem;
+              border-radius: 12px;
+              border: none;
+              outline: none;
+              font-size: 1.2rem;
+              font-weight: 500;
+              letter-spacing: 2px;
+
+              &::placeholder {
+                font-size: 1rem;
+                font-weight: 500;
+                letter-spacing: 2px;
+              }
+            }
+          }
+        }
+
+        .form__single {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          width: 100%;
+
+          .form__group__item {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+
+            label {
+              font-size: 1.2rem;
+              font-weight: 500;
+            }
+
+            select {
+              width: 100%;
+              padding: 1rem;
+              border-radius: 12px;
+              border: none;
+              outline: none;
+              font-size: 1.2rem;
+              font-weight: 500;
+              letter-spacing: 2px;
+            }
+          }
+        }
+
+        .actions {
+          display: flex;
+          gap: 1rem;
+          width: 100%;
+
+          button {
+            padding: 1rem 1rem;
+            border-radius: 12px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            width: 100%;
+
+            &.cancel {
+              background-color: #ff0000;
+              color: $text-c;
+            }
+
+            &.add {
+              background-color: $primary-c;
+              color: $text-c;
+            }
+          }
+        }
+      }
+    }
+  }
+}
