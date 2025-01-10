@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-
 import { auth } from "@/utils/firebase";
-
+import { getAuth, getIdTokenResult } from "firebase/auth";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/utils/firebase";
 import { updatePassword, updateProfile } from "firebase/auth";
-
 import styles from "@/components/hooks/admin/users/user.module.scss";
 
 export default function StatusContent({ users }) {
@@ -27,9 +27,18 @@ export default function StatusContent({ users }) {
 
   const handleToggleAccount = async (userId, isDisabled) => {
     try {
-      // Update status user menggunakan Firebase Auth
-      await updateProfile(auth.currentUser, {
+      // Update status di Firestore
+      const userRef = doc(db, "users", userId);
+      await updateDoc(userRef, {
         disabled: !isDisabled,
+        lastUpdatedBy: auth.currentUser.uid,
+        lastUpdatedAt: new Date().toISOString(),
+      });
+
+      // Tambahkan custom metadata untuk tracking status
+      await updateDoc(userRef, {
+        accountStatus: !isDisabled ? "disabled" : "active",
+        disabledAt: !isDisabled ? new Date().toISOString() : null,
       });
 
       alert(
@@ -55,6 +64,7 @@ export default function StatusContent({ users }) {
               >
                 Reset Password
               </button>
+
               <button
                 onClick={() => handleToggleAccount(user.id, user.disabled)}
                 className={`${styles.toggleBtn} ${
