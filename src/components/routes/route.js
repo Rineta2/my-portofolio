@@ -10,8 +10,6 @@ import Portofolio from "@/components/section/portofolio/Portofolio";
 
 import Articles from "@/components/section/article/Articles";
 
-import ScrollTop from "@/components/tools/scrollTop";
-
 export default async function Route() {
   return (
     <Fragment>
@@ -20,7 +18,6 @@ export default async function Route() {
       <Achievement />
       <Portofolio />
       <Articles />
-      <ScrollTop />
     </Fragment>
   );
 }

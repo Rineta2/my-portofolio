@@ -10,7 +10,7 @@ export default function CommentItem({ comment, index, onCommentClick }) {
   const [imageError, setImageError] = useState(false);
 
   return (
-    <div className={styles.comments__item}>
+    <div className={styles.comments__item} key={index}>
       <div className={styles.profile}>
         {comment.authorPhoto && !imageError ? (
           <Image
@@ -36,6 +36,9 @@ export default function CommentItem({ comment, index, onCommentClick }) {
           year: "numeric",
         })}
       </span>
+
+      <h3>{comment.articleId}</h3>
+
       <div className={styles.icons} onClick={() => onCommentClick(comment)}>
         <CircleEllipsis />
       </div>

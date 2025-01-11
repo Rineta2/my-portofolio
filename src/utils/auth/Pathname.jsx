@@ -10,6 +10,8 @@ import Footer from "@/components/layout/footer/Footer";
 
 import { Toaster } from "react-hot-toast";
 
+import ScrollTop from "@/components/tools/scrollTop";
+
 const Pathname = ({ children }) => {
   const pathname = usePathname();
   const isDashboard = pathname.includes("dashboard");
@@ -34,6 +36,7 @@ const Pathname = ({ children }) => {
         }}
       />
       <main>
+        {isDashboard && <ScrollTop />}
         {!isDashboard && <Header />}
         {children}
         {!isDashboard && <Footer />}

@@ -20,6 +20,7 @@ export default function LoginForm({ onClose, setShowForgotPassword }) {
             disabled={isLoading}
           />
         </div>
+
         <div className={styles.box}>
           <label htmlFor="password">Password</label>
           <input
@@ -31,6 +32,7 @@ export default function LoginForm({ onClose, setShowForgotPassword }) {
             disabled={isLoading}
           />
         </div>
+
         <div className={styles.rememberForgot}>
           <div className={styles.remember}>
             <input
@@ -49,7 +51,8 @@ export default function LoginForm({ onClose, setShowForgotPassword }) {
             </button>
           </div>
         </div>
-        <button type="submit" disabled={isLoading}>
+
+        <button type="submit" disabled={isLoading} className={styles.button}>
           {isLoading ? "Loading..." : "Login"}
         </button>
       </form>

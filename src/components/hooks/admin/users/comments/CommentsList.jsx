@@ -10,8 +10,8 @@ export default function CommentsList({ comments, onCommentClick }) {
       {comments.map((comment, index) => (
         <CommentItem
           key={index}
-          comment={comment}
           index={index}
+          comment={comment}
           onCommentClick={onCommentClick}
         />
       ))}
