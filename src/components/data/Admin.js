@@ -104,8 +104,8 @@ export const navbar = [
 
       {
         id: 2,
-        name: "Status",
-        path: "/admins/dashboard/users/status",
+        name: "Comments",
+        path: "/admins/dashboard/users/comments",
       },
     ],
   },

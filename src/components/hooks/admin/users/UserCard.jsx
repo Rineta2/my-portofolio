@@ -10,6 +10,12 @@ import { initUserCardBackground } from "@/components/hooks/animation/admin/users
 
 import styles from "@/components/hooks/admin/users/user.module.scss";
 
+import { auth, db } from "@/utils/firebase";
+
+import { doc, updateDoc } from "firebase/firestore";
+
+import { toast } from "react-hot-toast";
+
 export default function UserCard({ user, onDeleteClick }) {
   const bgRef = useRef(null);
 
@@ -18,6 +24,25 @@ export default function UserCard({ user, onDeleteClick }) {
     const cleanup = initUserCardBackground(element);
     return cleanup;
   }, []);
+
+  const handleToggleAccount = async (userId, isDisabled) => {
+    try {
+      const userRef = doc(db, "users", userId);
+      await updateDoc(userRef, {
+        disabled: !isDisabled,
+        lastUpdatedBy: auth.currentUser.uid,
+        lastUpdatedAt: new Date().toISOString(),
+        accountStatus: !isDisabled ? "disabled" : "active",
+        disabledAt: !isDisabled ? new Date().toISOString() : null,
+      });
+
+      toast.success(
+        isDisabled ? "Akun berhasil diaktifkan" : "Akun berhasil dinonaktifkan"
+      );
+    } catch (error) {
+      toast.error("Gagal mengubah status akun: " + error.message);
+    }
+  };
 
   return (
     <div className={styles.user__card}>
@@ -36,7 +61,7 @@ export default function UserCard({ user, onDeleteClick }) {
             />
           ) : (
             <div className={styles.user__card__header__left__image}>
-              <User className="w-8 h-8 text-gray-500 dark:text-gray-400" />
+              <User />
             </div>
           )}
         </div>
@@ -59,12 +84,23 @@ export default function UserCard({ user, onDeleteClick }) {
           Updated: format(new Date(user.updatedAt), "dd - MMMM - yyyy"),
         }).map(([label, value]) => (
           <p key={label}>
-            <span className="font-semibold">{label}:</span> {value}
+            <span>{label}:</span> {value}
           </p>
         ))}
       </div>
 
-      <button onClick={() => onDeleteClick(user)}>Delete</button>
+      <div className={styles.user__card__actions}>
+        <button onClick={() => onDeleteClick(user)}>Delete</button>
+
+        <button
+          onClick={() => handleToggleAccount(user.id, user.disabled)}
+          className={`${styles.toggleBtn} ${
+            user.disabled ? styles.enable : styles.disable
+          }`}
+        >
+          {user.disabled ? "Enable Account" : "Disable Account"}
+        </button>
+      </div>
     </div>
   );
 }
