@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import React from "react";
 
 import CategoryContent from "@/components/hooks/admin/project/category/CategoryContent";

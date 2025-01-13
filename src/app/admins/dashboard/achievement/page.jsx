@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import React from "react";
 
 import AchievementContent from "@/components/hooks/admin/achievement/AchievementContent";

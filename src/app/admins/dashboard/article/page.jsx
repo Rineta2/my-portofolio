@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import React from "react";
 
 import ArticleContent from "@/components/hooks/admin/article/ArticleContent";

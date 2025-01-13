@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import React from "react";
 
 import CommentsArticle from "@/components/hooks/admin/users/comments/CommentsArticle";
