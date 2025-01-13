@@ -2,7 +2,7 @@ import React from "react";
 
 import { fetchArticles } from "@/utils/lib/articles/FetchArticles";
 
-import { createSlug } from "@/components/tools/stringSlug";
+import { createSlug } from "@/components/helpers/stringSlug";
 
 import ArticleCategoryContent from "@/components/hooks/pages/articles/[category]/ArticleCategoryContent";
 

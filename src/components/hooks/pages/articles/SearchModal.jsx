@@ -6,9 +6,9 @@ import Link from "next/link";
 
 import { useRef } from "react";
 
-import { createSlug } from "@/components/tools/stringSlug";
+import { createSlug } from "@/components/helpers/stringSlug";
 
-import useModalEffects from "@/components/tools/useModalEffect";
+import useModalEffects from "@/components/helpers/useModalEffect";
 
 import { useSearchModalAnimation } from "@/components/hooks/animation/article/useSearchModalAnimation";
 

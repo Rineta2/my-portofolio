@@ -17,7 +17,7 @@ import { getCategories } from "@/components/hooks/admin/project/category/utils/C
 
 import { useIcons } from "@/components/hooks/admin/project/techstack/utils/useIcons";
 
-import { createSlug } from "@/components/tools/stringSlug";
+import { createSlug } from "@/components/helpers/stringSlug";
 
 export default function useProjectForm() {
   const searchParams = useSearchParams();

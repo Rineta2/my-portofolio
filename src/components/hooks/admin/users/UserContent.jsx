@@ -16,7 +16,7 @@ import AddUserModal from "@/components/hooks/admin/users/AddUserModal";
 
 import DeleteUserModal from "@/components/hooks/admin/users/DeleteUserModal";
 
-import useModalEffects from "@/components/tools/useModalEffect";
+import useModalEffects from "@/components/helpers/useModalEffect";
 
 export default function UserContent({ users }) {
   const { isDarkMode } = useTheme();
@@ -42,7 +42,7 @@ export default function UserContent({ users }) {
       password: "",
       displayName: "",
       phoneNumber: "",
-      role: "users",
+      role: "authors",
     });
   };
 

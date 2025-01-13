@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { BiCategory } from "react-icons/bi";
 import { motion, useInView } from "framer-motion";
-import { formatDate } from "@/components/tools/formatDate";
+import { formatDate } from "@/components/helpers/formatDate";
 import styles from "@/app/portofolio/Portofolio.module.scss";
 import {
   containerAnimation,

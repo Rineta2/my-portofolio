@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { Search } from "lucide-react";
 
-import { createSlug } from "@/components/tools/stringSlug";
+import { createSlug } from "@/components/helpers/stringSlug";
 
 import styles from "@/app/articles/Articles.module.scss";
 

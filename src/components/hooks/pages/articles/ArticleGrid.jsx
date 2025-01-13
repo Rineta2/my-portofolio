@@ -4,9 +4,9 @@ import Link from "next/link";
 
 import Image from "next/image";
 
-import { createSlug } from "@/components/tools/stringSlug";
+import { createSlug } from "@/components/helpers/stringSlug";
 
-import { formatDate } from "@/components/tools/formatDate";
+import { formatDate } from "@/components/helpers/formatDate";
 
 import { motion } from "framer-motion";
 

@@ -8,7 +8,7 @@ import AuthModalContent from "@/components/hooks/layout/auth/AuthModalContent";
 
 import styles from "@/components/layout/header/header.module.scss";
 
-import useModalEffects from "@/components/tools/useModalEffect";
+import useModalEffects from "@/components/helpers/useModalEffect";
 
 import {
   openModalAnimation,

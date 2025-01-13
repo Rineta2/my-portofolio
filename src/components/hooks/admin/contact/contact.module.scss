@@ -1,0 +1,433 @@
+@use "../../../styling/variable.scss" as *;
+
+.contact {
+  &.dark {
+    .contact__container {
+      .heading {
+        .search_container {
+          background-color: transparent;
+          border: 1px solid $text-c;
+
+          .search_input {
+            color: $text-c;
+          }
+
+          svg {
+            color: $text-c;
+          }
+        }
+      }
+
+      .content {
+        .message_box {
+          background-color: $text-c;
+
+          .message_header {
+            h3 {
+              color: $black-c;
+            }
+
+            span {
+              color: $black-c;
+            }
+
+            small {
+              color: $black-c;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.light {
+    .contact__container {
+      .heading {
+        .search_container {
+          background-color: transparent;
+          border: 1px solid $black-c;
+
+          .search_input {
+            color: $black-c;
+          }
+
+          svg {
+            color: $black-c;
+          }
+        }
+      }
+
+      .content {
+        .message_box {
+          background-color: $text-c;
+
+          .message_header {
+            h3 {
+              color: $black-c;
+            }
+
+            span {
+              color: $black-c;
+            }
+
+            small {
+              color: $black-c;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__container {
+    padding: 1rem 2%;
+
+    @include md-l {
+      padding: 1rem 0;
+    }
+
+    .heading {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-bottom: 4rem;
+
+      @include md-l {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 3rem;
+      }
+
+      @include md-sm {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: start;
+        margin-bottom: 2rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+      }
+
+      .search_container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        width: 25%;
+        border-radius: 24px;
+        padding: 1rem 1rem;
+        height: 3rem;
+
+        @include md-l {
+          width: 38%;
+        }
+
+        @include md-xs {
+          width: 50%;
+        }
+
+        @include md-sm {
+          width: 100%;
+        }
+
+        .search_input {
+          width: 100%;
+          border: none;
+          outline: none;
+          background-color: transparent;
+          font-size: 1.2rem;
+
+          &::placeholder {
+            font-size: 1.2rem;
+          }
+        }
+
+        svg {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+
+      .message_box {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 12px;
+        background-color: $text-c;
+        max-height: fit-content;
+        padding-left: 2rem;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+          position: absolute;
+          content: "";
+          width: 5px;
+          height: 100%;
+          background-color: $primary-c;
+          left: 0;
+          top: 0;
+          border-radius: 12px;
+        }
+
+        .message_header {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+
+          h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+          }
+
+          span {
+            font-size: 1.1rem;
+            font-weight: 400;
+          }
+
+          small {
+            font-size: 1rem;
+            font-weight: 400;
+          }
+        }
+
+        .message_actions {
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+          margin-top: 1rem;
+
+          button {
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            outline: none;
+          }
+        }
+      }
+    }
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    @include glass-effect;
+    animation: fadeIn 0.5s ease-in-out;
+
+    &.show {
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    }
+
+    .close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      cursor: pointer;
+
+      svg {
+        color: $black-c;
+      }
+    }
+
+    .modal_content {
+      width: 100%;
+      max-width: 500px;
+      background-color: #f7f7f7;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.5s ease-in-out;
+      position: relative;
+
+      @include md-sm {
+        width: 90%;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: $black-c;
+        margin-bottom: 1rem;
+      }
+
+      .contact_details {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+
+        p {
+          font-size: 1.2rem;
+          font-weight: 400;
+          color: $black-c;
+        }
+      }
+
+      button {
+        background-color: $primary-c;
+        color: $text-c;
+        padding: 0.5rem 1rem;
+        border-radius: 12px;
+        border: none;
+        outline: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        textarea {
+          width: 100%;
+          height: 100px;
+          border: 1px solid $black-c;
+          outline: none;
+          padding: 1rem;
+          border-radius: 12px;
+          background-color: $text-c;
+          color: $black-c;
+          font-size: 1.1rem;
+          resize: none;
+          transition: all 0.3s ease-in-out;
+
+          &::placeholder {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: $black-c;
+            letter-spacing: 2px;
+          }
+
+          &:focus {
+            border-color: $primary-c;
+          }
+        }
+
+        .modal_buttons {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-top: 1rem;
+          button {
+            &:nth-child(2) {
+              background-color: #ff0000;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .modal_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    @include glass-effect;
+    display: grid;
+    place-items: center;
+
+    .modal_content {
+      width: 100%;
+      max-width: 500px;
+      background-color: #f7f7f7;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      animation: fadeIn 0.5s ease-in-out;
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @include md-sm {
+        width: 90%;
+      }
+
+      img {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        object-fit: cover;
+      }
+
+      p {
+        font-size: 1.2rem;
+        font-weight: 400;
+        color: $black-c;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: $black-c;
+        margin-bottom: 1rem;
+      }
+
+      .modal_actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 2rem;
+
+        button {
+          cursor: pointer;
+          background-color: transparent;
+          border: none;
+          outline: none;
+          padding: 0.5rem 1rem;
+          border-radius: 12px;
+          font-size: 1.2rem;
+          font-weight: 400;
+          color: $black-c;
+
+          &:nth-child(2) {
+            background-color: #ff0000;
+            color: $text-c;
+          }
+        }
+      }
+    }
+  }
+}

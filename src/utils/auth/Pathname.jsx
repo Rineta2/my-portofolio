@@ -10,7 +10,7 @@ import Footer from "@/components/layout/footer/Footer";
 
 import { Toaster } from "react-hot-toast";
 
-import ScrollTop from "@/components/tools/scrollTop";
+import ScrollTop from "@/components/helpers/scrollTop";
 
 const Pathname = ({ children }) => {
   const pathname = usePathname();

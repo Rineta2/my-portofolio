@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import { motion, useInView } from "framer-motion";
 
-import { formatDate } from "@/components/tools/formatDate";
+import { formatDate } from "@/components/helpers/formatDate";
 
 import styles from "@/app/portofolio/Portofolio.module.scss";
 

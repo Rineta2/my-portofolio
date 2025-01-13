@@ -9,7 +9,7 @@ export default function AddUserModal({
     password: "",
     displayName: "",
     phoneNumber: "",
-    role: "users",
+    role: "authors",
   },
   setNewUser,
   error,
@@ -93,7 +93,6 @@ export default function AddUserModal({
                 required
                 className={styles.select}
               >
-                <option value="users">Users</option>
                 <option value="authors">Authors</option>
               </select>
             </div>

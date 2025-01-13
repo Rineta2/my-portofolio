@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import styles from "@/app/articles/Articles.module.scss";
 
-import { formatDate } from "@/components/tools/formatDate";
+import { formatDate } from "@/components/helpers/formatDate";
 
 import { useTheme } from "@/utils/theme/ThemeContext";
 

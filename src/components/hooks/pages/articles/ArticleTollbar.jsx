@@ -6,7 +6,7 @@ import { ChevronRight, House } from "lucide-react";
 
 import { usePathname } from "next/navigation";
 
-import { createSlug } from "@/components/tools/stringSlug";
+import { createSlug } from "@/components/helpers/stringSlug";
 
 import { motion } from "framer-motion";
 

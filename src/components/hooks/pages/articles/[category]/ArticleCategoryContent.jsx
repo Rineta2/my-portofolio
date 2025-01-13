@@ -9,7 +9,7 @@ import { useTheme } from "@/utils/theme/ThemeContext";
 
 import { useSearchModalAnimation } from "@/components/hooks/animation/article/useSearchModalAnimation";
 
-import useModalEffects from "@/components/tools/useModalEffect";
+import useModalEffects from "@/components/helpers/useModalEffect";
 
 import ArticleToolbar from "@/components/hooks/pages/articles/[category]/ArticleToolbar";
 

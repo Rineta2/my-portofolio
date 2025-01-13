@@ -37,8 +37,6 @@ export default function CommentItem({ comment, index, onCommentClick }) {
         })}
       </span>
 
-      <h3>{comment.articleId}</h3>
-
       <div className={styles.icons} onClick={() => onCommentClick(comment)}>
         <CircleEllipsis />
       </div>

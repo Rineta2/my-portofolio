@@ -6,9 +6,9 @@ import Image from "next/image";
 
 import { motion, useInView } from "framer-motion";
 
-import { createSlug } from "@/components/tools/stringSlug";
+import { createSlug } from "@/components/helpers/stringSlug";
 
-import { formatDate } from "@/components/tools/formatDate";
+import { formatDate } from "@/components/helpers/formatDate";
 
 import styles from "@/app/articles/Articles.module.scss";
 

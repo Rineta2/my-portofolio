@@ -13,7 +13,7 @@ const initialUserState = {
   password: "",
   displayName: "",
   phoneNumber: "",
-  role: "users",
+  role: "authors",
 };
 
 export function useUserManagement(initialUsers) {

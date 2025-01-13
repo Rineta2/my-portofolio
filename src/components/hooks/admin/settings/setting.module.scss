@@ -10,6 +10,10 @@
     background: #262d4a;
     padding: 1rem 2%;
 
+    @include md-sm {
+      margin-top: 1rem;
+    }
+
     .settingsTitle {
       font-size: 1.75rem;
       font-weight: 600;
