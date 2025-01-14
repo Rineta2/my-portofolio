@@ -7,6 +7,7 @@ import {
   Mail,
   Home,
   CircleUserRound,
+  Youtube,
   Settings,
 } from "lucide-react";
 
@@ -43,6 +44,31 @@ export const navbar = [
 
   {
     id: 5,
+    name: "Youtube",
+    icon: <Youtube />,
+    submenu: [
+      {
+        id: 1,
+        name: "Youtube",
+        path: "/admins/dashboard/youtube",
+      },
+
+      {
+        id: 2,
+        name: "Category",
+        path: "/admins/dashboard/youtube/category",
+      },
+
+      {
+        id: 3,
+        name: "Tech Stack",
+        path: "/admins/dashboard/youtube/tech-stack",
+      },
+    ],
+  },
+
+  {
+    id: 6,
     name: "Project",
     icon: <Briefcase />,
     submenu: [
@@ -67,7 +93,7 @@ export const navbar = [
   },
 
   {
-    id: 6,
+    id: 7,
     name: "Article",
     icon: <Newspaper />,
     submenu: [
@@ -92,7 +118,7 @@ export const navbar = [
   },
 
   {
-    id: 7,
+    id: 8,
     name: "Users",
     icon: <Users />,
     submenu: [
@@ -111,21 +137,21 @@ export const navbar = [
   },
 
   {
-    id: 8,
+    id: 9,
     name: "Contact",
     icon: <Mail />,
     path: "/admins/dashboard/contact",
   },
 
   {
-    id: 9,
+    id: 10,
     name: "Settings",
     icon: <Settings />,
     path: "/admins/dashboard/settings",
   },
 
   {
-    id: 10,
+    id: 11,
     name: "Homepage",
     icon: <Home />,
     path: "/",
