@@ -58,12 +58,6 @@ export const navbar = [
         name: "Category",
         path: "/admins/dashboard/youtube/category",
       },
-
-      {
-        id: 3,
-        name: "Tech Stack",
-        path: "/admins/dashboard/youtube/tech-stack",
-      },
     ],
   },
 

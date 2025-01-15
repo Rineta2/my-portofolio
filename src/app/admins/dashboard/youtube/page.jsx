@@ -1,8 +1,4 @@
-export const revalidate = 0;
-
-import YoutubeContent from "@/components/hooks/admin/yotube/YoutubeContent";
-
-import { fetchVideos } from "@/components/hooks/admin/yotube/utils/FetchVideo";
+import YoutubeClient from "@/components/hooks/admin/yotube/YoutubeClient";
 
 export async function generateMetadata() {
   return {
@@ -12,7 +8,5 @@ export async function generateMetadata() {
 }
 
 export default async function page() {
-  const videos = await fetchVideos();
-
-  return <YoutubeContent videos={videos} />;
+  return <YoutubeClient />;
 }
