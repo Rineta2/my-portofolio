@@ -10,6 +10,8 @@ import Portofolio from "@/components/section/portofolio/Portofolio";
 
 import Articles from "@/components/section/article/Articles";
 
+import Youtube from "@/components/section/youtube/Youtube";
+
 export default async function Route() {
   return (
     <Fragment>
@@ -17,6 +19,7 @@ export default async function Route() {
       <About />
       <Achievement />
       <Portofolio />
+      <Youtube />
       <Articles />
     </Fragment>
   );
