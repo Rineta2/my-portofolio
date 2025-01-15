@@ -12,6 +12,7 @@ import {
   deleteDoc,
   doc,
   updateDoc,
+  getDoc,
 } from "firebase/firestore";
 
 import imageCompression from "browser-image-compression";
@@ -75,8 +76,19 @@ export function useYoutubeManagement(videos, categories) {
         toast.success("Thumbnail uploaded successfully!");
       };
     } catch (error) {
-      console.error("Error uploading image:", error);
       toast.error("Failed to upload thumbnail");
+    }
+  };
+
+  const getIconUrl = async (iconId) => {
+    try {
+      const iconDoc = await getDoc(doc(db, "icons", iconId));
+      if (iconDoc.exists()) {
+        return iconDoc.data().url;
+      }
+      return null;
+    } catch (error) {
+      return null;
     }
   };
 
@@ -86,12 +98,24 @@ export function useYoutubeManagement(videos, categories) {
         (cat) => cat.id === newVideo.category
       );
       const videosRef = collection(db, process.env.NEXT_PUBLIC_API_VIDEOS);
+
+      // Fetch URLs for all icon IDs
+      const iconUrlPromises = newVideo.icons.map((iconId) =>
+        getIconUrl(iconId)
+      );
+      const iconUrls = await Promise.all(iconUrlPromises);
+
+      // Filter out any null values from failed fetches
+      const validIconUrls = iconUrls.filter((url) => url !== null);
+
       await addDoc(videosRef, {
         ...newVideo,
+        icons: validIconUrls,
         category: selectedCategory?.name || "",
         date: new Date(newVideo.date),
         createdAt: new Date(),
       });
+
       toast.success("Video added successfully!");
       setNewVideo({
         date: format(new Date(), "yyyy-MM-dd"),
@@ -102,7 +126,6 @@ export function useYoutubeManagement(videos, categories) {
         thumbnail: "",
       });
     } catch (error) {
-      console.error("Error adding document: ", error);
       toast.error("Failed to add video");
     }
   };
@@ -113,10 +136,22 @@ export function useYoutubeManagement(videos, categories) {
         (cat) => cat.id === newVideo.category
       );
       const videoRef = doc(db, process.env.NEXT_PUBLIC_API_VIDEOS, editId);
+
+      // Fetch URLs for all icon IDs
+      const iconUrlPromises = newVideo.icons.map((iconId) =>
+        getIconUrl(iconId)
+      );
+      const iconUrls = await Promise.all(iconUrlPromises);
+
+      // Filter out any null values from failed fetches
+      const validIconUrls = iconUrls.filter((url) => url !== null);
+
       await updateDoc(videoRef, {
         ...newVideo,
+        icons: validIconUrls,
         category: selectedCategory?.name || "",
       });
+
       toast.success("Video updated successfully!");
       setIsEditing(false);
       setEditId(null);
@@ -129,7 +164,6 @@ export function useYoutubeManagement(videos, categories) {
         thumbnail: "",
       });
     } catch (error) {
-      console.error("Error updating document: ", error);
       toast.error("Failed to update video");
     }
   };
@@ -140,7 +174,6 @@ export function useYoutubeManagement(videos, categories) {
       await deleteDoc(videoRef);
       toast.success("Video deleted successfully!");
     } catch (error) {
-      console.error("Error deleting document: ", error);
       toast.error("Failed to delete video");
     }
   };

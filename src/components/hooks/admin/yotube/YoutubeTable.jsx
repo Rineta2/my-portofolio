@@ -17,6 +17,15 @@ export default function YoutubeTable({
     openModal,
     handleDelete,
 }) {
+    const isValidUrl = (urlString) => {
+        try {
+            new URL(urlString);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    };
+
     return (
         <div className={styles.table__container}>
             <table className={styles.table}>
@@ -53,19 +62,16 @@ export default function YoutubeTable({
                                 <td>{item.url}</td>
                                 <td>
                                     <div className={styles.icons__container}>
-                                        {item.icons?.map((iconId) => {
-                                            const selectedIcon = icons.find((icon) => icon.id === iconId);
-                                            return selectedIcon ? (
-                                                <Image
-                                                    key={iconId}
-                                                    src={selectedIcon.image}
-                                                    alt={selectedIcon.name}
-                                                    className={styles.iconImage}
-                                                    width={24}
-                                                    height={24}
-                                                />
-                                            ) : null;
-                                        })}
+                                        {item.icons?.filter(isValidUrl).map((icon, i) => (
+                                            <Image
+                                                key={`${icon}-${i}`}
+                                                src={icon}
+                                                alt={`icon-${i}`}
+                                                className={styles.iconImage}
+                                                width={24}
+                                                height={24}
+                                            />
+                                        ))}
                                     </div>
                                 </td>
                                 <td>{item.category}</td>
