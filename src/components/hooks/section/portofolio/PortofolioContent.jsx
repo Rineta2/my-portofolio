@@ -12,16 +12,16 @@ import ProjectCard from "@/components/hooks/section/portofolio/PortofolioCard";
 
 import Image from "next/image";
 
-export default function PortofolioContent({ project, data }) {
+export default function PortofolioContent({ portofolio, data }) {
   const { isDarkMode } = useTheme();
   const [sortedProjects, setSortedProjects] = useState([]);
 
   useEffect(() => {
-    if (project) {
-      const sorted = [...project].slice(0, 3);
+    if (portofolio) {
+      const sorted = [...portofolio].slice(0, 3);
       setSortedProjects(sorted);
     }
-  }, [project]);
+  }, [portofolio]);
 
   return (
     <section

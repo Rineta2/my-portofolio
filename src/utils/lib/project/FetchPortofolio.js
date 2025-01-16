@@ -4,12 +4,12 @@ import { db } from "@/utils/firebase";
 
 import { cache } from "react";
 
-export const fetchVideos = cache(async () => {
+export const fetchPortofolio = cache(async () => {
   try {
-    const youtubeRef = collection(db, process.env.NEXT_PUBLIC_API_VIDEOS);
-    const youtubeQuery = query(youtubeRef, orderBy("title"));
+    const portofolioRef = collection(db, process.env.NEXT_PUBLIC_API_PROJECT);
+    const portofolioQuery = query(portofolioRef, orderBy("title"));
 
-    const querySnapshot = await getDocs(youtubeQuery);
+    const querySnapshot = await getDocs(portofolioQuery);
     const data = querySnapshot.docs.map((doc) => {
       const docData = doc.data();
 
@@ -26,7 +26,7 @@ export const fetchVideos = cache(async () => {
 
     return data;
   } catch (error) {
-    console.error("Error fetching videos:", error);
+    console.error("Error fetching portofolio:", error);
     return [];
   }
 });

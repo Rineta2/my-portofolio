@@ -4,10 +4,10 @@ import PortofolioContent from "@/components/hooks/section/portofolio/PortofolioC
 
 import { portofolioData } from "@/components/data/Portofolio";
 
-import { fetchProjects } from "@/utils/lib/project/FetchProject";
+import { fetchPortofolio } from "@/utils/lib/project/FetchPortofolio";
 
 export default async function Portofolio() {
-  const project = await fetchProjects();
+  const portofolio = await fetchPortofolio();
 
-  return <PortofolioContent project={project} data={portofolioData} />;
+  return <PortofolioContent portofolio={portofolio} data={portofolioData} />;
 }
