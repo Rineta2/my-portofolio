@@ -12,12 +12,15 @@ import { Toaster } from "react-hot-toast";
 
 import ScrollTop from "@/components/helpers/scrollTop";
 
+import Loading from "@/components/hooks/animation/loading/Loading";
+
 const Pathname = ({ children }) => {
   const pathname = usePathname();
   const isDashboard = pathname.includes("dashboard");
 
   return (
     <>
+      <Loading />
       <Toaster
         position="top-center"
         toastOptions={{
