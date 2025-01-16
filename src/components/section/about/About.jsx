@@ -1,13 +1,26 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+
 import AboutClient from "@/components/hooks/section/about/AboutClient";
 
-import { fetchAbout } from "@/utils/lib/about/FetchAbout";
+import { subscribeToSkills } from "@/utils/lib/skills/FetchSkills";
 
-import { fetchSkills } from "@/utils/lib/skills/FetchSkills";
+import { subscribeToAbout } from "@/utils/lib/about/FetchAbout";
 
-export default async function About() {
-  const about = await fetchAbout();
+export default function About() {
+  const [skills, setSkills] = useState([]);
+  const [about, setAbout] = useState([]);
 
-  const skills = await fetchSkills();
+  useEffect(() => {
+    const unsubscribe = subscribeToSkills(setSkills);
+    const unsubscribeAbout = subscribeToAbout(setAbout);
 
-  return <AboutClient about={about} skills={skills} />;
+    return () => {
+      unsubscribe();
+      unsubscribeAbout();
+    };
+  }, []);
+
+  return <AboutClient skills={skills} about={about} />;
 }

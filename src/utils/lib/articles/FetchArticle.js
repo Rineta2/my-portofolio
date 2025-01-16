@@ -1,15 +1,12 @@
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
-
+import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 
-import { cache } from "react";
+export const subscribeToArticles = (callback) => {
+  const articlesRef = collection(db, process.env.NEXT_PUBLIC_API_ARTICLE);
+  const articlesQuery = query(articlesRef, orderBy("title"));
 
-export const fetchArticle = cache(async () => {
-  try {
-    const articleRef = collection(db, process.env.NEXT_PUBLIC_API_ARTICLE);
-    const articleQuery = query(articleRef, orderBy("createdAt", "desc"));
-
-    const querySnapshot = await getDocs(articleQuery);
+  // Mengembalikan fungsi unsubscribe
+  return onSnapshot(articlesQuery, (querySnapshot) => {
     const data = querySnapshot.docs.map((doc) => {
       const docData = doc.data();
 
@@ -22,9 +19,6 @@ export const fetchArticle = cache(async () => {
       };
     });
 
-    return data;
-  } catch (error) {
-    console.error("Error fetching article:", error);
-    return [];
-  }
-});
+    callback(data);
+  });
+};

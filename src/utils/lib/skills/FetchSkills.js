@@ -1,23 +1,24 @@
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
-
+import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 
-import { cache } from "react";
+export const subscribeToSkills = (callback) => {
+  const skillsRef = collection(db, process.env.NEXT_PUBLIC_API_SKILLS);
+  const skillsQuery = query(skillsRef, orderBy("title"));
 
-export const fetchSkills = cache(async () => {
-  try {
-    const skillsRef = collection(db, process.env.NEXT_PUBLIC_API_SKILLS);
-    const skillsQuery = query(skillsRef, orderBy("title"));
+  // Mengembalikan fungsi unsubscribe
+  return onSnapshot(skillsQuery, (querySnapshot) => {
+    const data = querySnapshot.docs.map((doc) => {
+      const docData = doc.data();
 
-    const querySnapshot = await getDocs(skillsQuery);
-    const data = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+      const createdAt = docData.createdAt ? docData.createdAt.seconds : null;
 
-    return data;
-  } catch (error) {
-    console.error("Error fetching skills:", error);
-    return [];
-  }
-});
+      return {
+        id: doc.id,
+        ...docData,
+        createdAt,
+      };
+    });
+
+    callback(data);
+  });
+};

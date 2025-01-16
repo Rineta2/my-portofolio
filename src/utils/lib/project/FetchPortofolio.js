@@ -1,42 +1,24 @@
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
-
+import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 
-import { cache } from "react";
+export const subscribeToPortofolio = (callback) => {
+  const portofolioRef = collection(db, process.env.NEXT_PUBLIC_API_PROJECT);
+  const portofolioQuery = query(portofolioRef, orderBy("createdAt", "desc"));
 
-export const fetchPortofolio = cache(async () => {
-  try {
-    const portofolioRef = collection(db, process.env.NEXT_PUBLIC_API_PROJECT);
-    const portofolioQuery = query(portofolioRef, orderBy("createdAt", "desc"));
-
-    const querySnapshot = await getDocs(portofolioQuery);
+  // Mengembalikan fungsi unsubscribe
+  return onSnapshot(portofolioQuery, (querySnapshot) => {
     const data = querySnapshot.docs.map((doc) => {
       const docData = doc.data();
-      let date = null;
 
-      if (docData.date?.seconds) {
-        date = new Date(docData.date.seconds * 1000).toISOString();
-      } else if (docData.date) {
-        try {
-          date = new Date(docData.date).toISOString();
-        } catch (e) {
-          console.warn(
-            `Invalid date format for document ${doc.id}:`,
-            docData.date
-          );
-          date = null;
-        }
-      }
+      const createdAt = docData.createdAt ? docData.createdAt.seconds : null;
 
       return {
         id: doc.id,
         ...docData,
-        date,
+        createdAt,
       };
     });
 
-    return data;
-  } catch (error) {
-    return [];
-  }
-});
+    callback(data);
+  });
+};

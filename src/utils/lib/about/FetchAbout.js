@@ -1,23 +1,24 @@
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
-
+import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 
-import { cache } from "react";
+export const subscribeToAbout = (callback) => {
+  const aboutRef = collection(db, process.env.NEXT_PUBLIC_API_ABOUT);
+  const aboutQuery = query(aboutRef, orderBy("title"));
 
-export const fetchAbout = cache(async () => {
-  try {
-    const aboutRef = collection(db, process.env.NEXT_PUBLIC_API_ABOUT);
-    const aboutQuery = query(aboutRef, orderBy("title"));
+  // Mengembalikan fungsi unsubscribe
+  return onSnapshot(aboutQuery, (querySnapshot) => {
+    const data = querySnapshot.docs.map((doc) => {
+      const docData = doc.data();
 
-    const querySnapshot = await getDocs(aboutQuery);
-    const data = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+      const createdAt = docData.createdAt ? docData.createdAt.seconds : null;
 
-    return data;
-  } catch (error) {
-    console.error("Error fetching about:", error);
-    return [];
-  }
-});
+      return {
+        id: doc.id,
+        ...docData,
+        createdAt,
+      };
+    });
+
+    callback(data);
+  });
+};

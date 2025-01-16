@@ -3,7 +3,7 @@ import { db } from "@/utils/firebase";
 
 export const subscribeToVideos = (callback) => {
   const youtubeRef = collection(db, process.env.NEXT_PUBLIC_API_VIDEOS);
-  const youtubeQuery = query(youtubeRef, orderBy("title"));
+  const youtubeQuery = query(youtubeRef, orderBy("createdAt", "desc"));
 
   // Mengembalikan fungsi unsubscribe
   return onSnapshot(youtubeQuery, (querySnapshot) => {

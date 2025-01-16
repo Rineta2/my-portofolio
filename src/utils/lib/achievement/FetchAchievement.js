@@ -1,18 +1,15 @@
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
-
+import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 
-import { cache } from "react";
+export const subscribeToAchievement = (callback) => {
+  const achievementRef = collection(
+    db,
+    process.env.NEXT_PUBLIC_API_ACHIEVEMENT
+  );
+  const achievementQuery = query(achievementRef, orderBy("date"));
 
-export const fetchAchievement = cache(async () => {
-  try {
-    const achievementRef = collection(
-      db,
-      process.env.NEXT_PUBLIC_API_ACHIEVEMENT
-    );
-    const achievementQuery = query(achievementRef, orderBy("date"));
-
-    const querySnapshot = await getDocs(achievementQuery);
+  // Mengembalikan fungsi unsubscribe
+  return onSnapshot(achievementQuery, (querySnapshot) => {
     const data = querySnapshot.docs.map((doc) => {
       const docData = doc.data();
 
@@ -25,9 +22,6 @@ export const fetchAchievement = cache(async () => {
       };
     });
 
-    return data;
-  } catch (error) {
-    console.error("Error fetching achievement:", error);
-    return [];
-  }
-});
+    callback(data);
+  });
+};
