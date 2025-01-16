@@ -18,6 +18,7 @@ export default function YoutubeContent({ videos }) {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true });
+
   const topVideo = videos[0];
   const remainingVideos = videos.slice(1);
 

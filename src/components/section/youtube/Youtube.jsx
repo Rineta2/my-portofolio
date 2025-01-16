@@ -1,11 +1,19 @@
-import React from "react";
+"use client";
 
-import { fetchVideos } from "@/utils/lib/youtube/FetchVideos";
-
+import React, { useState, useEffect } from "react";
+import { subscribeToVideos } from "@/utils/lib/youtube/FetchVideos";
 import YoutubeContent from "@/components/hooks/section/youtube/YoutubeContent";
 
-export default async function Youtube() {
-  const videos = await fetchVideos();
+export default function Youtube() {
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    // Mendapatkan fungsi unsubscribe
+    const unsubscribe = subscribeToVideos(setVideos);
+
+    // Cleanup subscription ketika component unmount
+    return () => unsubscribe();
+  }, []);
 
   return <YoutubeContent videos={videos} />;
 }
