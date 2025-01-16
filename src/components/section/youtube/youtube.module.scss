@@ -334,3 +334,138 @@
     }
   }
 }
+
+.box {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  will-change: transform;
+
+  &:hover {
+    .box__img {
+      img {
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+.box__img {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+  will-change: transform;
+
+  img {
+    transition: transform 0.3s ease;
+    backface-visibility: hidden;
+  }
+}
+
+.play {
+  transform-style: preserve-3d;
+  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  padding: 1rem;
+  will-change: transform;
+
+  svg {
+    transition: transform 0.3s ease;
+  }
+}
+
+.box__info,
+.info__small {
+  transform-style: preserve-3d;
+  will-change: transform;
+
+  h3 {
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+  }
+}
+
+.box__icons {
+  transform-style: preserve-3d;
+  gap: 1.5rem;
+  will-change: transform;
+  display: flex;
+  flex-wrap: wrap;
+
+  .icon__wrapper {
+    position: relative;
+    transform-style: preserve-3d;
+    cursor: pointer;
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0) 70%
+      );
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      transform: translateZ(-1px);
+    }
+
+    &:hover {
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  .icon__inner {
+    padding: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  .iconImage {
+    display: block;
+    transition: transform 0.3s ease;
+    will-change: transform;
+
+    &:hover {
+      filter: brightness(1.2);
+    }
+  }
+}
+
+// Tambahkan keyframes untuk animasi floating
+@keyframes floating {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+// Tambahkan keyframes untuk animasi glow
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  }
+}

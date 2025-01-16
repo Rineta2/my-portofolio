@@ -2,22 +2,22 @@
 
 import React, { useState } from "react";
 
-import Image from "next/image";
-
-import styles from "@/components/section/youtube/youtube.module.scss";
-
-import { Play, X } from "lucide-react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 
 import useModalEffects from "@/components/helpers/useModalEffect";
 
-const getYoutubeId = (url) => {
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-  const match = url.match(regExp);
-  return match && match[2].length === 11 ? match[2] : null;
-};
+import YoutubeVideoItem from "@/components/hooks/section/youtube/YoutubeVideoItem";
+
+import YoutubeModal from "@/components/hooks/section/youtube/YoutubeModal";
+
+import { containerVariants } from "@/components/hooks/animation/youtube/youtubeAnimations";
+
+import styles from "@/components/section/youtube/youtube.module.scss";
 
 export default function YoutubeContent({ videos }) {
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true });
   const topVideo = videos[0];
   const remainingVideos = videos.slice(1);
 
@@ -32,123 +32,48 @@ export default function YoutubeContent({ videos }) {
   useModalEffects({ isOpen: selectedVideo, onClose: closeModal });
 
   return (
-    <section className={styles.youtube}>
+    <section className={styles.youtube} ref={ref}>
       <div className={`${styles.youtube__container} container`}>
-        <div className={styles.heading}>
+        <motion.div
+          className={styles.heading}
+          initial={{ opacity: 0, y: -20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+          transition={{ duration: 0.5 }}
+        >
           <h1>Youtube</h1>
-        </div>
-        <div className={styles.content__box}>
+        </motion.div>
+
+        <motion.div
+          className={styles.content__box}
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
           {topVideo && (
-            <div
-              className={`${styles.box} ${styles.topArticle}`}
-              onClick={() => handleVideoClick(topVideo)}
-              style={{ cursor: "pointer" }}
-            >
-              <div className={styles.box__img}>
-                <Image
-                  src={topVideo.thumbnail}
-                  alt={topVideo.title}
-                  width={800}
-                  height={500}
-                  quality={100}
-                  priority={true}
-                />
-
-                <div className={styles.play}>
-                  <Play />
-                </div>
-              </div>
-
-              <div className={styles.box__info}>
-                <h3>{topVideo.title}</h3>
-                <div className={styles.box__icons}>
-                  {topVideo.icons.map((icon, i) => (
-                    <Image
-                      key={`${icon}-${i}`}
-                      src={icon}
-                      alt={`icon-${i}`}
-                      className={styles.iconImage}
-                      width={24}
-                      height={24}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
+            <YoutubeVideoItem
+              video={topVideo}
+              onClick={handleVideoClick}
+              isTopVideo={true}
+            />
           )}
 
-          <div className={styles.content}>
-            {remainingVideos.map((item, index) => (
-              <div
+          <motion.div className={styles.content} variants={containerVariants}>
+            {remainingVideos.map((video, index) => (
+              <YoutubeVideoItem
                 key={index}
-                className={styles.box}
-                onClick={() => handleVideoClick(item)}
-                style={{ cursor: "pointer" }}
-              >
-                <div className={styles.box__img}>
-                  <Image
-                    src={item.thumbnail}
-                    alt={item.title}
-                    width={500}
-                    height={500}
-                    quality={100}
-                    priority={true}
-                  />
-
-                  <div className={styles.play}>
-                    <Play />
-                  </div>
-                </div>
-
-                <div className={styles.info__small}>
-                  <h3>{item.title}</h3>
-                  <div className={styles.box__icons}>
-                    {item.icons.map((icon, i) => (
-                      <Image
-                        key={`${icon}-${i}`}
-                        src={icon}
-                        alt={`icon-${i}`}
-                        className={styles.iconImage}
-                        width={24}
-                        height={24}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
+                video={video}
+                onClick={handleVideoClick}
+              />
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
 
-      {/* Modal */}
-      {selectedVideo && (
-        <div
-          className={`${styles.modal} ${styles.active}`}
-          onClick={closeModal}
-        >
-          <div
-            className={styles.modal__content}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <iframe
-              width="100%"
-              height="500"
-              src={`https://www.youtube-nocookie.com/embed/${getYoutubeId(
-                selectedVideo.url
-              )}`}
-              title={selectedVideo.title}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
-
-          <div className={styles.modal__close} onClick={closeModal}>
-            <X />
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {selectedVideo && (
+          <YoutubeModal video={selectedVideo} onClose={closeModal} />
+        )}
+      </AnimatePresence>
     </section>
   );
 }
