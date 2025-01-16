@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hello-pangea/dnd": "^17.0.0",
+    "@next/third-parties": "^15.1.4",
     "@react-oauth/google": "^0.12.1",
     "@react-three/drei": "^9.120.4",
     "@react-three/fiber": "^8.17.10",
@@ -25,7 +26,7 @@
     "js-cookie": "^3.0.5",
     "libphonenumber-js": "^1.11.16",
     "lucide-react": "^0.468.0",
-    "next": "15.0.4",
+    "next": "^15.1.4",
     "nodemailer": "^6.9.16",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

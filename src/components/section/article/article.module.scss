@@ -102,8 +102,12 @@
   &__container {
     padding: 1rem 5%;
 
-    @media (max-width: 1366px) {
+    @include md-xl {
       padding: 1rem 2%;
+    }
+
+    @include md-sm {
+      padding: 1rem 0;
     }
 
     .article__heading {
@@ -112,11 +116,11 @@
       align-items: center;
       margin-bottom: 5rem;
 
-      @media (max-width: 992px) {
+      @include md-l {
         margin-bottom: 3rem;
       }
 
-      @media (max-width: 468px) {
+      @include md-sm {
         flex-direction: column;
         gap: 2rem;
         align-items: start;
@@ -128,15 +132,15 @@
         font-family: $sec-f;
         letter-spacing: 2px;
 
-        @media (max-width: 1366px) {
+        @include md-xl {
           font-size: 2.5rem;
         }
 
-        @media (max-width: 992px) {
+        @include md-l {
           font-size: 2rem;
         }
 
-        @media (max-width: 468px) {
+        @include md-sm {
           font-size: 1.5rem;
         }
       }
@@ -150,15 +154,15 @@
         align-items: center;
         gap: 0.5rem;
 
-        @media (max-width: 1366px) {
+        @include md-xl {
           font-size: 1.3rem;
         }
 
-        @media (max-width: 992px) {
+        @include md-l {
           font-size: 1.2rem;
         }
 
-        @media (max-width: 480px) {
+        @include md-sm {
           font-size: 1rem;
         }
 
@@ -196,7 +200,7 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 3rem;
 
-        @media (max-width: 1366px) {
+        @include md-xl {
           grid-template-columns: repeat(1, 1fr);
           gap: 2rem;
         }
@@ -207,7 +211,7 @@
           width: 100%;
           height: 100%;
 
-          @media (max-width: 992px) {
+          @include md-l {
             margin-bottom: 2rem;
           }
 
@@ -217,13 +221,13 @@
             width: 100%;
             gap: 2rem;
 
-            @media (max-width: 1366px) {
+            @include md-xl {
               flex-direction: row;
               align-items: center;
               justify-content: center;
             }
 
-            @media (max-width: 992px) {
+            @include md-l {
               flex-direction: column;
             }
 
@@ -232,7 +236,7 @@
               border-radius: 12px;
               overflow: hidden;
 
-              @media (max-width: 1366px) {
+              @include md-xl {
                 width: 100%;
               }
 
@@ -248,7 +252,7 @@
               flex-direction: column;
               gap: 2rem;
 
-              @media (max-width: 1366px) {
+              @include md-xl {
                 gap: 1.5rem;
               }
 
@@ -258,7 +262,7 @@
                 color: $primary-c;
                 letter-spacing: 2px;
 
-                @media (max-width: 1366px) {
+                @include md-xl {
                   font-size: 1.2rem;
                 }
               }
@@ -268,7 +272,7 @@
                 line-height: 2;
                 letter-spacing: 1.5;
 
-                @media (max-width: 1366px) {
+                @include md-xl {
                   font-size: 1.7rem;
                 }
               }
@@ -277,7 +281,7 @@
                 font-size: 1.4rem;
                 line-height: 1.5;
 
-                @media (max-width: 1366px) {
+                @include md-xl {
                   font-size: 1.2rem;
                 }
               }
@@ -288,11 +292,11 @@
                 gap: 1rem;
                 margin-top: 1rem;
 
-                @media (max-width: 1366px) {
+                @include md-xl {
                   margin-top: 0.5rem;
                 }
 
-                @media (max-width: 992px) {
+                @include md-l {
                   margin-top: 0;
                   gap: 0.5rem;
                 }
@@ -308,7 +312,7 @@
                   border-radius: 12px;
                   padding: 0 1rem;
 
-                  @media (max-width: 1366px) {
+                  @include md-xl {
                     font-size: 1rem;
                   }
                 }
@@ -325,7 +329,7 @@
           padding: 1rem;
           height: 100%;
 
-          @media (max-width: 1366px) {
+          @include md-xl {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
@@ -334,11 +338,11 @@
             row-gap: 3rem;
           }
 
-          @media (max-width: 992px) {
+          @include md-l {
             grid-template-columns: repeat(2, 1fr);
           }
 
-          @media (max-width: 468px) {
+          @include md-sm {
             grid-template-columns: repeat(1, 1fr);
           }
 
@@ -349,16 +353,16 @@
             gap: 2rem;
             padding: 1rem;
 
-            @media (max-width: 1366px) {
+            @include md-xl {
               grid-template-columns: repeat(1, 1fr);
             }
 
-            @media (max-width: 992px) {
+            @include md-l {
               gap: 1rem;
               padding: 0;
             }
 
-            @media (max-width: 468px) {
+            @include md-sm {
               grid-template-columns: repeat(1, 1fr);
             }
 
@@ -367,11 +371,11 @@
               border-radius: 12px;
               overflow: hidden;
 
-              @media (max-width: 1366px) {
+              @include md-xl {
                 height: 200px;
               }
 
-              @media (max-width: 992px) {
+              @include md-l {
                 height: 100%;
               }
 
@@ -394,7 +398,7 @@
                 color: $primary-c;
                 letter-spacing: 2px;
 
-                @media (max-width: 1366px) {
+                @include md-xl {
                   font-size: 1rem;
                 }
               }
@@ -404,7 +408,7 @@
                 line-height: 2;
                 letter-spacing: 1.5;
 
-                @media (max-width: 1366px) {
+                @include md-xl {
                   font-size: 1.2rem;
                 }
               }
@@ -413,7 +417,7 @@
                 font-size: 1.2rem;
                 line-height: 1.5;
 
-                @media (max-width: 1366px) {
+                @include md-xl {
                   font-size: 1rem;
                 }
               }
@@ -434,11 +438,11 @@
                   border-radius: 12px;
                   padding: 0 1rem;
 
-                  @media (max-width: 1366px) {
+                  @include md-xl {
                     font-size: 1.2rem;
                   }
 
-                  @media (max-width: 992px) {
+                  @include md-l {
                     font-size: 1rem;
                   }
                 }
@@ -459,7 +463,7 @@
           grid-template-columns: repeat(2, 1fr);
           gap: 2rem;
 
-          @media (max-width: 992px) {
+          @include md-l {
             grid-template-columns: repeat(1, 1fr);
             gap: 1rem;
           }
@@ -469,7 +473,7 @@
             border-radius: 12px;
             overflow: hidden;
 
-            @media (max-width: 992px) {
+            @include md-l {
               margin-bottom: 0.5rem;
             }
 
@@ -485,7 +489,7 @@
             flex-direction: column;
             gap: 2rem;
 
-            @media (max-width: 992px) {
+            @include md-l {
               gap: 1rem;
             }
 
@@ -495,7 +499,7 @@
               color: $primary-c;
               letter-spacing: 2px;
 
-              @media (max-width: 992px) {
+              @include md-l {
                 font-size: 1.2rem;
               }
             }
@@ -505,11 +509,11 @@
               line-height: 2;
               letter-spacing: 1.5;
 
-              @media (max-width: 1366px) {
+              @include md-xl {
                 font-size: 2rem;
               }
 
-              @media (max-width: 992px) {
+              @include md-l {
                 font-size: 1.7rem;
               }
             }
@@ -518,11 +522,11 @@
               font-size: 1.4rem;
               line-height: 1.5;
 
-              @media (max-width: 1366px) {
+              @include md-xl {
                 font-size: 1.2rem;
               }
 
-              @media (max-width: 992px) {
+              @include md-l {
                 font-size: 1.1rem;
               }
             }
@@ -533,7 +537,7 @@
               gap: 0.5rem;
               margin-top: 1rem;
 
-              @media (max-width: 992px) {
+              @include md-l {
                 margin-top: 0.5rem;
               }
 
@@ -548,7 +552,7 @@
                 border-radius: 12px;
                 padding: 0 1rem;
 
-                @media (max-width: 992px) {
+                @include md-l {
                   font-size: 1rem;
                 }
               }

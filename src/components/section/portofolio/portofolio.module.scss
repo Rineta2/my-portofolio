@@ -71,8 +71,12 @@
   &__container {
     padding: 1rem 5%;
 
-    @media (max-width: 1440px) {
+    @include md-xl {
       padding: 1rem 2%;
+    }
+
+    @include md-sm {
+      padding: 1rem 0;
     }
 
     .portofolio__toolbar {
@@ -81,11 +85,11 @@
       align-items: center;
       margin-bottom: 5rem;
 
-      @media (max-width: 1366px) {
+      @include md-xl {
         margin-bottom: 3rem;
       }
 
-      @media (max-width: 468px) {
+      @include md-sm {
         flex-direction: column;
         gap: 2rem;
         align-items: start;
@@ -97,7 +101,7 @@
         font-family: $sec-f;
         letter-spacing: 2px;
 
-        @media (max-width: 1366px) {
+        @include md-xl {
           font-size: 2.5rem;
         }
       }
@@ -111,7 +115,7 @@
         align-items: center;
         gap: 0.5rem;
 
-        @media (max-width: 1366px) {
+        @include md-xl {
           font-size: 1.2rem;
         }
 
@@ -154,11 +158,11 @@
         @include glass-effect;
         @include justify-flex-center;
 
-        @media (max-width: 1366px) {
+        @include md-xl {
           gap: 1rem;
         }
 
-        @media (max-width: 768px) {
+        @include md-sm {
           flex-direction: column;
           align-items: unset;
           justify-content: unset;
@@ -168,11 +172,11 @@
           width: 50%;
           height: 100%;
 
-          @media (max-width: 992px) {
+          @include md-l {
             width: 80%;
           }
 
-          @media (max-width: 768px) {
+          @include md-sm {
             width: 100%;
           }
 
@@ -192,11 +196,11 @@
           flex-direction: column;
           gap: 2rem;
 
-          @media (max-width: 1366px) {
+          @include md-xl {
             gap: 1rem;
           }
 
-          @media (max-width: 768px) {
+          @include md-sm {
             width: 100%;
           }
 
@@ -205,11 +209,11 @@
             font-weight: bold;
             letter-spacing: 2px;
 
-            @media (max-width: 1366px) {
+            @include md-xl {
               font-size: 2rem;
             }
 
-            @media (max-width: 992px) {
+            @include md-l {
               font-size: 1.5rem;
             }
           }
@@ -225,11 +229,11 @@
             -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
 
-            @media (max-width: 1366px) {
+            @include md-xl {
               font-size: 1rem;
             }
 
-            @media (max-width: 992px) {
+            @include md-l {
               font-size: 0.8rem;
             }
           }
@@ -239,7 +243,7 @@
             flex-direction: column;
             gap: 2rem;
 
-            @media (max-width: 1366px) {
+            @include md-xl {
               gap: 1rem;
             }
 
@@ -248,11 +252,11 @@
               font-weight: bold;
               letter-spacing: 2px;
 
-              @media (max-width: 1366px) {
+              @include md-xl {
                 font-size: 1.2rem;
               }
 
-              @media (max-width: 992px) {
+              @include md-l {
                 font-size: 1rem;
               }
             }
@@ -267,7 +271,7 @@
               background-color: rgba(255, 255, 255, 0.1);
               text-transform: capitalize;
 
-              @media (max-width: 1366px) {
+              @include md-xl {
                 font-size: 1rem;
               }
             }
@@ -278,7 +282,7 @@
             flex-direction: column;
             gap: 2rem;
 
-            @media (max-width: 1366px) {
+            @include md-xl {
               gap: 1rem;
             }
 
@@ -287,11 +291,11 @@
               font-weight: bold;
               letter-spacing: 2px;
 
-              @media (max-width: 1366px) {
+              @include md-xl {
                 font-size: 1.2rem;
               }
 
-              @media (max-width: 992px) {
+              @include md-l {
                 font-size: 1rem;
               }
             }
@@ -301,11 +305,11 @@
               flex-wrap: wrap;
               gap: 1rem;
 
-              @media (max-width: 1366px) {
+              @include md-xl {
                 gap: 0.5rem;
               }
 
-              @media (max-width: 992px) {
+              @include md-l {
                 margin-top: 1rem;
               }
 
@@ -316,7 +320,7 @@
                 display: grid;
                 place-items: center;
 
-                @media (max-width: 992px) {
+                @include md-l {
                   padding: 0.5rem;
                 }
 
@@ -326,7 +330,7 @@
                   object-fit: cover;
                   object-position: center;
 
-                  @media (max-width: 1366px) {
+                  @include md-xl {
                     width: 20px;
                     height: 20px;
                   }

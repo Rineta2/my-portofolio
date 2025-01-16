@@ -84,12 +84,16 @@
     align-items: center;
     padding: 1rem 5%;
 
-    @media (max-width: 1440px) {
+    @include md-xl {
       padding: 1rem 2%;
       gap: 0;
     }
 
-    @media (max-width: 992px) {
+    @include md-sm {
+      padding: 1rem 0;
+    }
+
+    @include md-l {
       flex-direction: column;
     }
 
@@ -99,18 +103,18 @@
       flex-direction: column;
       gap: 2rem;
 
-      @media (max-width: 992px) {
+      @include md-l {
         width: 100%;
         align-items: center;
         justify-content: center;
         margin-bottom: 3rem;
       }
 
-      @media (max-width: 768px) {
+      @include md-sm {
         margin-bottom: 2rem;
       }
 
-      @media (max-width: 480px) {
+      @include md-xs {
         margin-bottom: 1rem;
       }
 
@@ -118,19 +122,19 @@
         font-size: 4rem;
         font-weight: 700;
 
-        @media (max-width: 1366px) {
+        @include md-xl {
           font-size: 3rem;
         }
 
-        @media (max-width: 992px) {
+        @include md-l {
           font-size: 2.5rem;
         }
 
-        @media (max-width: 768px) {
+        @include md-sm {
           font-size: 2rem;
         }
 
-        @media (max-width: 480px) {
+        @include md-xs {
           font-size: 1.5rem;
         }
       }
@@ -141,17 +145,17 @@
         line-height: 2;
         max-width: 70%;
 
-        @media (max-width: 1366px) {
+        @include md-xl {
           font-size: 1.2rem;
         }
 
-        @media (max-width: 992px) {
+        @include md-l {
           font-size: 1.1rem;
           max-width: 100%;
           text-align: center;
         }
 
-        @media (max-width: 480px) {
+        @include md-xs {
           font-size: 1rem;
         }
       }
@@ -162,11 +166,11 @@
       height: 600px;
       overflow: auto;
 
-      @media (max-width: 992px) {
+      @include md-l {
         width: 100%;
       }
 
-      @media (max-width: 768px) {
+      @include md-sm {
         height: 500px;
       }
 
@@ -184,7 +188,7 @@
         transition: all 0.3s ease-in-out;
         border: 1px solid transparent;
 
-        @media (max-width: 468px) {
+        @include md-xs {
           flex-direction: column;
           align-items: unset;
           justify-content: unset;
@@ -253,11 +257,11 @@
             font-weight: 700;
             line-height: 1.5;
 
-            @media (max-width: 1366px) {
+            @include md-xl {
               font-size: 1.4rem;
             }
 
-            @media (max-width: 992px) {
+            @include md-l {
               font-size: 1.3rem;
             }
           }
@@ -266,11 +270,11 @@
             font-size: 1.2rem;
             font-weight: 500;
 
-            @media (max-width: 1366px) {
+            @include md-xl {
               font-size: 1.1rem;
             }
 
-            @media (max-width: 992px) {
+            @include md-l {
               font-size: 1rem;
             }
           }

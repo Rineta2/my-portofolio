@@ -111,11 +111,11 @@
   &__container {
     padding: 1rem 5%;
 
-    @media (max-width: 1440px) {
+    @include md-xl {
       padding: 1rem 2%;
     }
 
-    @media (max-width: 992px) {
+    @include md-sm {
       padding: 1rem 0;
     }
 
@@ -126,7 +126,7 @@
       place-items: center;
       margin-bottom: 5rem;
 
-      @media (max-width: 992px) {
+      @include md-l {
         grid-template-columns: repeat(1, 1fr);
         row-gap: 4rem;
       }
@@ -140,12 +140,12 @@
           height: 400px;
           object-fit: cover;
 
-          @media (max-width: 1366px) {
+          @include md-xl {
             width: 360px;
             height: 360px;
           }
 
-          @media (max-width: 768px) {
+          @include md-xs {
             width: 100%;
             height: 100%;
           }
@@ -159,13 +159,13 @@
         transform-style: preserve-3d;
         perspective: 1000px;
 
-        @media (max-width: 992px) {
+        @include md-l {
           align-items: center;
           justify-content: center;
           text-align: center;
         }
 
-        @media (max-width: 768px) {
+        @include md-xs {
           gap: 1.5rem;
         }
 
@@ -174,15 +174,15 @@
           font-size: 4rem;
           font-family: $sec-f;
 
-          @media (max-width: 1366px) {
+          @include md-xl {
             font-size: 2.5rem;
           }
 
-          @media (max-width: 768px) {
+          @include md-xs {
             font-size: 2rem;
           }
 
-          @media (max-width: 320px) {
+          @include md-sm {
             font-size: 1.5rem;
           }
         }
@@ -191,19 +191,19 @@
           font-size: 1.4rem;
           line-height: 1.5;
 
-          @media (max-width: 1366px) {
+          @include md-xl {
             font-size: 1.1rem;
           }
 
-          @media (max-width: 992px) {
+          @include md-l {
             line-height: 2;
           }
 
-          @media (max-width: 768px) {
+          @include md-xs {
             font-size: 1rem;
           }
 
-          @media (max-width: 320px) {
+          @include md-sm {
             font-size: 0.8rem;
           }
         }
@@ -215,11 +215,11 @@
       flex-direction: column;
       gap: 1rem;
 
-      @media (max-width: 992px) {
+      @include md-l {
         margin-top: 5rem;
       }
 
-      @media (max-width: 480px) {
+      @include md-xs {
         margin-top: 3rem;
       }
 
@@ -227,11 +227,11 @@
         font-size: 2rem;
         text-align: center;
 
-        @media (max-width: 1366px) {
+        @include md-xl {
           font-size: 1.5rem;
         }
 
-        @media (max-width: 480px) {
+        @include md-sm {
           font-size: 1.5rem;
         }
       }
@@ -246,12 +246,12 @@
         margin-top: 3rem;
         perspective: 1000px;
 
-        @media (max-width: 1366px) {
+        @include md-xl {
           gap: 1rem;
           row-gap: 1.5rem;
         }
 
-        @media (max-width: 320px) {
+        @include md-sm {
           gap: 1rem;
         }
 
@@ -401,15 +401,15 @@
             transition: all 0.3s ease-in-out;
             place-items: center;
 
-            @media (max-width: 1366px) {
+            @include md-xl {
               font-size: 1.3rem;
             }
 
-            @media (max-width: 992px) {
+            @include md-l {
               font-size: 1.2rem;
             }
 
-            @media (max-width: 480px) {
+            @include md-sm {
               font-size: 1rem;
             }
           }
@@ -418,20 +418,16 @@
             font-size: 1.5rem;
             transition: color 0.3s ease;
 
-            @media (max-width: 1366px) {
+            @include md-xl {
               font-size: 1.2rem;
             }
 
-            @media (max-width: 992px) {
+            @include md-l {
               font-size: 1.1rem;
             }
 
-            @media (max-width: 480px) {
+            @include md-sm {
               font-size: 1rem;
-            }
-
-            @media (max-width: 320px) {
-              font-size: 0.8rem;
             }
           }
         }

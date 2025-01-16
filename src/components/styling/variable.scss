@@ -21,7 +21,7 @@ $z-index-large: 200;
 }
 
 @mixin md-xl {
-  @media only screen and (max-width: 1366px) {
+  @media only screen and (max-width: 1440px) {
     @content;
   }
 }

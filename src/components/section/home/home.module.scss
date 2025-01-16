@@ -65,11 +65,11 @@
   &__container {
     padding: 1rem 5%;
 
-    @media (max-width: 1366px) {
+    @include md-xl {
       padding: 1rem 2%;
     }
 
-    @media (max-width: 992px) {
+    @include md-sm {
       padding: 1rem 0;
     }
 
