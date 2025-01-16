@@ -7,26 +7,36 @@ import { cache } from "react";
 export const fetchPortofolio = cache(async () => {
   try {
     const portofolioRef = collection(db, process.env.NEXT_PUBLIC_API_PROJECT);
-    const portofolioQuery = query(portofolioRef, orderBy("title"));
+    const portofolioQuery = query(portofolioRef, orderBy("createdAt", "desc"));
 
     const querySnapshot = await getDocs(portofolioQuery);
     const data = querySnapshot.docs.map((doc) => {
       const docData = doc.data();
+      let date = null;
 
-      const createdAt = docData.createdAt ? docData.createdAt.seconds : null;
-      const date = docData.date ? docData.date.seconds : null;
+      if (docData.date?.seconds) {
+        date = new Date(docData.date.seconds * 1000).toISOString();
+      } else if (docData.date) {
+        try {
+          date = new Date(docData.date).toISOString();
+        } catch (e) {
+          console.warn(
+            `Invalid date format for document ${doc.id}:`,
+            docData.date
+          );
+          date = null;
+        }
+      }
 
       return {
         id: doc.id,
         ...docData,
-        createdAt,
         date,
       };
     });
 
     return data;
   } catch (error) {
-    console.error("Error fetching portofolio:", error);
     return [];
   }
 });

@@ -36,7 +36,7 @@ const Pathname = ({ children }) => {
         }}
       />
       <main>
-        {isDashboard && <ScrollTop />}
+        {!isDashboard && <ScrollTop />}
         {!isDashboard && <Header />}
         {children}
         {!isDashboard && <Footer />}

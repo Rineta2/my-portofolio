@@ -18,7 +18,9 @@ export default function PortofolioContent({ portofolio, data }) {
 
   useEffect(() => {
     if (portofolio) {
-      const sorted = [...portofolio].slice(0, 3);
+      const sorted = [...portofolio]
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, 3);
       setSortedProjects(sorted);
     }
   }, [portofolio]);
