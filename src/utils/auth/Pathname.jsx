@@ -18,11 +18,13 @@ import Loading from "@/components/hooks/animation/loading/Loading";
 
 const Pathname = ({ children }) => {
   const pathname = usePathname();
+
   const isDashboard = pathname.includes("dashboard");
+
   const { isLoading } = useLoadingState();
 
   return (
-    <>
+    <main>
       <Toaster
         position="top-center"
         toastOptions={{
@@ -40,13 +42,11 @@ const Pathname = ({ children }) => {
           },
         }}
       />
-      <main>
-        {!isDashboard && <ScrollTop />}
-        {!isDashboard && <Header />}
-        {isLoading ? <Loading /> : children}
-        {!isDashboard && <Footer />}
-      </main>
-    </>
+      {!isDashboard && <ScrollTop />}
+      {!isDashboard && <Header />}
+      {isLoading ? <Loading /> : children}
+      {!isDashboard && <Footer />}
+    </main>
   );
 };
 

@@ -28,9 +28,9 @@ export function useLoadingState() {
       ) {
         timer = setTimeout(() => {
           setIsLoading(false);
-        }, 1000);
+        }, 3000);
       } else {
-        timer = setTimeout(checkDataReady, 1000);
+        timer = setTimeout(checkDataReady, 500);
       }
     };
 
