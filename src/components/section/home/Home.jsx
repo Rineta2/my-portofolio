@@ -51,6 +51,7 @@ export default function Home() {
     <section
       ref={sectionRef}
       className={`${styles.home} ${isDarkMode ? styles.dark : styles.light}`}
+      id="home"
     >
       <GridBackground isDarkMode={isDarkMode} />
       <div className={styles.overlay}></div>

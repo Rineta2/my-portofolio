@@ -12,9 +12,14 @@ import { Toaster } from "react-hot-toast";
 
 import ScrollTop from "@/components/helpers/scrollTop";
 
+import { useLoadingState } from "@/components/hooks/animation/loading/useLoadingState";
+
+import Loading from "@/components/hooks/animation/loading/Loading";
+
 const Pathname = ({ children }) => {
   const pathname = usePathname();
   const isDashboard = pathname.includes("dashboard");
+  const { isLoading } = useLoadingState();
 
   return (
     <>
@@ -38,7 +43,7 @@ const Pathname = ({ children }) => {
       <main>
         {!isDashboard && <ScrollTop />}
         {!isDashboard && <Header />}
-        {children}
+        {isLoading ? <Loading /> : children}
         {!isDashboard && <Footer />}
       </main>
     </>

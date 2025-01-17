@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 
 import { subscribeToAchievement } from "@/utils/lib/achievement/FetchAchievement";
 
-import { achievementHeading } from "@/components/data/Achiement";
+import { achievementHeading } from "@/components/data/Achievement";
 
 import AchievementContent from "@/components/hooks/section/achievement/AchievmentContent";
 

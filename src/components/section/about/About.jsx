@@ -1,26 +1,14 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import AboutClient from "@/components/hooks/section/about/AboutClient";
 
-import { subscribeToSkills } from "@/utils/lib/skills/FetchSkills";
-
-import { subscribeToAbout } from "@/utils/lib/about/FetchAbout";
+import { useFirestoreCollection } from "@/utils/lib/FetchData";
 
 export default function About() {
-  const [skills, setSkills] = useState([]);
-  const [about, setAbout] = useState([]);
-
-  useEffect(() => {
-    const unsubscribe = subscribeToSkills(setSkills);
-    const unsubscribeAbout = subscribeToAbout(setAbout);
-
-    return () => {
-      unsubscribe();
-      unsubscribeAbout();
-    };
-  }, []);
+  const skills = useFirestoreCollection(process.env.NEXT_PUBLIC_API_SKILLS);
+  const about = useFirestoreCollection(process.env.NEXT_PUBLIC_API_ABOUT);
 
   return <AboutClient skills={skills} about={about} />;
 }

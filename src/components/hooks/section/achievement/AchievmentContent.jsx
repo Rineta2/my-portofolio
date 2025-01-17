@@ -14,29 +14,43 @@ import AchievementList from "@/components/hooks/section/achievement/AchievmentLi
 
 import AchievementModal from "@/components/hooks/section/achievement/AchievmentModal";
 
-import useAchievementAnimation from "@/components/hooks/animation/achievement/useAchievementAnimations";
+import { motion, useInView } from "framer-motion";
+
+import useModalEffects from "@/components/helpers/useModalEffect";
 
 export default function AchievementContent({ achievements, heading }) {
   const { isDarkMode } = useTheme();
-  const sectionRef = useRef(null);
   const [selectedAchievement, setSelectedAchievement] = React.useState(null);
-
-  useAchievementAnimation(sectionRef);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  useModalEffects({
+    isOpen: !!selectedAchievement,
+    onClose: () => setSelectedAchievement(null),
+  });
 
   return (
-    <section
-      ref={sectionRef}
+    <motion.section
+      ref={ref}
+      initial={{ opacity: 0 }}
+      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 1, ease: "easeOut" }}
       className={`${styles.achievement} ${
         isDarkMode ? styles.dark : styles.light
       }`}
     >
-      <div className={`${styles.achievement__container} container`}>
-        <AchievementHeading heading={heading} />
+      <motion.div
+        className={`${styles.achievement__container} container`}
+        initial={{ y: 50 }}
+        animate={isInView ? { y: 0 } : { y: 50 }}
+        transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+      >
+        <AchievementHeading heading={heading} isInView={isInView} />
         <AchievementList
           achievements={achievements}
           onAchievementClick={setSelectedAchievement}
+          isInView={isInView}
         />
-      </div>
+      </motion.div>
 
       <div className={styles.bg}>
         <Image
@@ -52,6 +66,6 @@ export default function AchievementContent({ achievements, heading }) {
         achievement={selectedAchievement}
         onClose={() => setSelectedAchievement(null)}
       />
-    </section>
+    </motion.section>
   );
 }

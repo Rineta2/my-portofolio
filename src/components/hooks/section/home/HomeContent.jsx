@@ -48,6 +48,7 @@ export default function HomeContent({
           ref={(el) => (imageRefs.current[0] = el)}
           key={homeImg.id}
           unoptimized
+          priority
           className={styles.profile}
         />
       </div>
