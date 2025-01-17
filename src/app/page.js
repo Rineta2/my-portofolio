@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense } from "react";
+import React, { Fragment } from "react";
 
 import "@/components/styling/globals.scss";
 
@@ -17,14 +17,12 @@ import Youtube from "@/components/section/youtube/Youtube";
 export default async function Page() {
   return (
     <Fragment>
-      <Suspense>
         <Home />
         <About />
         <Achievement />
         <Portofolio />
         <Youtube />
         <Articles />
-      </Suspense>
     </Fragment>
   );
 }
