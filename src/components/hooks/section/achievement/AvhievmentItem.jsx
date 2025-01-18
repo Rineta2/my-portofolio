@@ -18,6 +18,7 @@ export default function AchievementItem({
         isActive ? styles.active : ""
       }`}
       onClick={() => onAchievementClick?.(achievement)}
+      key={id}
     >
       <div className={styles.img}>
         <Image

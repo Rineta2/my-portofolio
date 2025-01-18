@@ -69,7 +69,7 @@ a {
 }
 
 section {
-  padding: 6rem 1rem;
+  padding: 4rem 1rem;
 
   @media (max-width: 992px) {
     padding: 2rem 1rem;
@@ -116,7 +116,8 @@ section {
     }
   }
 
-  h3 {
+  h3,
+  h4 {
     font-size: 2em;
 
     @media (max-width: 768px) {
@@ -129,7 +130,6 @@ section {
   }
 
   p {
-    margin-bottom: 1.5rem;
     font-size: 1.3rem;
 
     @media (max-width: 768px) {
