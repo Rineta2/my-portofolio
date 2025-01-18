@@ -13,7 +13,10 @@ export const subscribeToAchievement = (callback) => {
     const data = querySnapshot.docs.map((doc) => {
       const docData = doc.data();
 
-      const date = docData.date ? docData.date.seconds : null;
+      // Konversi timestamp Firestore ke milliseconds
+      const date = docData.date
+        ? docData.date.seconds * 1000
+        : new Date("1970-01-21").getTime();
 
       return {
         id: doc.id,

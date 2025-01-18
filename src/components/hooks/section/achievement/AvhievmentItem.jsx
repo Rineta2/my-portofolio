@@ -40,8 +40,10 @@ export default function AchievementItem({
       </div>
 
       <div className={styles.achievement__info}>
-        <h3>{title}</h3>
-        <span>{format(new Date(date), "dd MMMM yyyy")}</span>
+        <h3 className={styles.achievement__title}>{title}</h3>
+        <span className={styles.achievement__date}>
+          {format(new Date(date), "dd MMMM yyyy")}
+        </span>
       </div>
     </div>
   );
