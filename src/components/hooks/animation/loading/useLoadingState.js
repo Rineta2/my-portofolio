@@ -7,6 +7,8 @@ export function useLoadingState() {
 
   const about = useFirestoreCollection(process.env.NEXT_PUBLIC_API_ABOUT);
   const home = "home";
+  const header = "header";
+  const footer = "footer";
   const skills = useFirestoreCollection(process.env.NEXT_PUBLIC_API_SKILLS);
   const achievement = useFirestoreCollection(
     process.env.NEXT_PUBLIC_API_ACHIEVEMENT
@@ -24,7 +26,9 @@ export function useLoadingState() {
         skills.length > 0 &&
         achievement.length > 0 &&
         article.length > 0 &&
-        home.length > 0
+        home.length > 0 &&
+        header.length > 0 &&
+        footer.length > 0
       ) {
         timer = setTimeout(() => {
           setIsLoading(false);
@@ -39,7 +43,17 @@ export function useLoadingState() {
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [projects, about, skills, achievement, article, home]);
+  }, [projects, about, skills, achievement, article, home, header, footer]);
 
-  return { isLoading, projects, home, about, skills, achievement, article };
+  return {
+    isLoading,
+    projects,
+    home,
+    about,
+    skills,
+    achievement,
+    article,
+    header,
+    footer,
+  };
 }
