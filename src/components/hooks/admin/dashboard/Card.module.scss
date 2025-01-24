@@ -1,0 +1,307 @@
+.home {
+  .homeContainer {
+    .content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 1rem;
+
+      .card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        overflow: hidden;
+
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+      }
+
+      .cardBody {
+        padding: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      }
+
+      .text {
+        h6 {
+          color: #6c757d;
+          font-size: 0.9rem;
+          font-weight: 500;
+          margin: 0 0 0.5rem 0;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        h3 {
+          color: #2d3436;
+          font-size: 1.8rem;
+          font-weight: 600;
+          margin: 0;
+        }
+      }
+
+      .icons {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #6c5ce7 0%, #a363d9 100%);
+        color: white;
+      }
+
+      // Responsive adjustments
+      @media (max-width: 768px) {
+        .content {
+          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+          gap: 1rem;
+        }
+
+        .cardBody {
+          padding: 1.25rem;
+        }
+
+        .text {
+          h3 {
+            font-size: 1.5rem;
+          }
+        }
+
+        .icons {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .content {
+          grid-template-columns: 1fr;
+        }
+      }
+    }
+
+    .calendarWrapper {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 1rem;
+      width: 100%;
+      max-width: 400px;
+      transition: all 0.3s ease;
+
+      @media (max-width: 768px) {
+        max-width: 100%;
+        padding: 0.75rem;
+      }
+    }
+
+    .calendarHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .monthTitle {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #2d3748;
+      margin: 0;
+    }
+
+    .calendarNavBtn {
+      background: #f7fafc;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      color: #4a5568;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #edf2f7;
+        color: #2d3748;
+      }
+    }
+
+    .calendarDaysHeader {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .calendarDayName {
+      text-align: center;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #718096;
+      text-transform: uppercase;
+    }
+
+    .calendarGrid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.5rem;
+    }
+
+    .calendarDay {
+      aspect-ratio: 1;
+      padding: 0.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover:not(.otherMonth) {
+        background: #edf2f7;
+      }
+    }
+
+    .dayNumber {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #2d3748;
+    }
+
+    .dayName {
+      font-size: 0.75rem;
+      color: #718096;
+      margin-top: 0.25rem;
+
+      @media (max-width: 480px) {
+        display: none;
+      }
+    }
+
+    .today {
+      background: #ebf8ff;
+      border: 2px solid #4299e1;
+
+      .dayNumber {
+        color: #2b6cb0;
+        font-weight: 600;
+      }
+    }
+
+    .otherMonth {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    // For the Dashboard Header
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .heading {
+        h1 {
+          font-size: 2rem;
+          font-weight: 700;
+          margin: 0;
+        }
+
+        span {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .datetimeDisplay {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      @media (max-width: 480px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+    }
+
+    .time {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #2d3748;
+      background: #ffffff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  .charts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+    width: 100%;
+
+    .chart {
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+        0 2px 4px -2px rgb(0 0 0 / 0.1);
+      transition: transform 0.2s ease-in-out;
+      overflow: hidden;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+      }
+    }
+
+    .chartContainer {
+      padding: 1rem;
+    }
+
+    .chartWrapper {
+      position: relative;
+      height: 300px; // Fixed height for consistency
+      width: 100%;
+    }
+
+    .chartContent {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    // Responsive adjustments
+    @media (max-width: 768px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      .chartWrapper {
+        height: 250px; // Slightly smaller on mobile
+      }
+    }
+  }
+}

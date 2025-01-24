@@ -2,6 +2,8 @@ export const revalidate = 0;
 
 import React from "react";
 
+import PageContent from "@/components/hooks/admin/dashboard/PageContent";
+
 export async function generateMetadata() {
   return {
     title: `Admin Dashboard`,
@@ -10,5 +12,5 @@ export async function generateMetadata() {
 }
 
 export default function page() {
-  return <section>page</section>;
+  return <PageContent />;
 }
